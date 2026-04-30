@@ -1,0 +1,950 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pass The Keys Host Academy — Build London's greatest short-let portfolio.">
+<title>Pass The Keys · Host Academy</title>
+<link rel="apple-touch-icon" href="/images/icon-192.png">
+<meta name="theme-color" content="#1C2280">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Lora:wght@600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#fff;color:#1a1a2e;min-height:100vh}
+.hidden{display:none!important}
+.screen{min-height:100vh;padding-bottom:60px}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px}
+.serif{font-family:'Lora',serif}
+input,button{font-family:'Nunito Sans',sans-serif}
+.btn-primary{display:block;width:100%;padding:13px;background:#1C2280;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.btn-secondary{display:block;width:100%;padding:12px;background:#fff;border:1.5px solid #E2E6F0;border-radius:10px;color:#1C2280;font-size:13px;font-weight:700;cursor:pointer}
+.btn-orange{display:block;width:100%;padding:13px;background:#F5A623;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:20px;font-size:13px;font-weight:700}
+.pill-navy{background:#EEF0FA;color:#1C2280}
+.pill-green{background:#EAF3DE;color:#3B6D11}
+.pill-orange{background:#FEF3DC;color:#C47A10}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-50px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes unlock{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+
+<div id="notif" style="display:none;position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:24px;font-size:13px;font-weight:700;white-space:nowrap;z-index:99"></div>
+<div id="ptanim" style="display:none;position:absolute;top:70px;right:24px;font-size:22px;font-weight:800;z-index:99;pointer-events:none;font-family:'Lora',serif"></div>
+
+<!-- INTRO -->
+<div id="s-intro" class="screen">
+  <div style="background:#1C2280;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:36px 0 32px">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <path d="M22 3L41 26H33V41H27V31H17V41H11V26H3L22 3Z" fill="#F5A623"/>
+          <path d="M22 9L38 28H31V41H27V33H17V41H13V28H6L22 9Z" fill="#6AAF2E" opacity="0.85"/>
+          <circle cx="22" cy="27" r="4" fill="#fff"/><rect x="20" y="30" width="4" height="6" rx="1" fill="#fff"/>
+        </svg>
+        <div>
+          <div style="font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.45);font-weight:700;margin-bottom:2px">PASS THE KEYS®</div>
+          <div style="font-size:15px;font-weight:800;color:#fff">Host Academy</div>
+        </div>
+      </div>
+      <div class="serif" style="font-size:clamp(24px,4.5vw,36px);color:#fff;line-height:1.15;margin-bottom:14px">Build London's greatest<br>short-let portfolio</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:480px">Handle dramatic guest crises, earn rental income for great decisions, spend it on upgrades — and unlock your next property. Reach £1,000 to open Shoreditch. £2,000 for Chelsea. And so on.</p>
+      <div style="display:flex;gap:6px;margin-top:20px;flex-wrap:wrap">
+        <span class="pill" style="background:rgba(245,166,35,0.15);color:#F5A623;border:1px solid rgba(245,166,35,0.3)">5 properties</span>
+        <span class="pill" style="background:rgba(106,175,46,0.15);color:#6AAF2E;border:1px solid rgba(106,175,46,0.3)">40+ unique scenarios</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)">Income grows with upgrades</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:640px;margin:0 auto;padding:24px 20px">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px">
+      <div style="background:#FEF3DC;border:1px solid #FADDAA;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-1').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#C47A10;white-space:nowrap">Notting Hill</div></div>
+      <div style="background:#EAF3DE;border:1px solid #C0DD97;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-2').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#3B6D11;white-space:nowrap">Shoreditch</div></div>
+      <div style="background:#EEF0FA;border:1px solid #C5CAFE;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-3.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-3').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#1C2280;white-space:nowrap">Chelsea</div></div>
+      <div style="background:#FEF3DC;border:1px solid #FADDAA;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-4.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-4').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#C47A10;white-space:nowrap">Mayfair</div></div>
+      <div style="background:#EEF0FA;border:1px solid #C5CAFE;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-5.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-5').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#1C2280;white-space:nowrap">Kensington</div></div>
+    </div>
+    <div style="background:#fff;border:1px solid #E8ECF4;border-radius:14px;padding:20px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#9AA3B2;margin-bottom:8px">YOUR NAME</div>
+      <input id="nameInput" type="text" placeholder="Enter your name to begin…" style="width:100%;padding:12px 14px;border:1.5px solid #E2E6F0;border-radius:10px;font-size:14px;color:#1a1a2e;margin-bottom:12px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#1C2280'" onblur="this.style.borderColor='#E2E6F0'"/>
+      <button class="btn-primary" onclick="startGame()" style="margin-bottom:10px">Begin your hosting journey →</button>
+      <button class="btn-secondary" onclick="show('leaderboard')">View leaderboard</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">💷</div><div style="font-size:11px;font-weight:700;color:#1C2280">Real income</div><div style="font-size:11px;color:#9AA3B2">earn & spend</div></div>
+      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">📈</div><div style="font-size:11px;font-weight:700;color:#1C2280">Upgrades pay</div><div style="font-size:11px;color:#9AA3B2">more per answer</div></div>
+      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🔑</div><div style="font-size:11px;font-weight:700;color:#1C2280">5 properties</div><div style="font-size:11px;color:#9AA3B2">to unlock</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTING -->
+<div id="s-listing" class="screen hidden">
+  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:20px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#9AA3B2;margin-bottom:3px">YOUR PORTFOLIO</div>
+          <div class="serif" style="font-size:20px;color:#1a1a2e" id="lb-name">—</div>
+        </div>
+        <div style="text-align:right">
+          <div class="pill pill-green" id="lb-pts" style="font-size:16px">£0</div>
+          <div style="font-size:11px;color:#9AA3B2;margin-top:4px" id="lb-rating">—</div>
+        </div>
+      </div>
+      <!-- Unlock progress bar -->
+      <div id="lb-unlock-wrap" style="background:#F5F7FC;border-radius:10px;padding:10px 14px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#9AA3B2;margin-bottom:6px">
+          <span id="lb-unlock-label">Next unlock</span><span id="lb-unlock-target">—</span>
+        </div>
+        <div style="height:6px;background:#E8ECF4;border-radius:3px;overflow:hidden">
+          <div id="lb-unlock-bar" style="height:100%;width:0%;background:#6AAF2E;border-radius:3px;transition:width 0.6s"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:20px">
+    <div id="listing-cards"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <button class="btn-secondary" onclick="show('shop')">Upgrade shop</button>
+      <button class="btn-secondary" onclick="show('leaderboard')">Leaderboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="screen hidden">
+  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:18px 0 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;margin-bottom:2px" id="q-propname">—</div>
+          <div style="font-size:12px;color:#9AA3B2" id="q-progress">—</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="pill pill-green" id="q-pts" style="font-size:14px">£0</div>
+          <div style="font-size:11px;color:#9AA3B2;background:#F5F7FC;padding:4px 10px;border-radius:8px" id="q-bonus-badge">+£0/correct</div>
+          <button onclick="show('listing')" style="padding:6px 12px;background:#F5F7FC;border:1px solid #E2E6F0;border-radius:8px;color:#9AA3B2;font-size:11px;font-weight:700;cursor:pointer">Portfolio</button>
+        </div>
+      </div>
+      <div style="height:3px;background:#F0F2F8;border-radius:2px;overflow:hidden">
+        <div id="q-bar" style="height:100%;width:0%;background:#6AAF2E;border-radius:2px;transition:width 0.5s"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:18px">
+    <div id="q-guest" style="display:flex;gap:12px;align-items:center;background:#F5F7FC;border:1px solid #E8ECF4;border-radius:12px;padding:14px 16px;margin-bottom:14px">
+      <div style="width:48px;height:48px;border-radius:50%;background:#EEF0FA;border:2px solid #C5CAFE;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden" id="q-guest-icon-wrap">
+        <img id="q-guest-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none">
+        <span id="q-guest-emoji">👤</span>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a1a2e" id="q-gname">—</div>
+        <div style="font-size:12px;color:#9AA3B2" id="q-gmood">—</div>
+      </div>
+      <div id="q-drama-badge" style="margin-left:auto;display:none;padding:4px 10px;background:#FCEBEB;border:1px solid #F7C1C1;border-radius:20px;font-size:11px;font-weight:700;color:#A32D2D">⚠ HIGH STAKES</div>
+    </div>
+    <div id="q-room-scene" style="display:none;width:100%;height:140px;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#F5F1E8">
+      <img src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <div id="q-scenario" class="serif" style="background:#FFFBF2;border:1px solid #FADDAA;border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:15px;line-height:1.75;color:#1a1a2e;font-style:italic"></div>
+    <div id="q-options"></div>
+    <div id="q-feedback" class="hidden">
+      <div style="background:#fff;border:1px solid #E8ECF4;border-radius:12px;padding:14px 18px;margin-bottom:10px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#F5A623;margin-bottom:5px">GUEST REACTION</div>
+        <div id="q-reaction-text" style="font-size:14px;color:#1a1a2e;line-height:1.65"></div>
+      </div>
+      <div style="background:#EAF3DE;border:1px solid #C0DD97;border-radius:12px;padding:13px 16px;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#3B6D11;margin-bottom:4px">HOST TIP</div>
+        <div id="q-tip-text" style="font-size:13px;color:#3B6D11;line-height:1.65"></div>
+      </div>
+      <button id="q-next" class="btn-primary" onclick="nextQ()">Next scenario →</button>
+    </div>
+    <div style="background:#F5F7FC;border:1px solid #E8ECF4;border-radius:14px;padding:14px;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:11px;font-weight:700;color:#1C2280;letter-spacing:0.1em" id="q-flat-label">—</div>
+        <button onclick="show('shop')" style="font-size:11px;padding:5px 12px;background:#FEF3DC;border:1px solid #FADDAA;border-radius:8px;color:#C47A10;font-weight:700;cursor:pointer">Upgrade shop</button>
+      </div>
+      <div id="q-flat-svg" style="border-radius:10px;overflow:hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="s-results" class="screen hidden">
+  <div style="background:#1C2280;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:36px 0 32px;text-align:center">
+      <div id="r-emoji" style="font-size:48px;margin-bottom:10px">💷</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.3em;color:rgba(255,255,255,0.45);margin-bottom:6px" id="r-label">—</div>
+      <div class="serif" style="font-size:26px;color:#fff;margin-bottom:10px" id="r-title">—</div>
+      <div class="serif" style="font-size:52px;font-weight:700;color:#F5A623;margin-bottom:4px" id="r-pts">£0</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.4)" id="r-correct">—</div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:20px">
+    <div id="r-unlock-banner" class="hidden" style="background:#EAF3DE;border:1px solid #6AAF2E;border-radius:12px;padding:16px 20px;margin-bottom:16px;text-align:center">
+      <div style="font-size:22px;margin-bottom:4px">🔓</div>
+      <div style="font-size:15px;font-weight:800;color:#3B6D11" id="r-unlock-text">New property unlocked!</div>
+    </div>
+    <div id="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px"></div>
+    <div style="background:#fff;border:1px solid #E8ECF4;border-radius:14px;padding:20px">
+      <button class="btn-orange" onclick="show('shop')" style="margin-bottom:10px">Spend income on upgrades</button>
+      <button class="btn-secondary" onclick="show('listing')" style="margin-bottom:8px">My portfolio</button>
+      <button class="btn-secondary" onclick="show('leaderboard')">Leaderboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div id="s-shop" class="screen hidden">
+  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:18px 0 12px;display:flex;justify-content:space-between;align-items:center">
+      <button onclick="show('listing')" style="padding:7px 13px;background:#F5F7FC;border:1px solid #E2E6F0;border-radius:8px;color:#9AA3B2;font-size:12px;font-weight:700;cursor:pointer">← Back</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:13px;font-weight:700;color:#9AA3B2">Upgrade shop</span>
+        <div class="pill pill-green" id="sh-pts">£0</div>
+      </div>
+    </div>
+    <div style="max-width:640px;margin:0 auto;display:flex;gap:6px;padding-bottom:14px;overflow-x:auto" id="sh-tabs"></div>
+  </div>
+  <div class="wrap" style="padding-top:20px">
+    <div style="background:#F5F7FC;border:1px solid #E8ECF4;border-radius:14px;padding:14px;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="serif" style="font-size:16px;color:#1a1a2e" id="sh-propname">—</div>
+        <div>
+          <span style="font-size:12px;font-weight:700;color:#9AA3B2" id="sh-count">0/8</span>
+          <span style="font-size:11px;color:#6AAF2E;font-weight:700;margin-left:8px" id="sh-bonus-label"></span>
+        </div>
+      </div>
+      <div id="sh-flat" style="border-radius:10px;overflow:hidden"></div>
+    </div>
+    <div id="sh-upgrades"></div>
+    <button class="btn-primary" onclick="startHostingShop()" style="margin-top:12px">Host at this property →</button>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="s-leaderboard" class="screen hidden">
+  <div style="background:#1C2280;padding:0 20px">
+    <div style="max-width:640px;margin:0 auto;padding:32px 0 28px;text-align:center">
+      <div style="font-size:36px;margin-bottom:8px">🏆</div>
+      <div class="serif" style="font-size:26px;color:#fff">Hall of fame</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:4px">Top London hosts</div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:20px">
+    <div id="lb-rows" style="margin-bottom:16px"></div>
+    <button class="btn-secondary" onclick="show(G.name?'listing':'intro')">← Back</button>
+  </div>
+</div>
+
+
+<!-- Hidden SVG fallbacks (used when /images/property-X.jpg fails to load) -->
+<div id="svg-fallbacks" style="display:none">
+  <div id="svg-prop-1"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FEF3DC"/><stop offset="1" stop-color="#FADDAA"/></linearGradient><linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9C2"/><stop offset="1" stop-color="#FEF3DC"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky1)"/><rect x="20" y="100" width="120" height="40" fill="#F5A623" opacity="0.15"/><rect x="40" y="60" width="80" height="80" fill="#fff" stroke="#C47A10" stroke-width="1.5"/><rect x="48" y="68" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="92" y="68" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="48" y="100" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="74" y="106" width="12" height="34" fill="#8B4513" opacity="0.4"/><rect x="92" y="100" width="20" height="22" fill="#F5A623" opacity="0.3"/><polygon points="40,60 80,32 120,60" fill="#C47A10" opacity="0.55"/><rect x="64" y="42" width="6" height="14" fill="#8B4513" opacity="0.5"/></svg></div>
+  <div id="svg-prop-2"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D8E9C0"/><stop offset="1" stop-color="#EAF3DE"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky2)"/><rect x="14" y="50" width="132" height="90" fill="#7E5A3C" opacity="0.85"/><g stroke="#5D4426" stroke-width="0.8" opacity="0.6"><line x1="14" y1="62" x2="146" y2="62"/><line x1="14" y1="78" x2="146" y2="78"/><line x1="14" y1="94" x2="146" y2="94"/><line x1="14" y1="110" x2="146" y2="110"/><line x1="14" y1="126" x2="146" y2="126"/></g><rect x="22" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><rect x="64" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><rect x="106" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><line x1="38" y1="68" x2="38" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="22" y1="87" x2="54" y2="87" stroke="#3a4f1f" stroke-width="1"/><line x1="80" y1="68" x2="80" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="64" y1="87" x2="96" y2="87" stroke="#3a4f1f" stroke-width="1"/><line x1="122" y1="68" x2="122" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="106" y1="87" x2="138" y2="87" stroke="#3a4f1f" stroke-width="1"/><rect x="14" y="46" width="132" height="6" fill="#3a4f1f"/><rect x="74" y="118" width="14" height="22" fill="#1a1a2e" opacity="0.7"/></svg></div>
+  <div id="svg-prop-3"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6DAFB"/><stop offset="1" stop-color="#EEF0FA"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky3)"/><rect x="20" y="40" width="40" height="100" fill="#fff" stroke="#1C2280" stroke-width="1.2" opacity="0.95"/><rect x="60" y="32" width="40" height="108" fill="#F8F4ED" stroke="#1C2280" stroke-width="1.2"/><rect x="100" y="44" width="40" height="96" fill="#fff" stroke="#1C2280" stroke-width="1.2" opacity="0.95"/><polygon points="20,40 40,28 60,40" fill="#1C2280" opacity="0.7"/><polygon points="60,32 80,18 100,32" fill="#1C2280" opacity="0.85"/><polygon points="100,44 120,32 140,44" fill="#1C2280" opacity="0.7"/><rect x="28" y="56" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="42" y="56" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="68" y="48" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="82" y="48" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="108" y="60" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="122" y="60" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="28" y="84" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="42" y="84" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="68" y="76" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="82" y="76" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="108" y="88" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="122" y="88" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="74" y="108" width="12" height="32" fill="#8B4513" opacity="0.6"/><circle cx="83" cy="124" r="0.8" fill="#F5A623"/></svg></div>
+  <div id="svg-prop-4"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD89C"/><stop offset="0.6" stop-color="#FEF3DC"/><stop offset="1" stop-color="#FFFAF0"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky4)"/><circle cx="130" cy="40" r="14" fill="#F5A623" opacity="0.4"/><rect x="0" y="118" width="160" height="2" fill="#1C2280" opacity="0.2"/><rect x="0" y="120" width="160" height="40" fill="#1C2280" opacity="0.08"/><rect x="36" y="60" width="88" height="78" fill="#fff" stroke="#1C2280" stroke-width="1" opacity="0.97"/><rect x="36" y="60" width="88" height="6" fill="#F5A623" opacity="0.7"/><g fill="#1C2280" opacity="0.25"><rect x="40" y="72" width="14" height="12"/><rect x="58" y="72" width="14" height="12"/><rect x="76" y="72" width="14" height="12"/><rect x="94" y="72" width="14" height="12"/><rect x="110" y="72" width="10" height="12"/><rect x="40" y="88" width="14" height="12"/><rect x="58" y="88" width="14" height="12"/><rect x="76" y="88" width="14" height="12"/><rect x="94" y="88" width="14" height="12"/><rect x="110" y="88" width="10" height="12"/><rect x="40" y="104" width="14" height="12"/><rect x="58" y="104" width="14" height="12"/><rect x="76" y="104" width="14" height="12"/><rect x="94" y="104" width="14" height="12"/><rect x="110" y="104" width="10" height="12"/></g><rect x="36" y="120" width="88" height="18" fill="#F5A623" opacity="0.15"/><rect x="60" y="138" width="40" height="2" fill="#1C2280" opacity="0.4"/></svg></div>
+  <div id="svg-prop-5"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C5CAFE"/><stop offset="1" stop-color="#EEF0FA"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky5)"/><rect x="0" y="130" width="160" height="2" fill="#1C2280" opacity="0.3"/><rect x="0" y="132" width="160" height="28" fill="#1C2280" opacity="0.05"/><rect x="20" y="40" width="120" height="92" fill="#F5F1E8" stroke="#1C2280" stroke-width="1.5"/><polygon points="20,40 80,16 140,40" fill="#1C2280" opacity="0.85"/><polygon points="40,40 80,22 120,40" fill="#3040C4" opacity="0.4"/><rect x="76" y="22" width="8" height="8" fill="#F5A623" opacity="0.7"/><circle cx="80" cy="22" r="2" fill="#F5A623"/><g fill="#1C2280" opacity="0.6"><rect x="36" y="58" width="2" height="60"/><rect x="56" y="58" width="2" height="60"/><rect x="76" y="58" width="2" height="60"/><rect x="84" y="58" width="2" height="60"/><rect x="104" y="58" width="2" height="60"/><rect x="124" y="58" width="2" height="60"/></g><rect x="34" y="56" width="94" height="4" fill="#1C2280" opacity="0.7"/><rect x="34" y="118" width="94" height="4" fill="#1C2280" opacity="0.7"/><rect x="44" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="64" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="86" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="106" y="68" width="14" height="46" fill="#1C2280" opacity="0.35"/><rect x="74" y="100" width="14" height="32" fill="#3040C4" opacity="0.6" stroke="#1C2280" stroke-width="0.8"/><circle cx="84" cy="116" r="0.8" fill="#F5A623"/></svg></div>
+</div>
+
+<script>
+const UNLOCK_THRESHOLDS=[0,1000,2000,4000,8000];
+const PROP_NAMES=["Notting Hill","Shoreditch","Chelsea","Mayfair","Kensington"];
+
+const RATINGS=[
+  {min:-99999,max:0,label:"Hosting disaster",emoji:"🔥"},
+  {min:1,max:499,label:"Accidental host",emoji:"😅"},
+  {min:500,max:999,label:"Getting there",emoji:"🏠"},
+  {min:1000,max:1999,label:"Solid host",emoji:"⭐"},
+  {min:2000,max:3999,label:"Superhost",emoji:"🌟"},
+  {min:4000,max:7999,label:"Elite host",emoji:"💎"},
+  {min:8000,max:999999,label:"Legendary host",emoji:"🏆"},
+];
+function getRat(s){return RATINGS.find(r=>s>=r.min&&s<=r.max)||RATINGS[0];}
+
+// ─── Character avatar mapping ────────────────────────────────────────────────
+// Maps each guest mood emoji to one of 4 character avatar files.
+// If the file is missing, falls back to showing the emoji.
+const MOOD_TO_AVATAR = {
+  // Anxious / disappointed / worried
+  '😟':'anxious','😐':'anxious','😕':'anxious','😤':'anxious','😡':'anxious',
+  '😬':'anxious','🚬':'anxious','🌿':'anxious','😓':'anxious','🌊':'anxious',
+  // Happy / sociable / excited
+  '😄':'happy','🥰':'happy','😊':'happy','🎉':'happy','🍽️':'happy',
+  '🤷':'happy','🦚':'happy','📸':'happy',
+  // Corporate / formal / professional
+  '💼':'corporate','💻':'corporate','🎩':'corporate','🎥':'corporate',
+  '👑':'corporate','🎬':'corporate','💎':'corporate','🎨':'corporate',
+  '🏁':'corporate','🕶️':'corporate','🧐':'corporate','😶':'corporate',
+};
+function getAvatarFor(emoji){
+  const key = MOOD_TO_AVATAR[emoji] || 'anxious';
+  return `/images/guest-${key}.png`;
+}
+
+// ─── Room scene mapping by scenario keywords ─────────────────────────────────
+// Picks the most appropriate room background based on words in the scenario.
+const ROOM_KEYWORDS = [
+  { match: /party|loud|noise|music|drunk|neighbour|police/i, scene: 'party' },
+  { match: /bed|sleep|pillow|mattress|night/i, scene: 'bedroom' },
+  { match: /kitchen|coffee|cook|smoke|smell/i, scene: 'kitchen' },
+  { match: /shower|bath|water|toilet|boiler/i, scene: 'bathroom' },
+  { match: /check.?in|arrive|key|lock|door/i, scene: 'arrival' },
+];
+function getRoomFor(scenario){
+  for(const r of ROOM_KEYWORDS){ if(r.match.test(scenario)) return `/images/room-${r.scene}.png`; }
+  return '/images/room-living.png';
+}
+
+
+const PROPS=[
+  {id:1,name:"The Notting Hill Studio",short:"Notting Hill",type:"1 bed · Sleeps 4",emoji:"🏚️",col:"#F5A623",light:"#FEF3DC",border:"#FADDAA",
+   desc:"A cosy ground-floor flat behind Portobello Road. Original 1970s fixtures, a temperamental boiler, squeaky floorboards. Enormous potential.",
+   upgrades:[
+     {id:"fast_wifi",name:"Fibre WiFi 1Gbps",emoji:"📡",desc:"No more WiFi complaints.",cost:150,income:20},
+     {id:"smart_tv",name:'Smart TV 65"',emoji:"📺",desc:"4K Netflix & Sky.",cost:180,income:15},
+     {id:"coffee_machine",name:"Barista coffee machine",emoji:"☕",desc:"Nespresso + oat milk. Guests rave.",cost:120,income:15},
+     {id:"premium_bedding",name:"Hotel-grade bedding",emoji:"🛏️",desc:"400-thread Egyptian cotton.",cost:100,income:20},
+     {id:"smart_lock",name:"Smart lock",emoji:"🔐",desc:"Keyless entry. Eliminates check-in complaints.",cost:180,income:10},
+     {id:"air_purifier",name:"Air purifier",emoji:"💨",desc:"No more musty smells.",cost:90,income:10},
+     {id:"artwork",name:"Statement artwork",emoji:"🖼️",desc:"Guests always photograph it.",cost:80,income:10},
+     {id:"boiler",name:"New combi boiler",emoji:"🔥",desc:"Reliable hot water always.",cost:250,income:25},
+   ]},
+  {id:2,name:"The Shoreditch Loft",short:"Shoreditch",type:"2 bed · Sleeps 5",emoji:"🏢",col:"#6AAF2E",light:"#EAF3DE",border:"#C0DD97",
+   desc:"Converted warehouse with exposed brick and high ceilings. Second bedroom needs work, bathroom grout questionable, heating optional in winter.",
+   upgrades:[
+     {id:"fast_wifi_2",name:"Fibre WiFi 1Gbps",emoji:"📡",desc:"Essential at this level.",cost:150,income:25},
+     {id:"second_bed",name:"Luxury second bedroom",emoji:"🛏️",desc:"Proper bed, nightstands, reading lights.",cost:220,income:30},
+     {id:"dishwasher",name:"Dishwasher",emoji:"🍽️",desc:"Guests expect it at this price point.",cost:180,income:20},
+     {id:"smart_tv_2",name:"Two smart TVs",emoji:"📺",desc:"One per bedroom.",cost:280,income:25},
+     {id:"heating_fix",name:"New heating system",emoji:"🔥",desc:"Warm flat, happy guests.",cost:300,income:30},
+     {id:"bathroom_reno",name:"Bathroom renovation",emoji:"🚿",desc:"Rainfall shower, new tiles.",cost:350,income:35},
+     {id:"record_player",name:"Vinyl record player",emoji:"🎵",desc:"Curated collection included.",cost:130,income:20},
+     {id:"rooftop",name:"Rooftop terrace access",emoji:"🌆",desc:"City views. Huge USP.",cost:400,income:40},
+   ]},
+  {id:3,name:"The Chelsea Townhouse",short:"Chelsea",type:"3 bed · Sleeps 6",emoji:"🏘️",col:"#1C2280",light:"#EEF0FA",border:"#C5CAFE",
+   desc:"Victorian terraced townhouse over three floors. Impeccable architecture, kitchen from 2003, one windowless bathroom, overgrown garden.",
+   upgrades:[
+     {id:"kitchen_reno",name:"Full kitchen renovation",emoji:"🍳",desc:"Smeg appliances, marble worktops.",cost:500,income:50},
+     {id:"garden_land",name:"Garden landscaping",emoji:"🌸",desc:"Bistro set, fairy lights, BBQ.",cost:300,income:35},
+     {id:"smart_home",name:"Smart home system",emoji:"🏠",desc:"Voice control — lights, heating, blinds.",cost:400,income:40},
+     {id:"cinema",name:"Cinema room",emoji:"🎬",desc:"Projector + surround sound.",cost:450,income:45},
+     {id:"lux_baths",name:"Luxury bathrooms ×2",emoji:"🛁",desc:"Roll-top baths.",cost:600,income:60},
+     {id:"concierge",name:"Concierge service",emoji:"🎩",desc:"Local tips, reservations, transfers.",cost:350,income:40},
+     {id:"gym",name:"Home gym corner",emoji:"💪",desc:"Peloton + weights.",cost:280,income:30},
+     {id:"wine_fridge",name:"Wine fridge (stocked)",emoji:"🍷",desc:"Welcome bottle for every guest.",cost:200,income:25},
+   ]},
+  {id:4,name:"The Mayfair Penthouse",short:"Mayfair",type:"4 bed · Sleeps 8",emoji:"🏙️",col:"#F5A623",light:"#FEF3DC",border:"#FADDAA",
+   desc:"Top-floor apartment with sweeping Hyde Park views. Corporate bookings, celebrities, HNWI guests. Spectacular bones — needs curation and elite service.",
+   upgrades:[
+     {id:"smart_home_2",name:"Full smart home",emoji:"🏠",desc:"Crestron automation throughout.",cost:800,income:80},
+     {id:"home_cinema",name:"Private cinema",emoji:"🎬",desc:"10-seat 4K laser projector.",cost:700,income:70},
+     {id:"chef_kitchen",name:"Chef's kitchen",emoji:"👨‍🍳",desc:"La Cornue range. Sub-Zero fridge.",cost:900,income:90},
+     {id:"spa_bath",name:"Spa bathroom suite",emoji:"🛁",desc:"Hammam, rain shower, heated floors.",cost:600,income:60},
+     {id:"butler",name:"On-call butler",emoji:"🎩",desc:"Pre-arrival shopping, daily service.",cost:500,income:55},
+     {id:"transfer",name:"Chauffeur transfer service",emoji:"🚗",desc:"Meet & greet every booking.",cost:400,income:45},
+     {id:"art",name:"Curated art collection",emoji:"🖼️",desc:"On loan from Saatchi Gallery.",cost:600,income:60},
+     {id:"wine_cellar",name:"Wine cellar 200 bottles",emoji:"🍷",desc:"Sommelier-curated. Guests rave.",cost:500,income:55},
+   ]},
+  {id:5,name:"The Kensington Mansion",short:"Kensington",type:"5 bed · Sleeps 10",emoji:"🏰",col:"#1C2280",light:"#EEF0FA",border:"#C5CAFE",
+   desc:"A Grade II listed Regency mansion. Royalty has slept here. Film crews have shot here. Make it the most sought-after short-let in London.",
+   upgrades:[
+     {id:"michelin",name:"Michelin-standard kitchen",emoji:"👨‍🍳",desc:"Built by a 3-star consultant.",cost:1200,income:120},
+     {id:"cinema20",name:"Private cinema 20 seats",emoji:"🎬",desc:"Dolby Atmos. Red velvet seating.",cost:1000,income:100},
+     {id:"pool",name:"Indoor pool & spa",emoji:"🏊",desc:"Heated, with sauna & steam room.",cost:1500,income:150},
+     {id:"full_butler",name:"Full butler household",emoji:"🎩",desc:"Butler, chef, housekeeper, driver.",cost:800,income:90},
+     {id:"helipad",name:"Rooftop helipad",emoji:"🚁",desc:"HEMS certified. Guests arrive in style.",cost:1000,income:100},
+     {id:"art_gallery",name:"Private art gallery wing",emoji:"🖼️",desc:"Rotating exhibitions.",cost:900,income:95},
+     {id:"studio",name:"Recording studio",emoji:"🎙️",desc:"SSL console. Fully soundproofed.",cost:800,income:85},
+     {id:"vault",name:"Secure vault room",emoji:"🔒",desc:"For guests' valuables. Peace of mind.",cost:600,income:70},
+   ]},
+];
+
+const ALL_QUESTIONS = {
+  1: [
+    {guest:"Sarah M.",mood:"anxious 😟",icon:"😟",drama:false,scenario:"11 PM. Sarah messages: 'The WiFi keeps cutting out and I have a 7 AM video call with my CEO. I cannot fail this meeting.'",options:[
+      {text:"Reply instantly, walk her through the router fix step-by-step, share your hotspot as a backup",pts:150,good:true,reaction:"Sarah passes her call with flying colours. Her 5-star review specifically names you. 'Best host I've ever had.'"},
+      {text:"Promise to sort it first thing in the morning",pts:-80,good:false,reaction:"Sarah calls Airbnb at midnight. A formal complaint is logged against your account."},
+      {text:"Send a £20 goodwill gesture and go back to sleep",pts:-60,good:false,reaction:"She takes the money but leaves 3 stars. 'WiFi useless, host unbothered.' Brutal."},
+      {text:"Ignore the message — it's 11 PM",pts:-200,good:false,reaction:"Sarah calls Airbnb, gets relocated to a hotel, and the cost is billed back to you. £380 gone."},
+    ],tip:"A responsive host at 11 PM is worth more than any amenity. Speed + solution = 5 stars every time."},
+    {guest:"The Patels",mood:"oblivious 😶",icon:"😶",drama:false,scenario:"Check-out was 11 AM. It's noon. The Patels are still inside taking selfies in every room. Your cleaner is waiting outside and your next guest arrives at 3 PM.",options:[
+      {text:"Message through Airbnb to document it, then call them directly and be warm but firm",pts:120,good:true,reaction:"They're mortified and out in 15 minutes. Documented, resolved, cleaners in. Next guest arrives to a spotless flat."},
+      {text:"Tell the cleaner to come back in two hours and hope for the best",pts:-100,good:false,reaction:"The next guest arrives to an uncleaned flat. 1-star review. 'Filthy. Clearly not ready.' Airbnb contacts you."},
+      {text:"Call Airbnb and ask them to handle it",pts:-40,good:false,reaction:"Airbnb takes 40 minutes to respond. Your cleaner leaves. You're scrambling solo."},
+      {text:"Wait outside awkwardly and hope they notice you",pts:-60,good:false,reaction:"They don't notice. You stand there for 45 minutes. No documentation. Not a great look."},
+    ],tip:"Log overstays on Airbnb first — it creates a paper trail you'll need if you ever need to claim compensation."},
+    {guest:"Marco T.",mood:"disappointed 😐",icon:"😐",drama:false,scenario:"Marco leaves a 3-star review: 'Perfectly fine flat but the boiler made terrifying noises all night and the WiFi dropped constantly. Host was unresponsive.' It's now public.",options:[
+      {text:"Reply publicly: acknowledge both issues, confirm they're now fixed, thank him sincerely",pts:130,good:true,reaction:"Three prospective guests read the exchange and book you specifically because of how you handled it. Conversion gold."},
+      {text:"Reply defensively: 'The boiler was professionally serviced last month'",pts:-120,good:false,reaction:"Marco replies back. Now it's a public argument. Two bookings cancel. Airbnb flags the exchange."},
+      {text:"Report the review to Airbnb as inaccurate",pts:-150,good:false,reaction:"Airbnb investigates and finds the review perfectly valid. They issue you a warning for review manipulation."},
+      {text:"Leave it — 3 stars isn't that bad",pts:-50,good:false,reaction:"No host response = disengaged host. Your search ranking drops. Three consecutive 3-stars and you lose Superhost status."},
+    ],tip:"Your public response to bad reviews is read by every future guest. Gracious and solution-focused always wins."},
+    {guest:"Tom & Anya",mood:"excited 😄",icon:"😄",drama:false,scenario:"Your cleaner texts at 10 AM: 'So sorry, family emergency, can't come today.' Check-in is at 3 PM. Tom and Anya are flying in from Berlin.",options:[
+      {text:"Call every cleaner you know, post on local groups offering a premium rate, clean it yourself if needed",pts:140,good:true,reaction:"You pull it off. Tom and Anya check in to a spotless flat. They leave 5 stars. They never knew."},
+      {text:"Cancel the booking citing 'maintenance emergency'",pts:-300,good:false,reaction:"Tom and Anya's Berlin trip is ruined. Airbnb hits you with a host-cancellation penalty. Your calendar is blocked for 30 days."},
+      {text:"Let them check in and apologise for 'a few things'",pts:-180,good:false,reaction:"'A few things' is a dirty bathroom, used towels, and crumbs everywhere. 1-star review with photos. Full refund demanded."},
+      {text:"Delay check-in by 2 hours, message apologetically, offer a £30 voucher",pts:60,good:true,reaction:"They're mildly annoyed but understanding. 'Host communicated well and was apologetic.' 4 stars."},
+    ],tip:"Every host needs a backup cleaner list of at least 3 people. Build it before you ever need it."},
+    {guest:"Beatrice H.",mood:"hopeful 🦚",icon:"🦚",drama:false,scenario:"Beatrice sends a pre-stay message: 'Hi! My emotional support peacock, Sir Reginald, helps with my anxiety. He's very well-behaved. Is it okay if he joins me? Your listing says no pets.'",options:[
+      {text:"Politely decline — your no-pets policy covers all animals, including Sir Reginald",pts:100,good:true,reaction:"Beatrice accepts graciously. 'Fair enough! See you soon.' No drama. 5-star stay."},
+      {text:"Say yes — it's just a bird, how bad can it be?",pts:-200,good:false,reaction:"Sir Reginald destroys your sofa cushions, terrifies your upstairs neighbour, and leaves a deposit on the kitchen floor. £340 in damages."},
+      {text:"Check with Airbnb on ESA policy first, then decline",pts:130,good:true,reaction:"Correct approach. ESAs don't carry the same rights as service animals in UK short-lets. Professionally handled. Beatrice books anyway without Sir Reginald."},
+      {text:"Charge a £200 peacock deposit and say yes",pts:-70,good:false,reaction:"Beatrice leaves a 2-star review: 'Host nickel-and-dimed me over my support animal. Shameful.'"},
+    ],tip:"Emotional support animals don't carry the same legal weight as service animals in UK short-term rentals. Your no-pets policy stands."},
+    {guest:"Derek F.",mood:"furious 😡",icon:"😡",drama:true,scenario:"Derek checks in at 9 PM and immediately calls you: 'The flat smells like something died here. I am NOT staying here. My wife is in tears. We have a baby. I'm calling Airbnb right now.'",options:[
+      {text:"Rush over personally, assess the situation, call an emergency cleaning service, offer alternative accommodation",pts:200,good:true,reaction:"You arrive in 25 minutes. It's a blocked drain — sorted in an hour. Derek's wife is genuinely moved by your response. 4-star review, glowing comments about your professionalism."},
+      {text:"Tell him you'll send someone tomorrow morning",pts:-250,good:false,reaction:"Derek calls Airbnb, who relocate his family to a hotel. The £480 hotel bill is charged to you. Plus a 1-star review. Plus a formal complaint."},
+      {text:"Apologise profusely but say there's nothing you can do tonight",pts:-180,good:false,reaction:"Airbnb steps in. Full refund issued. Account warning. 'Host left family with baby in uninhabitable property.'"},
+      {text:"Offer Derek a £50 refund and suggest he opens a window",pts:-220,good:false,reaction:"Derek goes ballistic. Screenshots your message and posts it publicly. National press picks it up. Worst outcome possible."},
+    ],tip:"Guest emergencies require immediate personal involvement. Being present and solving problems is the most powerful thing a host can do."},
+    {guest:"Priya K.",mood:"suspicious 🧐",icon:"🧐",drama:false,scenario:"Priya messages before check-in: 'Is it actually quiet? The previous reviews mention noise from the pub below. I'm a very light sleeper and I have an early start every day.'",options:[
+      {text:"Be honest: 'Friday nights can get lively until midnight. Here's what I've done to mitigate it — blackout blinds, earplugs in the welcome pack, and a white noise machine.'",pts:140,good:true,reaction:"Priya appreciates the honesty enormously. 'Host was upfront. Earplugs were a lifesaver. Will definitely return.' 5 stars."},
+      {text:"Say it's completely quiet — it'll probably be fine",pts:-160,good:false,reaction:"Friday is chaos. Priya messages furiously at midnight. Demands a refund. Leaves a 1-star review calling you 'dishonest'."},
+      {text:"Tell her to book somewhere else if noise is a concern",pts:-80,good:false,reaction:"Priya screenshots your response, shares it in a travel group. 'The rudest host I've ever encountered.' Viral. Devastating."},
+      {text:"Offer her a 10% discount to acknowledge the potential noise",pts:80,good:true,reaction:"Priya books, sleeps through it with earplugs, and leaves 4 stars. 'Fair and transparent host.'"},
+    ],tip:"Honesty about property quirks — paired with practical solutions — builds more trust than false promises ever could."},
+    {guest:"The Hendersons",mood:"confused 😕",icon:"😕",drama:false,scenario:"The Henderson family (2 adults, 3 kids) arrives and the father calls you: 'We can't find the keys. There's nothing in the lockbox. We've been standing in the rain for 20 minutes with three wet children.'",options:[
+      {text:"Drop everything, call a locksmith, head there yourself with a spare key set, send an apology gift",pts:180,good:true,reaction:"You arrive in 22 minutes with keys and a bag of snacks for the kids. The Hendersons are completely won over. 5 stars. 'Went above and beyond in an awful situation.'"},
+      {text:"Try to talk them through finding the lockbox via phone for another 30 minutes",pts:-60,good:false,reaction:"The code was right but the box had jammed. 50 minutes in the rain. Three unhappy children. 2 stars."},
+      {text:"Tell them the code again and hope for the best",pts:-100,good:false,reaction:"Still doesn't work. They call Airbnb. Your response log shows you gave instructions twice and did nothing else. Not a good look."},
+      {text:"Call a local neighbour with a spare key to help immediately",pts:120,good:true,reaction:"Neighbour arrives in 8 minutes. Problem solved. Hendersons rate the 'incredible community spirit' in their 5-star review. Creative solution."},
+    ],tip:"Always have a physical backup key solution. Smart locks with code backups are the gold standard — never rely on one access method."},
+  ],
+  2: [
+    {guest:"The Okafor Group",mood:"disappointed 😤",icon:"😤",drama:false,scenario:"The Okafor Group (5 colleagues, work trip) messages at 10 PM on night one: 'The second bedroom is a mattress on the floor with no pillow cases. Our director is sleeping on it. This is embarrassing for all of us.'",options:[
+      {text:"Apologise unreservedly, offer a meaningful partial refund, send an emergency linen delivery tonight",pts:160,good:true,reaction:"Linen arrives at 11 PM. The director is impressed. 4-star review: 'Host remedied an embarrassing situation with genuine class.'"},
+      {text:"Dispute it — the listing said 'basic second bedroom'",pts:-180,good:false,reaction:"The Okafor Group escalates to Airbnb. Full refund issued. 1-star review with photos of the mattress. Your listing is temporarily suspended for misrepresentation."},
+      {text:"Offer a £30 token refund",pts:-80,good:false,reaction:"'£30 for our director sleeping on a bare mattress? Insulting.' 1-star review. Airbnb complaint."},
+      {text:"Upgrade the room immediately for future guests, offer nothing now",pts:-40,good:false,reaction:"Too little too late. 3-star review. 'At least it won't happen to the next person.'"},
+    ],tip:"Your listing photos and descriptions must match reality. The gap between expectation and experience is where reviews are destroyed."},
+    {guest:"Deloitte Team",mood:"professional 💼",icon:"💼",drama:false,scenario:"Rebecca from Deloitte calls: 'We want to block your Shoreditch loft for our visiting team every month — 5 nights a time. But we need 30% off your standard rate. What can you do?'",options:[
+      {text:"Counter with 20% and a guaranteed block-booking agreement. Shake on it.",pts:200,good:true,reaction:"Deal closed. Guaranteed monthly income. Less turnover. Deloitte becomes your most reliable client. You raise your standard rate 15% within a month."},
+      {text:"Decline politely — your rates are your rates",pts:-60,good:false,reaction:"Deloitte books a serviced apartment down the road. You miss £3,200/month in guaranteed income. Competitor gains a reliable anchor client."},
+      {text:"Accept the full 30% immediately",pts:80,good:true,reaction:"Income secured, though you left money on the table. Deloitte are delighted. Regular income begins."},
+      {text:"Say you'll think about it and come back to them",pts:-80,good:false,reaction:"Rebecca moves on. She can't wait. Corporate clients expect decisions. Opportunity gone."},
+    ],tip:"Corporate long-stay bookings are gold — less turnover, professional guests, predictable income. Negotiate confidently, don't refuse flatly."},
+    {guest:"Smoke & Mirrors",mood:"gone 🚬",icon:"🚬",drama:false,scenario:"Your cleaner calls after a checkout: 'The whole flat reeks of cigarettes. Walls, curtains, everything. It'll take a deep clean and repainting. I'd estimate £600 minimum.' Your listing is strictly non-smoking.",options:[
+      {text:"Photograph and video everything within the hour, file an Airbnb damage claim with full evidence, book specialist cleaners",pts:180,good:true,reaction:"Airbnb rules in your favour. The full £600 is covered. Your evidence was watertight. The guests are permanently banned from the platform."},
+      {text:"Air it out for a few days and hope the smell fades",pts:-120,good:false,reaction:"Next guests arrive to a lingering smoke smell. 2-star review. £0 recovered. And now you need the deep clean anyway."},
+      {text:"Message the guests angrily demanding immediate payment",pts:-80,good:false,reaction:"They deny everything. Without documentation, Airbnb can't rule in your favour. You get nothing."},
+      {text:"Write them a scathing public review and move on",pts:-60,good:false,reaction:"Cathartic but financially useless. You still need to spend £600 on cleaning. Document first — always."},
+    ],tip:"Damage claims live or die on evidence. Photos with timestamps within an hour of checkout are your entire case."},
+    {guest:"Léa D.",mood:"loving it 🥰",icon:"🥰",drama:false,scenario:"Léa has been staying for 10 days and loves the loft. She messages: 'Is there any chance I can extend by 5 nights? I know it's last minute. I'll pay full rate.' You have a booking starting in 3 days.",options:[
+      {text:"Apologise warmly — you have a confirmed booking. Suggest she books your Notting Hill property instead.",pts:130,good:true,reaction:"Léa books your other property. You've just executed your first successful cross-sell. New guests arrive at Shoreditch to a pristine flat."},
+      {text:"Cancel the upcoming booking to accommodate Léa — she's been a dream guest",pts:-280,good:false,reaction:"The incoming guests are devastated. Airbnb hits you with the maximum host-cancellation penalty. Your Superhost status is suspended. Léa is horrified when she finds out."},
+      {text:"Tell Léa she can stay an extra 2 nights (not 5) as a compromise",pts:-100,good:false,reaction:"This means the next guests' check-in overlaps. Chaos ensues. Two sets of guests, one flat, one very bad evening."},
+      {text:"Contact the incoming guests and offer them £200 compensation to rebook",pts:-60,good:false,reaction:"They decline. They've already booked flights. You've now created two unhappy parties simultaneously."},
+    ],tip:"Never cancel a confirmed booking. The penalties, trust damage, and review consequences are catastrophic. Cross-sell to your other properties instead."},
+    {guest:"Jake & The Lads",mood:"party mode 🎉",icon:"🎉",drama:true,scenario:"It's 1 AM. Your downstairs neighbour calls you: 'Your guests have had 30 people in that flat since 10 PM. Music is shaking my ceiling. I'm calling the council if this isn't sorted in 10 minutes.'",options:[
+      {text:"Call the guests immediately: 'All additional guests must leave now or I'm terminating the booking and calling the police.' No negotiation.",pts:200,good:true,reaction:"Jake panics and clears the flat within 8 minutes. Neighbour is satisfied. You document everything. Jake checks out early the next morning. You file a claim for the mess."},
+      {text:"Send a polite message asking them to keep it down a little",pts:-180,good:false,reaction:"They ignore it. Council noise officer arrives. Your property is formally flagged. Your short-let licence comes under review."},
+      {text:"Call the police directly and let them handle it",pts:80,good:true,reaction:"Bold but effective. Party cleared. Neighbour satisfied. Though the guests leave a furious 1-star review calling you 'trigger-happy'. You counter it professionally."},
+      {text:"Ignore it — it's not technically your problem after hours",pts:-300,good:false,reaction:"Council noise officer arrives. Property flagged. Neighbour sues for disturbance. Your short-let licence is revoked. Game-changing mistake."},
+    ],tip:"Unauthorised parties are grounds for immediate booking termination on Airbnb. Don't negotiate — act decisively and document everything."},
+    {guest:"The Silent Guest",mood:"fine apparently 🤷",icon:"🤷",drama:false,scenario:"A guest stays 7 nights, says nothing throughout, then leaves a 2-star review: 'The shower ran cold after 5 minutes every day. The heating took an hour to kick in. Wouldn't return.' You had no idea about either issue.",options:[
+      {text:"Reply publicly, thank them for the feedback, explain both issues are now fixed, invite them to return at a discount",pts:150,good:true,reaction:"Two future guests read the exchange and book specifically because they see you're responsive and fix problems. Net positive."},
+      {text:"Reply asking why they didn't mention it during their stay so you could have fixed it",pts:-40,good:false,reaction:"Comes across as defensive. 'Why didn't you tell me?' shifts blame to the guest. Future guests don't like it."},
+      {text:"Contact Airbnb to see if the review can be removed",pts:-140,good:false,reaction:"It can't — it's factually accurate. Airbnb issues you a warning for attempting to remove a legitimate review."},
+      {text:"Leave it — 2 stars from a non-communicative guest isn't your fault",pts:-80,good:false,reaction:"No response = no accountability. Future guests have no evidence you care. Bookings decline."},
+    ],tip:"Always follow up mid-stay. A simple 'how's everything going?' message on day 2 would have caught both issues before checkout."},
+    {guest:"Francesca T.",mood:"influencer 📸",icon:"📸",drama:true,scenario:"Francesca is a travel influencer with 800k followers. After checkout she messages: 'I'd love to feature your loft in a reel — but I need a 50% refund on my stay in exchange for the exposure.'",options:[
+      {text:"Decline the refund but offer a complimentary one-night stay for a dedicated feature shoot instead",pts:160,good:true,reaction:"Francesca loves the counter-offer. The reel goes live. Bookings spike 40% in the following week. You've turned a cheeky ask into a marketing win."},
+      {text:"Give her the 50% refund — 800k followers is massive reach",pts:-80,good:false,reaction:"The reel gets 12k views, not 800k. She didn't disclose it was an ad. One booking results. You lost £175 for essentially nothing."},
+      {text:"Tell her exposure doesn't pay the mortgage and decline entirely",pts:80,good:true,reaction:"Francesca respects the boundary. Posts a genuine unpaid mention anyway. 'Loved this place.' Authentic content performs better than paid."},
+      {text:"Ask her to send her media kit and analytics before deciding",pts:120,good:true,reaction:"Smart. You discover her engagement rate is 0.8% — very low for 800k. You negotiate a much smaller gesture. Business savvy at its finest."},
+    ],tip:"Influencer partnerships can be valuable — but always ask for analytics, not just follower counts. Engagement rate matters far more than audience size."},
+    {guest:"Mr Yamazaki",mood:"precise 🧐",icon:"🧐",drama:false,scenario:"Japanese businessman Mr Yamazaki messages after his first night: 'The pillows are too soft, the shower pressure is insufficient, and the blinds do not fully block the morning light. I require these resolved before tomorrow.'",options:[
+      {text:"Source firmer pillows and a shower head upgrade that afternoon, install a blackout blind same day",pts:180,good:true,reaction:"Mr Yamazaki messages: 'Thank you. This is professional hosting.' He books your property directly for his next 6 London visits. He becomes your single most valuable repeat guest."},
+      {text:"Apologise but explain you can't change furnishings mid-stay",pts:-60,good:false,reaction:"Mr Yamazaki checks out a day early. 2-star review: 'Unresponsive to reasonable requests.' He books a hotel for future visits."},
+      {text:"Offer him a 20% refund as acknowledgement",pts:40,good:true,reaction:"Accepted graciously. Not the ideal resolution, but he appreciates the gesture. 3 stars. 'Host tried.'"},
+      {text:"Tell him these are standard furnishings and he's welcome to adjust the blinds himself",pts:-120,good:false,reaction:"Mr Yamazaki has hosted 47 Airbnb stays globally. He knows exactly what good hosting looks like. 1-star review. Airbnb shares it prominently."},
+    ],tip:"Detail-oriented guests are your most powerful brand ambassadors when they're delighted — and your most damaging critics when they're not."},
+  ],
+  3: [
+    {guest:"The Williams Family",mood:"casual 😅",icon:"😅",drama:true,scenario:"A family books for 6. You receive a message at midnight before check-in day: 'Quick update — there'll actually be 11 of us. My mum and three cousins decided to join last minute. Hope that's okay!'",options:[
+      {text:"Call immediately: 'I'm sorry — the booking is for 6. 11 people exceeds our capacity and insurance limit. We'll need to find an alternative solution together.'",pts:160,good:true,reaction:"You help them find an overflow Airbnb two streets away for the extra 5. They split the group, both properties get used, and you get a grateful 5-star review for your problem-solving."},
+      {text:"Say nothing and let all 11 in — it's just one night",pts:-220,good:false,reaction:"Insurance void. A child trips and breaks their wrist on the stairs. You are personally liable. Your short-let licence is suspended pending investigation."},
+      {text:"Cancel the booking entirely the morning of check-in",pts:-280,good:false,reaction:"Family of 11 stranded with nowhere to go. Airbnb maximum cancellation penalty applied. Permanent mark on your hosting record."},
+      {text:"Charge a per-person supplement for the extra 5 guests",pts:100,good:true,reaction:"Family agrees and pays. You document the agreement through Airbnb. Pragmatic, revenue-positive, and within rules."},
+    ],tip:"Occupancy limits aren't arbitrary — they're set by your insurance and fire safety certificate. Exceeding them invalidates both."},
+    {guest:"Vision Media",mood:"professional 🎥",icon:"🎥",drama:false,scenario:"A production company wants to use your Chelsea townhouse to film a luxury property advert. One day. They'll pay £4,500. They want an answer today.",options:[
+      {text:"Request a full production brief, get a contract and £2,000 damage bond, verify their insurance, then agree",pts:250,good:true,reaction:"The shoot goes perfectly. Property returned immaculate. £4,500 cleared. The director asks to use it for a second campaign next month."},
+      {text:"Say yes immediately — £4,500 for one day is incredible",pts:-100,good:false,reaction:"A lighting rig scratches your newly refinished hardwood floor. No contract means no recourse. £780 repair bill. Net: £3,720."},
+      {text:"Decline — too much risk for your property",pts:-40,good:false,reaction:"Low-risk, high-reward opportunity passed. With a proper contract, the risk was minimal. £4,500 left on the table."},
+      {text:"Ask Airbnb for guidance on commercial shoots first",pts:140,good:true,reaction:"Smart. Airbnb provides clear guidelines. You proceed correctly with proper documentation. Full rate received."},
+    ],tip:"Commercial shoots require their own insurance certificate, a damage bond of at least 20% of the day rate, and a production brief. Non-negotiable."},
+    {guest:"Multiple guests",mood:"disappointed 🌿",icon:"🌿",drama:false,scenario:"Your third consecutive guest mentions the garden in their review: 'The overgrown garden was a real shame — it clearly has potential but felt unloved and a bit embarrassing.' You've now had 4 garden complaints in 6 weeks.",options:[
+      {text:"Spend £350 on professional landscaping, get before/after photos, update the listing with a 'Newly landscaped garden' feature",pts:180,good:true,reaction:"The next 6 reviews all mention the garden positively. It becomes your listing's most-photographed feature. Average nightly rate increases by £22."},
+      {text:"Add 'rustic garden charm' to the listing description",pts:-60,good:false,reaction:"5th complaint arrives within two weeks. Airbnb emails you about 'consistent quality concerns'. Listing visibility reduced."},
+      {text:"Ignore it — outdoor spaces are seasonal",pts:-100,good:false,reaction:"Airbnb flags your listing after the 6th complaint. Quality review initiated. Listing temporarily suspended."},
+      {text:"Mow the lawn and call it done",pts:80,good:true,reaction:"Complaints reduce. Not a 5-star garden, but no longer a talking point. A holding measure while you plan the full upgrade."},
+    ],tip:"In a competitive market like Chelsea, outdoor space is a key differentiator. A well-presented garden can justify a 15–20% rate premium."},
+    {guest:"The Bellingham-Smyths",mood:"entitled 😤",icon:"😤",drama:true,scenario:"The Bellingham-Smyths arrive and immediately call you: 'There's no Nespresso machine, no fresh flowers, and the bath towels are not hotel-grade. We specifically expect five-star standards and this simply isn't that. We want a 30% refund immediately.'",options:[
+      {text:"Calmly explain what is included vs their expectations, offer a goodwill gesture (Nespresso pods delivered, flowers ordered), but firmly decline the refund",pts:160,good:true,reaction:"They accept the gesture. Their review is 3 stars but mentions 'host responded reasonably.' You update your listing to clearly set expectations. Future guests self-filter."},
+      {text:"Give them the 30% refund to avoid the confrontation",pts:-100,good:false,reaction:"They pocket the refund and leave a 2-star review anyway. 'Below expectations.' You paid for the privilege of a bad review."},
+      {text:"Tell them your listing accurately reflects the property and end the conversation",pts:-80,good:false,reaction:"They call Airbnb. Airbnb reviews your listing. Though technically you're right, the complaint process is a 3-week nightmare."},
+      {text:"Send fresh flowers, Nespresso machine, and upgrade their towels within 2 hours",pts:120,good:true,reaction:"They are completely disarmed. 4-star review: 'Host went above and beyond when we raised concerns.' An expensive lesson in managing expectations, but a win."},
+    ],tip:"Clear listing descriptions are your best defence against entitled guests. Set expectations precisely — and then exceed them."},
+    {guest:"Isabelle R.",mood:"sociable 🍽️",icon:"🍽️",drama:false,scenario:"Isabelle messages: 'Would it be okay to host a small dinner for 10 friends on Saturday? I cook professionally — I'd love to show off your gorgeous kitchen. Happy to leave the place spotless.'",options:[
+      {text:"Check your insurance (covers up to 12 visitors), confirm in writing on Airbnb, take a £200 event deposit, say yes",pts:160,good:true,reaction:"Isabelle cooks an extraordinary dinner. She leaves the kitchen cleaner than she found it. 5-star review with photos of the table setting. Your kitchen becomes a listing highlight."},
+      {text:"Say yes without any formal agreement",pts:-100,good:false,reaction:"Someone spills red wine on the white sofa. No deposit means no coverage. £420 reupholstering cost falls entirely on you."},
+      {text:"Say no — it's a holiday rental not a dining venue",pts:50,good:true,reaction:"Reasonable and safe. Isabelle accepts gracefully. Stays without incident. 4 stars."},
+      {text:"Say yes but secretly check in via doorbell camera throughout the evening",pts:-200,good:false,reaction:"Isabelle's friend notices the camera trigger light. Isabelle reports you to Airbnb for unauthorised surveillance during the event. Account suspended."},
+    ],tip:"Hosted events can be income-positive and review-positive — with the right paperwork. Insurance check, written confirmation, deposit. Always."},
+    {guest:"Lady Pemberton",mood:"formal 🎩",icon:"🎩",drama:true,scenario:"A personal assistant calls on behalf of Lady Pemberton: 'Her Ladyship requires your Chelsea property for a 2-week stay. She will arrive with two personal staff. No photographs of the interior are to be taken during her stay. Full rate expected.'",options:[
+      {text:"Verify the booking details, update your house rules to reflect her requirements, brief your cleaner on discretion protocols",pts:200,good:true,reaction:"The stay goes immaculately. Lady Pemberton sends a handwritten thank-you note. The PA calls to book quarterly. Your property enters a very exclusive referral network."},
+      {text:"Ask for double the rate given the unusual requirements",pts:120,good:true,reaction:"The PA agrees immediately. 'Of course.' You just discovered that high-value guests often have significant flex on rate. An important lesson."},
+      {text:"Decline — it all sounds very complicated",pts:-60,good:false,reaction:"Understandable caution, but this was a low-complication, high-value booking. The requirements were straightforward. £3,800 in revenue declined."},
+      {text:"Accept, then mention it to a friend ('you'll never guess who just booked my place')",pts:-300,good:false,reaction:"Lady Pemberton's PA hears about it. Booking cancelled. Legal letter received. Your name is circulated in HNWI circles as untrustworthy. Career-altering mistake."},
+    ],tip:"Discretion is a premium product. High-value guests pay significantly more for confidentiality — and they test it, always."},
+    {guest:"The Startup Team",mood:"hustle mode 💻",icon:"💻",drama:false,scenario:"A tech startup wants to use your Chelsea townhouse as their 'strategy offsite' for 4 days — 8 people working, 6 sleeping. They need fast WiFi, extra chairs, and flexible checkout.",options:[
+      {text:"Provide a detailed 'work-from-home kit' (extra chairs, power strips, router upgrade), charge a small supplement, accommodate flexibly",pts:170,good:true,reaction:"The team is blown away. CEO books you for the next two quarterly offsites. Word spreads in London's startup scene. You become the go-to offsite venue."},
+      {text:"Tell them the max occupancy is 6 — 8 working guests isn't acceptable",pts:-80,good:false,reaction:"The 8 people weren't sleeping — just working during the day. You've misread the booking and lost a high-value repeat client."},
+      {text:"Accept without any modifications — they'll figure it out",pts:40,good:true,reaction:"They manage with extension leads they bring themselves. A bit chaotic. 3 stars. 'Great space but not set up for work.'"},
+      {text:"Charge them double the rate for 'commercial use'",pts:-60,good:false,reaction:"They cancel and book a WeWork meeting room instead. You've turned a 4-day high-rate booking into zero revenue."},
+    ],tip:"The 'work from anywhere' trend has created huge demand for well-equipped residential spaces. A £50 investment in power strips and good WiFi can unlock a premium market."},
+  ],
+  4: [
+    {guest:"A-List Guest",mood:"private 🕶️",icon:"🕶️",drama:true,scenario:"A talent agency calls: their client — a globally recognised musician — wants to rent your Mayfair penthouse for 3 weeks. NDAs required for you, your cleaner, and your managing agent. No social media. Full rate plus 20% privacy premium.",options:[
+      {text:"Agree entirely — brief all staff on the NDA, arrange discrete key handover, ensure no contact beyond what's requested",pts:280,good:true,reaction:"Three flawless weeks. The agency sends a bottle of vintage Château Pétrus as a thank you. Two referrals follow within the month. You're now on a very exclusive approved list."},
+      {text:"Post a cryptic Instagram story with the view from your penthouse — just the view, nothing identifying",pts:-400,good:false,reaction:"The agency's security team identifies the view within hours. NDA breach claimed. Legal proceedings initiated. Airbnb account terminated. Career over."},
+      {text:"Agree but charge 40% privacy premium instead of 20%",pts:140,good:true,reaction:"The agency accepts without hesitation. You've just discovered that elite discretion is worth more than you thought. A formative lesson in premium pricing."},
+      {text:"Say yes but ask if you can take one photo for your property portfolio",pts:-200,good:false,reaction:"Booking immediately cancelled. 'We require absolute discretion' was not ambiguous. The agency blacklists you."},
+    ],tip:"In the HNWI market, discretion isn't a courtesy — it's a deliverable. Treat it with the same seriousness as any other contractual obligation."},
+    {guest:"Mr & Mrs Chen",mood:"outraged 😡",icon:"😡",drama:true,scenario:"The Chens check in and find a small camera hidden in a smoke detector above the bed — left by the previous owner. They call you absolutely furious, recording the call.",options:[
+      {text:"Apologise without qualification, offer an immediate full refund, arrange alternative accommodation at your cost, contact Airbnb proactively to report it before they do",pts:200,good:true,reaction:"Airbnb notes your proactive reporting. The previous owner is prosecuted. Your account receives a rare commendation for responsible hosting. The Chens are satisfied with your response."},
+      {text:"Deny any knowledge and dispute their claim — there was no camera when you took over",pts:-500,good:false,reaction:"The Chens have video evidence. You have no credibility. Airbnb removes your listing permanently. Police investigation opened. Do not pass go."},
+      {text:"Offer them the rest of their stay free in exchange for not reporting it",pts:-400,good:false,reaction:"Attempting to suppress a hidden camera report is a criminal offence. Airbnb bans you. Police are informed anyway."},
+      {text:"Explain you inherited the property and had no knowledge — investigate immediately and remove it in front of them",pts:160,good:true,reaction:"Credible, accountable response. Refund offered. Chens accept. You conduct a full property sweep professionally and document it. Trust partially recovered."},
+    ],tip:"Always conduct a full sweep of any inherited or newly acquired property before taking your first booking. Every room. Every device."},
+    {guest:"Three recent guests",mood:"satisfied 😊",icon:"😊",drama:false,scenario:"Your Mayfair penthouse has received three consecutive 4.6-star reviews. Beautiful comments — but 4.6, not 5. You need 4.8 to maintain Superhost. Each review mentions 'slightly slow check-in process'.",options:[
+      {text:"Install a smart lock system with a digital welcome guide — eliminate all friction from arrival",pts:200,good:true,reaction:"Next 8 reviews average 4.95. 'Smoothest check-in I've ever experienced' appears in four consecutive reviews. Superhost status secured comfortably."},
+      {text:"Email all three guests asking them to amend their reviews to 5 stars",pts:-180,good:false,reaction:"One guest reports the request. Airbnb investigates for review manipulation. Official warning issued. Superhost status suspended."},
+      {text:"Accept 4.6 — it's still excellent",pts:-80,good:false,reaction:"Next review cycle: same pattern. You fall below 4.8 threshold. Superhost status lost. Visibility drops 30%. Bookings decline notably."},
+      {text:"Hire a professional hospitality consultant to audit the check-in experience",pts:160,good:true,reaction:"Consultant identifies 3 friction points. All resolved in a week. Check-in score shoots up. 'Worth every penny' — you, three months later."},
+    ],tip:"Superhost status increases booking conversion by 20–30%. Losing it is a significant commercial event. Protect it proactively."},
+    {guest:"Alessandro G.",mood:"charming 😊",icon:"😊",drama:true,scenario:"Alessandro has been a perfect guest for 4 days. He messages: 'I hope you don't mind — I mentioned your beautiful penthouse to some friends in London and they'd love to pop by tonight for a little dinner. Maybe 8–10 people. Nothing wild, I promise.'",options:[
+      {text:"Politely but absolutely decline: 'I'm sorry Alessandro, my house rules don't allow additional visitors. I hope you understand.'",pts:140,good:true,reaction:"Alessandro is completely fine about it. 'Of course, I should have checked first.' 5-star review praising your professionalism. No incident."},
+      {text:"Say yes — Alessandro has been lovely and it sounds like a proper dinner",pts:-250,good:false,reaction:"'8–10 people' becomes 35 by 10 PM. £2,800 in damage. Neighbours call the council. Your short-let licence comes under formal review."},
+      {text:"Say yes but ask for a £500 event deposit first",pts:100,good:true,reaction:"Alessandro pays the deposit. Dinner is genuinely lovely — 8 people, beautifully behaved. Deposit returned. 5-star review."},
+      {text:"Ignore the message and assume he won't do anything without a reply",pts:-160,good:false,reaction:"Alessandro interprets silence as consent. The dinner happens. You had no formal record of refusing. Your position in any Airbnb dispute is severely weakened."},
+    ],tip:"Never ignore a request for something you'd refuse. Silence can be interpreted as consent. Always respond clearly and document your position."},
+    {guest:"The Nakamura-Williams Group",mood:"expecting excellence 💎",icon:"💎",drama:false,scenario:"Your property manager resigns via text on a Wednesday with 10 days' notice. You have 6 bookings in the next 3 weeks including a Fortune 500 corporate party arriving on Friday.",options:[
+      {text:"Engage a premium property management agency immediately as interim cover — cost is secondary to continuity",pts:200,good:true,reaction:"Agency steps in Thursday morning. All 6 bookings handled seamlessly. Guests notice nothing. Fortune 500 client re-books for Q2. You've bought time to find the right permanent replacement."},
+      {text:"Attempt to manage all 6 bookings yourself remotely",pts:-150,good:false,reaction:"You miss a check-in call at 9 PM on Friday. The Fortune 500 guests are left outside for 40 minutes. They escalate to their travel manager who contacts Airbnb. 2-star group review."},
+      {text:"Close the listing and cancel all 6 bookings",pts:-400,good:false,reaction:"6 cancellations. Maximum Airbnb penalties applied. Superhost status permanently revoked. £11,000 in revenue lost. The Fortune 500 client's travel manager circulates a warning in their network."},
+      {text:"Ask the resigning manager to recommend and brief their replacement",pts:160,good:true,reaction:"Their friend takes over with 2 days of handover. Reasonable transition. All bookings covered. You formalise the recruitment properly from a position of stability."},
+    ],tip:"At the Mayfair level, your property manager is a critical single point of failure. Always have an emergency contact at a professional agency on speed dial."},
+    {guest:"Baron von Steinberg",mood:"eccentric 🧐",icon:"🧐",drama:true,scenario:"An Austrian baron has booked your penthouse for 10 nights. On day 3 he calls: 'The paintings are all wrong. I require them removed and replaced with my own collection — which will arrive tomorrow by private courier. Also, the grand piano must be tuned. Today.'",options:[
+      {text:"Remove your paintings carefully (photographing their condition), arrange a piano tuner for that afternoon, accommodate graciously",pts:180,good:true,reaction:"The baron is delighted. His own paintings are extraordinary. He has the piano tuner back twice. He leaves your paintings in better condition than he found them — and a £500 tip for your housekeeper. 5 stars."},
+      {text:"Decline both requests — your property, your paintings, your piano",pts:-60,good:false,reaction:"The baron checks out after 4 days. 'Host unwilling to accommodate reasonable requests.' 2-star review. You refund 6 nights."},
+      {text:"Agree to the paintings but not the piano tuning",pts:80,good:true,reaction:"Compromise accepted. Piano tuning request was eccentric but harmless. Missed an opportunity for a perfect stay, but no real damage done."},
+      {text:"Charge £200 for the painting removal service and £150 for piano tuning coordination",pts:140,good:true,reaction:"The baron finds this entirely reasonable. 'Of course.' He pays immediately without discussion. You've just learned that HNWI guests expect — and respect — premium service charges."},
+    ],tip:"Ultra-high-net-worth guests often make unusual requests that are entirely reasonable to fulfil. Accommodate first, charge appropriately, delight always."},
+  ],
+  5: [
+    {guest:"Royal advance team",mood:"formal 👑",icon:"👑",drama:true,scenario:"A private secretary calls: 'On behalf of a member of the Royal Family, we would like to enquire about a 3-week residence with 8 staff, full discretion protocols, and advance security sweeps of the property. Can you accommodate?'",options:[
+      {text:"Request a formal briefing document, engage your solicitor, clear your insurance for the period, accommodate with full professional protocol",pts:400,good:true,reaction:"The residence goes flawlessly. A handwritten letter of thanks arrives. Your property is placed on a permanent list of approved residences. A quiet but extraordinary credential."},
+      {text:"Mention it to a journalist friend as an 'off the record' conversation",pts:-600,good:false,reaction:"It gets published. Security breach. Legal action from multiple directions. Your name is permanently associated with a breach of royal security. Criminal investigation opened."},
+      {text:"Charge 5× your standard rate",pts:200,good:true,reaction:"Accepted without hesitation. 'Of course.' You've just learned something important about your own pricing relative to this market."},
+      {text:"Decline — the complexity feels overwhelming",pts:-80,good:false,reaction:"Understandable but unnecessary. The advance team does all the complex work. Your role is to facilitate. £45,000 in revenue declined."},
+    ],tip:"At the mansion level, your guests sometimes have more security staff than you have upgrades. Engage professional support and stay in your lane."},
+    {guest:"Lumière Productions",mood:"creative 🎬",icon:"🎬",drama:true,scenario:"A BAFTA-winning director wants to film a period drama in your mansion for 12 days. The location fee is £78,000. They need all furniture covered or removed, will install their own lighting grid, and require 24/7 access.",options:[
+      {text:"Hire a specialist entertainment lawyer, negotiate a full location agreement with a £15,000 damage bond, take out a supplemental policy",pts:450,good:true,reaction:"The shoot runs perfectly. Your mansion appears in the film's key promotional materials. Bookings spike 60% after the trailer drops. The director's production company becomes a recurring client."},
+      {text:"Accept via email with a standard rental agreement",pts:-300,good:false,reaction:"The lighting grid damages a Grade II listed ceiling cornice. Repair cost: £31,000. No specialist bond. You're liable. Net result: £47,000 profit turned into financial catastrophe."},
+      {text:"Decline — too disruptive to the property",pts:-50,good:false,reaction:"Reasonable caution, but with the right legal framework this was a transformational revenue opportunity. £78,000 and national exposure declined."},
+      {text:"Negotiate 20% upfront, 80% on completion, with a £20,000 bond",pts:300,good:true,reaction:"Strong commercial terms. Production agrees. All risk well-covered. £78,000 received. Property returned in perfect condition."},
+    ],tip:"Film location fees for Grade II listed properties can reach £5,000–£10,000 per day. Always use an entertainment lawyer, not a generic solicitor."},
+    {guest:"500k Followers",mood:"overwhelming 🌊",icon:"🌊",drama:false,scenario:"A luxury travel blogger posts a photo from your mansion (taken during their stay with permission). It goes viral overnight — 2.3 million impressions. Your inbox has 340 booking enquiries in 14 hours. Airbnb can't process them fast enough.",options:[
+      {text:"Pause the listing immediately, take 48 hours to review all enquiries carefully, select only fully-verified high-value guests, then reopen at a 35% rate increase",pts:300,good:true,reaction:"You select 6 premium bookings worth £62,000. Quality guests. Outstanding reviews. Your new rate holds. The viral moment becomes a permanent step-change in your property's market position."},
+      {text:"Accept as many bookings as possible while the momentum lasts",pts:-250,good:false,reaction:"Operations collapse. Double bookings. Overwhelmed cleaner quits. Three guests arrive to problems. Rating drops from 4.9 to 4.2 in one week."},
+      {text:"Raise rates 3× immediately",pts:200,good:true,reaction:"Demand absorbs it completely. You receive 180 enquiries at the new rate. Self-selecting premium clients book immediately. Conversion is outstanding."},
+      {text:"Do nothing — just let the bookings flow in normally",pts:-100,good:false,reaction:"Unvetted guests flood in. One group hosts an unauthorised event. Rating takes a hit. The viral moment becomes a headache rather than a breakthrough."},
+    ],tip:"Viral moments are gifts — but only if your operations can absorb the volume. Pause, curate, price up, then reopen. Never let momentum override due diligence."},
+    {guest:"The Ashworths",mood:"guilty 😓",icon:"😓",drama:true,scenario:"The Ashworth family call you the morning of checkout: 'Something terrible has happened. We were moving the dining table and the antique chandelier — the one you mentioned was irreplaceable — has come down. It's in pieces. We are devastated and fully prepared to take responsibility.'",options:[
+      {text:"Stay calm, document everything by photo and video, contact your specialist contents insurer immediately, get an independent valuation, pursue through proper channels",pts:300,good:true,reaction:"Insurance covers £48,000 replacement. The Ashworths contribute via Airbnb's AirCover. Professional resolution. The Ashworths, despite causing the damage, leave a 4-star review praising your grace under pressure."},
+      {text:"Accept their sincere apology and let it go — accidents happen",pts:-350,good:false,reaction:"£48,000 chandelier. Gone. Your insurer notes you failed to report the incident within the required 24-hour window. Future claims affected. A catastrophic act of kindness."},
+      {text:"Demand immediate cash payment of £50,000 before they leave",pts:-120,good:false,reaction:"The Ashworths' solicitor arrives within the hour. You've created a legal dispute where an insurance claim would have sufficed. 6-month resolution process."},
+      {text:"Engage your solicitor, document everything, pursue via Airbnb AirCover and your insurance simultaneously",pts:250,good:true,reaction:"Belt and braces approach. Full recovery within 6 weeks. Solicitor's fee is covered by AirCover. Thorough and professional."},
+    ],tip:"At the mansion level, standard Airbnb AirCover is wholly insufficient. Specialist high-value contents and liability insurance is non-negotiable."},
+    {guest:"Sotheby's client",mood:"discreet 🎨",icon:"🎨",drama:true,scenario:"A Sotheby's broker calls: an UHNWI collector wants to store and display 7 works valued at £12M in your mansion for 10 days during the Frieze London sale. They will pay £25,000. They need your answer in 4 hours.",options:[
+      {text:"Arrange specialist fine art insurance for the period, engage a security firm, verify climate control specifications, then confirm",pts:380,good:true,reaction:"The collection is displayed. Sotheby's refer three further UHNWI clients. You've entered a new market entirely. A single phone call changed the trajectory of your hosting career."},
+      {text:"Say yes and hope the mansion's conditions are sufficient",pts:-350,good:false,reaction:"Humidity fluctuation damages two works. Combined value: £3.2M. You are personally liable. Criminal proceedings opened for negligence. Career-ending."},
+      {text:"Decline professionally — this is outside your current capabilities",pts:80,good:true,reaction:"Sotheby's broker respects the candour. 'We appreciate the honesty.' They keep you on their list for future — more straightforward — bookings."},
+      {text:"Ask for 48 hours to arrange proper coverage",pts:280,good:true,reaction:"Sotheby's grants the extension. You arrange everything properly. The collection arrives safely. Professional execution recognised."},
+    ],tip:"Opportunities at this level require capabilities at this level. Know what you can and cannot safely facilitate — and build the infrastructure before you need it."},
+    {guest:"The Grand Prix Party",mood:"celebratory 🏁",icon:"🏁",drama:true,scenario:"A group of F1 team principals have booked your mansion for the British Grand Prix weekend. On Saturday evening, with 2 days remaining, you discover via a neighbour that they've erected a hospitality marquee in your walled garden without permission, hosting 80 people.",options:[
+      {text:"Attend immediately, remain calm, explain the marquee requires planning permission and must come down, offer a compromise (30 guests maximum, no marquee)",pts:280,good:true,reaction:"They comply with remarkable good humour. 'Fair enough, we should have asked.' The 30-person garden event is legendary. Your property gets namechecked in a paddock podcast. Remarkable client."},
+      {text:"Call the police and let them deal with it",pts:100,good:true,reaction:"Police arrive. Marquee comes down. Guests are unhappy but compliant. 2-star review: 'Host overreacted.' Though your property and licence are protected. A defensible call."},
+      {text:"Say nothing — they're leaving in 2 days and they're F1 team principals",pts:-300,good:false,reaction:"A council enforcement officer visits. The marquee requires planning permission. Your property is issued a formal enforcement notice. The short-let licence review process begins."},
+      {text:"Charge them a £5,000 retrospective event fee and document it on Airbnb",pts:180,good:true,reaction:"They pay without argument. '£5k? Cheap for what we've had here.' You've maintained commercial leverage. Smart recovery from a difficult situation."},
+    ],tip:"Unauthorised structures on your property — even temporary ones — can trigger planning enforcement. Always have pre-approved event terms in your welcome guide."},
+  ],
+};
+
+const G={name:"",pts:0,upgrades:{1:[],2:[],3:[],4:[],5:[]},activeProp:1,curQ:0,answers:[],shopProp:1,lb:[],usedQ:{1:[],2:[],3:[],4:[],5:[]}};
+
+function getIncomeBonus(propId){
+  const owned=G.upgrades[propId]||[];
+  const p=PROPS.find(x=>x.id===propId);
+  return owned.reduce((sum,uid)=>{const u=p.upgrades.find(x=>x.id===uid);return sum+(u?u.income:0);},0);
+}
+
+function getBaseIncome(propId){return [80,140,220,350,500][propId-1];}
+
+function getCurrentIncome(propId){return getBaseIncome(propId)+getIncomeBonus(propId);}
+
+function getUnlockedCount(){
+  let count=1;
+  for(let i=1;i<5;i++){if(G.pts>=UNLOCK_THRESHOLDS[i])count=i+1;}
+  return count;
+}
+
+function isUnlocked(id){return G.pts>=UNLOCK_THRESHOLDS[id-1];}
+
+function getNextUnlock(){
+  for(let i=1;i<=4;i++){if(G.pts<UNLOCK_THRESHOLDS[i])return{propId:i+1,threshold:UNLOCK_THRESHOLDS[i]};}
+  return null;
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+  document.getElementById('s-'+id).classList.remove('hidden');
+  if(id==='listing')renderListing();
+  if(id==='shop')renderShop();
+  if(id==='leaderboard')renderLB();
+}
+
+function startGame(){
+  const n=document.getElementById('nameInput').value.trim();
+  if(!n)return;
+  G.name=n;G.pts=0;G.upgrades={1:[],2:[],3:[],4:[],5:[]};
+  G.usedQ={1:[],2:[],3:[],4:[],5:[]};G.activeProp=1;
+  show('listing');
+}
+
+function getRat(s){return RATINGS.find(r=>s>=r.min&&s<=r.max)||RATINGS[0];}
+
+function pickQuestion(propId){
+  const qs=ALL_QUESTIONS[propId];
+  const used=G.usedQ[propId]||[];
+  const available=qs.filter((_,i)=>!used.includes(i));
+  if(available.length===0){G.usedQ[propId]=[];return qs[Math.floor(Math.random()*qs.length)];}
+  const picked=available[Math.floor(Math.random()*available.length)];
+  const idx=qs.indexOf(picked);
+  G.usedQ[propId]=[...used,idx];
+  return picked;
+}
+
+function renderFlatSVG(propId,w,h){
+  w=w||580;h=h||110;
+  const p=PROPS.find(x=>x.id===propId);
+  const owned=G.upgrades[propId]||[];
+  const col=p.col;
+  const pct=owned.length/p.upgrades.length;
+  const POS={
+    fast_wifi:{x:85,y:12},fast_wifi_2:{x:85,y:12},smart_tv:{x:55,y:10},smart_tv_2:{x:55,y:10},
+    coffee_machine:{x:8,y:42},premium_bedding:{x:28,y:60},air_purifier:{x:5,y:20},
+    artwork:{x:42,y:8},boiler:{x:88,y:42},smart_lock:{x:90,y:60},
+    record_player:{x:68,y:55},dishwasher:{x:10,y:55},heating_fix:{x:88,y:42},
+    bathroom_reno:{x:78,y:55},rooftop:{x:50,y:5},second_bed:{x:20,y:58},
+    kitchen_reno:{x:8,y:48},garden_land:{x:20,y:70},smart_home:{x:85,y:20},
+    cinema:{x:60,y:60},lux_baths:{x:75,y:58},concierge:{x:35,y:70},
+    gym:{x:15,y:62},wine_fridge:{x:22,y:42},smart_home_2:{x:85,y:20},
+    home_cinema:{x:60,y:60},chef_kitchen:{x:8,y:48},spa_bath:{x:75,y:55},
+    butler:{x:50,y:30},transfer:{x:50,y:5},art:{x:40,y:8},wine_cellar:{x:22,y:42},
+    michelin:{x:8,y:48},cinema20:{x:60,y:60},pool:{x:35,y:65},full_butler:{x:50,y:30},
+    helipad:{x:50,y:5},art_gallery:{x:40,y:8},studio:{x:75,y:50},vault:{x:88,y:55},
+  };
+  let items='';
+  owned.forEach(uid=>{
+    const up=p.upgrades.find(u=>u.id===uid);
+    const po=POS[uid];
+    if(up&&po)items+=`<text x="${(po.x/100)*w}" y="${(po.y/100)*h}" font-size="14" text-anchor="middle" dominant-baseline="middle">${up.emoji}</text>`;
+  });
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;border-radius:8px;background:${p.light}">
+    <rect x="${w*0.3}" y="${h*0.08}" width="${w*0.12}" height="${h*0.55}" fill="${col}" opacity="0.12" rx="2"/>
+    <line x1="${w*0.3}" y1="${h*0.08}" x2="${w*0.42}" y2="${h*0.08}" stroke="${col}" stroke-width="0.5" opacity="0.3"/>
+    <line x1="${w*0.36}" y1="${h*0.08}" x2="${w*0.36}" y2="${h*0.63}" stroke="${col}" stroke-width="0.5" opacity="0.3"/>
+    <rect x="${w*0.18}" y="${h*0.5}" width="${w*0.28}" height="${h*0.12}" fill="${col}" opacity="0.2" rx="3"/>
+    <rect x="${w*0.18}" y="${h*0.38}" width="${w*0.28}" height="${h*0.12}" fill="${col}" opacity="0.15" rx="3 3 0 0"/>
+    <rect x="${w*0.2}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
+    <rect x="${w*0.29}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
+    <rect x="${w*0.38}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
+    <rect x="0" y="${h*0.9}" width="${pct*w}" height="${h*0.08}" fill="${col}" opacity="0.5" rx="0"/>
+    ${owned.length===0?`<text x="${w/2}" y="${h/2}" font-size="28" text-anchor="middle" dominant-baseline="middle" opacity="0.15">${p.emoji}</text>`:''}
+    ${items}
+  </svg>`;
+}
+
+function renderListing(){
+  document.getElementById('lb-name').textContent=G.name;
+  document.getElementById('lb-pts').textContent=`£${G.pts.toLocaleString()}`;
+  const r=getRat(G.pts);
+  document.getElementById('lb-rating').textContent=`${r.emoji} ${r.label}`;
+  const next=getNextUnlock();
+  if(next){
+    const pct=Math.min(100,Math.round((G.pts/next.threshold)*100));
+    document.getElementById('lb-unlock-label').textContent=`Next unlock: ${PROPS.find(p=>p.id===next.propId).short}`;
+    document.getElementById('lb-unlock-target').textContent=`£${G.pts.toLocaleString()} / £${next.threshold.toLocaleString()}`;
+    document.getElementById('lb-unlock-bar').style.width=pct+'%';
+    document.getElementById('lb-unlock-wrap').style.display='block';
+  } else {
+    document.getElementById('lb-unlock-wrap').style.display='none';
+  }
+  const el=document.getElementById('listing-cards');el.innerHTML='';
+  PROPS.forEach(p=>{
+    const locked=!isUnlocked(p.id);
+    const owned=G.upgrades[p.id]||[];
+    const pct=Math.round((owned.length/p.upgrades.length)*100);
+    const income=getCurrentIncome(p.id);
+    const threshold=UNLOCK_THRESHOLDS[p.id-1];
+    const card=document.createElement('div');
+    card.style.cssText=`background:#fff;border:1px solid ${locked?'#E8ECF4':p.border};border-radius:14px;overflow:hidden;margin-bottom:12px;opacity:${locked?0.45:1}`;
+    card.innerHTML=`
+      <div style="height:3px;background:${locked?'#E8ECF4':p.col}"></div>
+      <div style="padding:18px 20px 14px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:${locked?'#9AA3B2':p.col}">${locked?`LOCKED — EARN £${threshold.toLocaleString()}`:'ACTIVE PROPERTY'}</div>
+              ${!locked?`<div style="font-size:10px;font-weight:700;background:${p.light};color:${p.col};border:1px solid ${p.border};padding:2px 8px;border-radius:10px">+£${income}/correct</div>`:''}
+            </div>
+            <div style="font-size:17px;font-weight:800;color:#1a1a2e;font-family:'Lora',serif;margin-bottom:2px">${p.name}</div>
+            <div style="font-size:12px;color:#9AA3B2">${p.type} · ${p.short}</div>
+          </div>
+          <div style="width:64px;height:64px;border-radius:10px;overflow:hidden;flex-shrink:0;margin-left:12px;background:${p.light}">
+              <img src="/images/property-${p.id}.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-'+${p.id}).innerHTML">
+            </div>
+        </div>
+        <p style="font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:14px">${p.desc}</p>
+        <div style="border-radius:10px;overflow:hidden;margin-bottom:14px">${renderFlatSVG(p.id,580,110)}</div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#9AA3B2;margin-bottom:6px"><span>UPGRADES</span><span style="color:${p.col}">${owned.length} / ${p.upgrades.length}</span></div>
+        <div style="height:5px;background:#F0F2F8;border-radius:3px;overflow:hidden;margin-bottom:14px"><div style="height:100%;width:${pct}%;background:${p.col};border-radius:3px;transition:width 0.5s"></div></div>
+        ${!locked?`<button onclick="startHosting(${p.id})" style="width:100%;padding:12px;background:${p.col};border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif">Host at this property →</button>`:''}
+      </div>`;
+    el.appendChild(card);
+  });
+}
+
+function startHosting(pid){
+  G.activeProp=pid;G.curQ=0;G.answers=[];
+  G.currentQ=pickQuestion(pid);
+  renderQuiz();show('quiz');
+}
+
+function renderQuiz(){
+  const p=PROPS.find(x=>x.id===G.activeProp);
+  const q=G.currentQ;
+  const income=getCurrentIncome(G.activeProp);
+  document.getElementById('q-propname').textContent=p.name.toUpperCase();
+  document.getElementById('q-propname').style.color=p.col;
+  document.getElementById('q-progress').textContent=`${p.short} · Income per correct answer: £${income}`;
+  document.getElementById('q-pts').textContent=`£${G.pts.toLocaleString()}`;
+  document.getElementById('q-bonus-badge').textContent=`+£${income}/correct`;
+  document.getElementById('q-bonus-badge').style.color=p.col;
+  document.getElementById('q-bar').style.background=p.col;
+  document.getElementById('q-bar').style.width='50%';
+  // Set guest avatar — try image first, fall back to emoji
+  const imgEl=document.getElementById('q-guest-img');
+  const emoEl=document.getElementById('q-guest-emoji');
+  const avatarSrc=getAvatarFor(q.icon);
+  imgEl.src=avatarSrc;
+  imgEl.style.display='block';
+  emoEl.style.display='none';
+  imgEl.onerror=()=>{imgEl.style.display='none';emoEl.style.display='block';emoEl.textContent=q.icon;};
+  document.getElementById('q-gname').textContent=q.guest;
+  document.getElementById('q-gmood').textContent=q.mood;
+  // Set room scene background
+  const roomEl=document.getElementById('q-room-scene');
+  if(roomEl){
+    const roomImg=roomEl.querySelector('img');
+    if(roomImg){
+      roomImg.src=getRoomFor(q.scenario);
+      roomImg.onerror=()=>{roomEl.style.display='none';};
+      roomImg.onload=()=>{roomEl.style.display='block';};
+    }
+  }
+  document.getElementById('q-scenario').textContent=`"${q.scenario}"`;
+  document.getElementById('q-feedback').classList.add('hidden');
+  document.getElementById('q-flat-label').textContent=p.short.toUpperCase()+' · UPGRADES: '+((G.upgrades[G.activeProp]||[]).length)+'/'+p.upgrades.length;
+  document.getElementById('q-flat-svg').innerHTML=renderFlatSVG(G.activeProp,580,100);
+  const drama=document.getElementById('q-drama-badge');
+  drama.style.display=q.drama?'block':'none';
+  const opts=document.getElementById('q-options');opts.innerHTML='';
+  q.options.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.style.cssText=`width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;background:#fff;border:1.5px solid #E8ECF4;border-radius:11px;color:#1a1a2e;font-size:13px;line-height:1.55;cursor:pointer;font-family:'Nunito Sans',sans-serif;display:block`;
+    b.innerHTML=`<span style="font-size:11px;font-weight:700;color:#9AA3B2;margin-right:10px">${String.fromCharCode(65+i)}.</span>${o.text}`;
+    b.onclick=()=>handleAnswer(i);
+    opts.appendChild(b);
+  });
+}
+
+function handleAnswer(idx){
+  const p=PROPS.find(x=>x.id===G.activeProp);
+  const q=G.currentQ;
+  const o=q.options[idx];
+  const income=getCurrentIncome(G.activeProp);
+  const prevPts=G.pts;
+  let earned=0;
+  if(o.good){earned=income+Math.round(o.pts/10);G.pts+=earned;}
+  else{const penalty=Math.abs(Math.round(o.pts/2));G.pts=Math.max(0,G.pts-penalty);earned=-(G.pts<prevPts?prevPts-G.pts:0);}
+  G.pts=Math.max(0,G.pts);
+  G.answers.push({earned,good:o.good,originalPts:o.pts});
+  document.querySelectorAll('#q-options button').forEach((b,i)=>{
+    b.onclick=null;b.style.cursor='default';
+    if(i===idx){b.style.background=o.good?'#EAF3DE':'#FCEBEB';b.style.borderColor=o.good?'#6AAF2E':'#E24B4A';b.style.color=o.good?'#3B6D11':'#A32D2D';}
+    else b.style.opacity='0.35';
+  });
+  document.getElementById('q-reaction-text').textContent=o.reaction;
+  document.getElementById('q-tip-text').textContent=q.tip;
+  document.getElementById('q-feedback').classList.remove('hidden');
+  document.getElementById('q-pts').textContent=`£${G.pts.toLocaleString()}`;
+  document.getElementById('q-next').textContent='Play another scenario →';
+  showNotif(o.good?`+£${earned} rental income`:`-£${prevPts-G.pts} penalty`,o.good);
+  showPtAnim(o.good?`+£${earned}`:`-£${prevPts-G.pts}`);
+}
+
+function nextQ(){
+  const prev=G.pts;
+  G.currentQ=pickQuestion(G.activeProp);
+  renderQuiz();
+  document.getElementById('q-feedback').classList.add('hidden');
+}
+
+function renderResults(){
+  const r=getRat(G.pts);
+  const good=G.answers.filter(a=>a.good).length;
+  const unlockBanner=document.getElementById('r-unlock-banner');
+  const unlocked=getUnlockedCount();
+  const prevUnlocked=G._prevUnlocked||1;
+  if(unlocked>prevUnlocked){
+    unlockBanner.classList.remove('hidden');
+    document.getElementById('r-unlock-text').textContent=`${PROPS.find(p=>p.id===unlocked).name} unlocked!`;
+  } else {unlockBanner.classList.add('hidden');}
+  G._prevUnlocked=unlocked;
+  document.getElementById('r-emoji').textContent=r.emoji;
+  document.getElementById('r-label').textContent='YOUR PORTFOLIO BALANCE';
+  document.getElementById('r-title').textContent=r.label;
+  document.getElementById('r-pts').textContent=`£${G.pts.toLocaleString()}`;
+  document.getElementById('r-correct').textContent=`${good} of ${G.answers.length} answered well`;
+  const grid=document.getElementById('r-grid');grid.innerHTML='';
+  G.answers.slice(-6).forEach((a,i)=>{
+    const d=document.createElement('div');
+    d.style.cssText=`padding:12px 14px;background:${a.good?'#EAF3DE':'#FCEBEB'};border:1px solid ${a.good?'#C0DD97':'#F7C1C1'};border-radius:12px;font-size:12px`;
+    d.innerHTML=`<div style="color:#9AA3B2;margin-bottom:3px">Scenario ${i+1}</div><div style="font-size:16px;font-weight:800;color:${a.good?'#3B6D11':'#A32D2D'};font-family:'Lora',serif">${a.earned>0?`+£${a.earned}`:a.earned===0?'£0':`-£${Math.abs(a.earned)}`}</div>`;
+    grid.appendChild(d);
+  });
+}
+
+function renderShop(){
+  G.shopProp=G.shopProp||1;
+  const tabs=document.getElementById('sh-tabs');tabs.innerHTML='';
+  PROPS.forEach(p=>{
+    const unlocked=isUnlocked(p.id);
+    const active=G.shopProp===p.id;
+    const b=document.createElement('button');
+    b.style.cssText=`padding:7px 14px;border-radius:20px;border:none;cursor:${unlocked?'pointer':'not-allowed'};font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;background:${active?p.col:'#F5F7FC'};color:${active?'#fff':unlocked?'#9AA3B2':'#C8CDD8'};opacity:${unlocked?1:0.5}`;
+    b.textContent=`${p.emoji} ${p.short}`;
+    if(unlocked)b.onclick=()=>{G.shopProp=p.id;renderShop();};
+    tabs.appendChild(b);
+  });
+  const p=PROPS.find(x=>x.id===G.shopProp);
+  const owned=G.upgrades[G.shopProp]||[];
+  const bonus=getIncomeBonus(G.shopProp);
+  document.getElementById('sh-propname').textContent=p.name;
+  document.getElementById('sh-count').textContent=`${owned.length}/${p.upgrades.length} upgrades`;
+  document.getElementById('sh-bonus-label').textContent=bonus>0?`+£${bonus} income bonus`:'';
+  document.getElementById('sh-pts').textContent=`£${G.pts.toLocaleString()}`;
+  document.getElementById('sh-flat').innerHTML=renderFlatSVG(G.shopProp,580,110);
+  const unlocked=isUnlocked(G.shopProp);
+  const ul=document.getElementById('sh-upgrades');ul.innerHTML='';
+  if(!unlocked){
+    const t=UNLOCK_THRESHOLDS[G.shopProp-1];
+    ul.innerHTML=`<div style="text-align:center;padding:24px;color:#9AA3B2;font-size:14px">Earn <strong>£${t.toLocaleString()}</strong> in total income to unlock ${p.short}.</div>`;
+    return;
+  }
+  p.upgrades.forEach(u=>{
+    const isOwned=owned.includes(u.id);
+    const canAfford=G.pts>=u.cost;
+    const row=document.createElement('div');
+    row.style.cssText=`display:flex;align-items:center;gap:14px;padding:14px 16px;background:${isOwned?'#EAF3DE':'#fff'};border:1px solid ${isOwned?'#C0DD97':'#E8ECF4'};border-radius:12px;margin-bottom:8px`;
+    row.innerHTML=`<div style="font-size:26px;flex-shrink:0">${u.emoji}</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1a1a2e">${u.name}</div><div style="font-size:12px;color:#9AA3B2;margin-top:2px">${u.desc}</div><div style="font-size:11px;font-weight:700;color:#6AAF2E;margin-top:3px">+£${u.income} per correct answer</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:800;color:${canAfford&&!isOwned?p.col:'#C8CDD8'};font-family:'Lora',serif;margin-bottom:5px">£${u.cost.toLocaleString()}</div>${isOwned?`<span style="font-size:11px;font-weight:700;color:#3B6D11">Owned</span>`:`<button onclick="buyUpgrade(${G.shopProp},'${u.id}')" style="padding:7px 14px;border-radius:8px;border:none;background:${canAfford?p.col:'#F5F7FC'};color:${canAfford?'#fff':'#C8CDD8'};font-size:11px;font-weight:700;cursor:${canAfford?'pointer':'not-allowed'};font-family:'Nunito Sans',sans-serif">Buy</button>`}</div>`;
+    ul.appendChild(row);
+  });
+}
+
+function buyUpgrade(pid,uid){
+  const p=PROPS.find(x=>x.id===pid);
+  const u=p.upgrades.find(x=>x.id===uid);
+  if(G.pts<u.cost){showNotif('Not enough funds!',false);return;}
+  if((G.upgrades[pid]||[]).includes(uid)){showNotif('Already owned',false);return;}
+  G.pts-=u.cost;G.upgrades[pid]=[...(G.upgrades[pid]||[]),uid];
+  showNotif(`${u.emoji} ${u.name} — +£${u.income}/correct added!`,true);
+  renderShop();
+}
+
+function startHostingShop(){startHosting(G.shopProp);}
+
+async function saveLB(){
+  const r=getRat(G.pts);
+  const entry={name:G.name,score:G.pts,rating:r.label,date:new Date().toLocaleDateString('en-GB')};
+  // Try server first, fall back to localStorage
+  try{
+    const res=await fetch('/api/leaderboard',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(entry)});
+    if(res.ok){const data=await res.json();G.lb=data.entries||[];return;}
+  }catch{}
+  try{
+    let lb=JSON.parse(localStorage.getItem('ptk-lb')||'[]');
+    lb=[...lb,entry].sort((a,b)=>b.score-a.score).slice(0,20);
+    localStorage.setItem('ptk-lb',JSON.stringify(lb));
+    G.lb=lb;
+  }catch{}
+}
+
+async function renderLB(){
+  let lb=G.lb;
+  if(!lb||!lb.length){
+    try{
+      const res=await fetch('/api/leaderboard');
+      if(res.ok){const data=await res.json();lb=data.entries||[];}
+    }catch{}
+    if(!lb||!lb.length){
+      try{lb=JSON.parse(localStorage.getItem('ptk-lb')||'[]');}catch{lb=[];}
+    }
+  }
+  const el=document.getElementById('lb-rows');el.innerHTML='';
+  if(!lb.length){el.innerHTML=`<div style="text-align:center;padding:40px;color:#9AA3B2;font-size:14px">No scores yet. Be the first legendary host!</div>`;return;}
+  const medals=['🥇','🥈','🥉'];
+  lb.forEach((e,i)=>{
+    const r=getRat(e.score);
+    const row=document.createElement('div');
+    row.style.cssText=`display:flex;align-items:center;gap:14px;padding:14px 16px;background:${i===0?'#FEF3DC':'#fff'};border:1px solid ${i===0?'#FADDAA':'#E8ECF4'};border-radius:12px;margin-bottom:8px`;
+    row.innerHTML=`<span style="font-size:18px;width:26px;text-align:center;flex-shrink:0">${medals[i]||'#'+(i+1)}</span><div style="flex:1"><div style="font-size:14px;font-weight:700;color:#1a1a2e">${e.name}</div><div style="font-size:11px;color:#9AA3B2;margin-top:2px">${e.rating} · ${e.date}</div></div><div style="font-size:18px;font-weight:800;color:#1C2280;font-family:'Lora',serif">£${e.score.toLocaleString()}</div><span style="font-size:16px">${r.emoji}</span>`;
+    el.appendChild(row);
+  });
+}
+
+function showNotif(msg,good){
+  const n=document.getElementById('notif');
+  n.textContent=msg;
+  n.style.cssText=`display:block;position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:24px;font-size:13px;font-weight:700;white-space:nowrap;z-index:99;font-family:'Nunito Sans',sans-serif;background:${good?'#6AAF2E':'#E24B4A'};color:#fff`;
+  setTimeout(()=>{n.style.display='none';},2800);
+}
+
+function showPtAnim(delta){
+  const el=document.getElementById('ptanim');
+  el.textContent=delta;
+  el.style.cssText=`display:block;position:absolute;top:70px;right:24px;font-size:22px;font-weight:800;z-index:99;pointer-events:none;font-family:'Lora',serif;color:${delta.startsWith('+')?'#6AAF2E':'#E24B4A'};animation:floatUp 1.1s ease forwards`;
+  setTimeout(()=>{el.style.display='none';},1200);
+}
+
+document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')startGame();});
+</script>
+</body>
+</html>
