@@ -1,82 +1,44 @@
-# PTK Host Academy
+# PTK Host Academy — v4 (Graphical Edition)
 
-A short-let hosting simulator. Start with a battered 1-bed in Notting Hill,
-handle real guest crises, earn rental income, upgrade your flat — and unlock
-your way up to a Kensington mansion.
+A short-let hosting simulator featuring 5 London properties, 35 dramatic guest scenarios, animated SVG characters, and isometric model homes that visibly transform as you buy upgrades.
 
-## What's in the game
+## What's new in v4
 
-- 5 properties from Notting Hill to Kensington, each with progressive unlock thresholds
-- 35+ unique guest scenarios across all properties (random selection each playthrough)
-- Per-property upgrade shop — upgrades increase income per correct answer
-- Real-time leaderboard backed by the server (with localStorage fallback)
-- 5 hand-drawn SVG architectural illustrations as default property art
-- Drop-in support for real photos via `public/images/property-1.jpg` through `property-5.jpg`
-
-## Architecture
-
-```
-ptk-host-academy/
-├── server.js              Express server + /api/leaderboard endpoints
-├── package.json
-├── render.yaml            Render deployment blueprint
-├── public/
-│   ├── index.html         Single-page app (markup + styles + game logic)
-│   └── images/            Drop property-1.jpg through property-5.jpg here
-├── DEPLOY.md              Step-by-step GitHub Desktop → Render guide
-└── README.md
-```
+- **Animated guest characters** — every scenario shows a flat-illustrated character with mood-driven expressions (angry brows, blinking eyes, complaining mouth, steam puffs)
+- **Visual model homes** — each property is rendered as a cross-section view with rooms; every upgrade you buy appears inside (TVs on walls, beds, kitchens, helicopters in the sky over Mayfair, an H landing pad on Kensington's roof)
+- **Speech bubbles** — guests speak their complaints in cartoon-style bubbles instead of plain paragraph text
+- **Live shop preview** — see the model home update in real time as you buy upgrades
+- **Animations everywhere** — items pop in when purchased, money flies up the screen, confetti for big wins, screen shake on bad answers, helicopter floats above Mayfair
+- **Host avatar** — your character appears in the listing header with a rating-driven badge (golden crown at Legendary)
 
 ## Run locally
 
 ```bash
 npm install
 npm start
-# Open http://localhost:8080
 ```
 
-The leaderboard writes to `/tmp/ptk-leaderboard.json` by default. To use a
-different path locally, set `LEADERBOARD_PATH=./ptk-leaderboard.json`.
+Then open http://localhost:8080
 
-## Deploy
+## Deploy to Render
 
-See [DEPLOY.md](DEPLOY.md) for the GitHub Desktop → Render flow (same as
-Primestay and BloodWise). About 10 minutes start to finish.
+1. Push this folder to a public GitHub repo
+2. In Render, click New → Blueprint and point it at the repo
+3. The included `render.yaml` configures everything automatically
 
-## Adding real graphics
-
-The game ships with hand-drawn SVG fallbacks for properties and emoji for
-guests, so it works out of the box. For proper 3D-style graphics, see
-**[ASSET_GUIDE.md](ASSET_GUIDE.md)** — it walks you through:
-
-- Generating 5 property photos + 4 character avatars using free AI image
-  generators (Microsoft Designer, ChatGPT, etc.) with copy-paste prompts
-- Downloading 6 free room-scene illustrations from Storyset
-- Where each file goes and what filename it needs
-
-Quick filename reference:
+## File structure
 
 ```
-property-1.jpg .. property-5.jpg     5 property exteriors
-guest-anxious.png / guest-happy.png  3 character avatars
-guest-corporate.png
-room-living.png / room-bedroom.png   6 scenario backgrounds
-room-kitchen.png / room-bathroom.png
-room-arrival.png / room-party.png
+.
+├── server.js          # Express server + leaderboard API
+├── package.json
+├── render.yaml        # Render Blueprint config
+└── public/
+    └── index.html     # Single-file game (~140 KB)
 ```
 
-Each image is independent — if a file is missing, the fallback kicks in.
-You can add them progressively.
+The game is delivered as a single self-contained HTML file with all data, characters, model homes, and game logic embedded.
 
-## Leaderboard storage
+## Persistence
 
-By default the leaderboard lives at `/tmp/ptk-leaderboard.json` on the
-server. On Render's free tier, **`/tmp` resets when the instance spins
-down** (after 15 mins of inactivity). For permanent storage:
-
-1. In Render dashboard → your service → Disks → Add Disk
-2. Mount path: `/var/data` · Size: 1 GB (free tier allows this)
-3. Set env var `LEADERBOARD_PATH=/var/data/ptk-leaderboard.json`
-
-The client also keeps a localStorage backup, so individual players see
-their own scores even if the server resets.
+The leaderboard is stored in `/tmp/ptk-leaderboard.json` (server-side) with a localStorage fallback if the API is unavailable. On Render free tier, `/tmp` resets when the instance sleeps; for permanent storage attach a Disk in the Render dashboard.

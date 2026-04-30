@@ -1,305 +1,1061 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="Pass The Keys Host Academy — Build London's greatest short-let portfolio.">
 <title>Pass The Keys · Host Academy</title>
-<link rel="apple-touch-icon" href="/images/icon-192.png">
 <meta name="theme-color" content="#1C2280">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Lora:wght@600;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito Sans',sans-serif;background:#fff;color:#1a1a2e;min-height:100vh}
-.hidden{display:none!important}
-.screen{min-height:100vh;padding-bottom:60px}
-.wrap{max-width:640px;margin:0 auto;padding:0 20px}
-.serif{font-family:'Lora',serif}
-input,button{font-family:'Nunito Sans',sans-serif}
-.btn-primary{display:block;width:100%;padding:13px;background:#1C2280;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
-.btn-secondary{display:block;width:100%;padding:12px;background:#fff;border:1.5px solid #E2E6F0;border-radius:10px;color:#1C2280;font-size:13px;font-weight:700;cursor:pointer}
-.btn-orange{display:block;width:100%;padding:13px;background:#F5A623;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:20px;font-size:13px;font-weight:700}
-.pill-navy{background:#EEF0FA;color:#1C2280}
-.pill-green{background:#EAF3DE;color:#3B6D11}
-.pill-orange{background:#FEF3DC;color:#C47A10}
-@keyframes floatUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-50px)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes unlock{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1C2280;
+  --navy-dark: #0F1456;
+  --navy-light: #3040C4;
+  --amber: #F5A623;
+  --amber-light: #FFD89C;
+  --green: #6AAF2E;
+  --green-light: #C0DD97;
+  --bg: #FAF6EE;
+  --paper: #FFFFFF;
+  --ink: #1A1A2E;
+  --ink-soft: #6B7280;
+  --line: #E8ECF4;
+  --shadow-sm: 0 2px 8px rgba(28,34,128,0.08);
+  --shadow-md: 0 8px 24px rgba(28,34,128,0.12);
+  --shadow-lg: 0 16px 48px rgba(28,34,128,0.18);
+  --ff-display: 'Fraunces', Georgia, serif;
+  --ff-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--ff-body);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+
+/* Paper texture overlay */
+.bg-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+.screen {
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 40px;
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ─── Typography ───────────────────────────────────────────────────────── */
+
+.serif { font-family: var(--ff-display); font-weight: 500; letter-spacing: -0.02em; }
+.label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; color: var(--ink-soft); }
+.overline { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
+
+/* ─── Buttons ──────────────────────────────────────────────────────────── */
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--amber) 0%, #E89014 100%);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(245,166,35,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,166,35,0.4); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-navy {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--navy);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-navy:hover { background: var(--navy-dark); }
+
+.btn-ghost {
+  width: 100%;
+  padding: 13px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--navy); }
+
+/* ─── Cards / Panels ───────────────────────────────────────────────────── */
+
+.card {
+  background: var(--paper);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ─── Intro Screen ─────────────────────────────────────────────────────── */
+
+.intro-hero {
+  background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%);
+  color: #fff;
+  padding: 36px 0 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(245,166,35,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.intro-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-title {
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 6vw, 48px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.intro-title em {
+  color: var(--amber);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.intro-lede {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.7);
+  max-width: 480px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.intro-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Property Ladder (intro) ──────────────────────────────────────────── */
+
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 24px 0 8px;
+}
+
+.ladder-card {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: 8px 4px;
+  text-align: center;
+  border: 1.5px solid var(--line);
+  transition: all 0.3s;
+  cursor: pointer;
+  animation: fadeUp 0.6s backwards;
+  position: relative;
+  overflow: hidden;
+}
+.ladder-card:nth-child(1) { animation-delay: 0.05s; }
+.ladder-card:nth-child(2) { animation-delay: 0.10s; }
+.ladder-card:nth-child(3) { animation-delay: 0.15s; }
+.ladder-card:nth-child(4) { animation-delay: 0.20s; }
+.ladder-card:nth-child(5) { animation-delay: 0.25s; }
+
+.ladder-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.ladder-icon {
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.ladder-name {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+/* ─── Quiz Screen Layout ───────────────────────────────────────────────── */
+
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  margin-bottom: 6px;
+}
+
+.q-property {
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.q-money {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--navy);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ─── The Stage — main scene area ──────────────────────────────────────── */
+
+.stage {
+  position: relative;
+  background: linear-gradient(180deg, #FFE4B0 0%, #FAF6EE 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 24px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  min-height: 360px;
+}
+
+/* Speech bubble + character */
+.scene-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.character-wrap {
+  position: relative;
+  width: 100px;
+  height: 140px;
+}
+
+.character-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.guest-meta {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.speech-bubble {
+  position: relative;
+  background: var(--paper);
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--navy);
+  font-family: var(--ff-display);
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--ink);
+  animation: bubbleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 24px;
+  width: 14px;
+  height: 14px;
+  background: var(--paper);
+  border-left: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+/* Drama indicator */
+.drama-flag {
+  display: inline-block;
+  background: linear-gradient(90deg, #E24B4A, #F5A623);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  animation: dramaPulse 1.2s ease-in-out infinite;
+}
+
+/* Mini model home preview at bottom of stage */
+.mini-home {
+  background: var(--paper);
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 8px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+}
+
+.mini-home svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+
+/* ─── Options ──────────────────────────────────────────────────────────── */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.option-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-weight: 500;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: var(--navy);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.option-btn:disabled { cursor: default; }
+
+.option-btn.correct { background: linear-gradient(135deg, #E8F5D4, #F0FAE0); border-color: var(--green); }
+.option-btn.wrong { background: linear-gradient(135deg, #FBE8E8, #FCEFEE); border-color: #E24B4A; }
+.option-btn.dim { opacity: 0.35; }
+
+.option-letter {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.option-btn.correct .option-letter { background: var(--green); }
+.option-btn.wrong .option-letter { background: #E24B4A; }
+
+/* ─── Reaction Card (after answer) ─────────────────────────────────────── */
+
+.reaction-card {
+  background: var(--paper);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 0.4s ease;
+}
+
+.reaction-card .label { margin-bottom: 8px; }
+
+.reaction-text {
+  font-family: var(--ff-display);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.reaction-tip {
+  background: linear-gradient(135deg, #FEF3DC, #FFF8E8);
+  border-left: 3px solid var(--amber);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #6B5418;
+  font-weight: 500;
+}
+
+/* ─── Listing Screen ──────────────────────────────────────────────────── */
+
+.listing-header {
+  background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+  color: #fff;
+  padding: 24px 0;
+  margin-bottom: 14px;
+}
+
+.listing-host {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.host-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(245,166,35,0.2);
+  border: 3px solid var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.host-avatar svg { width: 100%; height: auto; transform: translateY(8px); }
+
+.host-info-name {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.host-info-rating { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+.listing-money {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+
+.listing-money-label { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; }
+.listing-money-amt {
+  font-family: var(--ff-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.unlock-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.unlock-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light));
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 3px;
+}
+
+.unlock-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* Property card */
+.prop-card {
+  background: var(--paper);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+}
+
+.prop-card.locked { opacity: 0.45; filter: saturate(0.4); }
+
+.prop-card-top {
+  height: 4px;
+}
+
+.prop-model {
+  background: linear-gradient(180deg, #FFE4B0 0%, var(--bg) 100%);
+  padding: 14px 14px 10px;
+  position: relative;
+}
+
+.prop-model svg { width: 100%; height: auto; display: block; }
+
+.prop-info {
+  padding: 14px 18px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.prop-info-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.prop-info-title {
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.prop-info-meta { font-size: 12px; color: var(--ink-soft); }
+
+.prop-status {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.prop-status.active { background: var(--green-light); color: #3B6D11; }
+.prop-status.locked-tag { background: var(--line); color: var(--ink-soft); }
+.prop-status.complete { background: var(--amber-light); color: #6B5418; }
+
+.prop-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.prop-progress-bar {
+  height: 5px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.prop-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Animations ──────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bubbleIn {
+  0% { opacity: 0; transform: scale(0.8) translateY(-10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes itemPop {
+  0% { opacity: 0; transform: translateY(-30px) scale(0); }
+  70% { transform: translateY(2px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes dramaPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes coinUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-60px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes mouthTalk {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.4); }
+}
+
+@keyframes steam {
+  0% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+
+@keyframes confetti {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0); }
+  100% { opacity: 0; transform: translate(var(--cx, 0), var(--cy, 100px)) rotate(720deg); }
+}
+
+/* Char SVG animations */
+.char-svg .char-eye { transform-origin: center; transform-box: fill-box; animation: blink 4s infinite; }
+.char-svg .char-eye:nth-of-type(2) { animation-delay: 0.1s; }
+.char-state-complaining .char-mouth-talk { transform-origin: center; transform-box: fill-box; animation: mouthTalk 0.4s infinite; }
+.char-state-angry .char-steam circle, .char-state-complaining .char-steam circle {
+  animation: steam 1.6s infinite ease-out;
+}
+.char-state-angry .char-steam circle:nth-child(2),
+.char-state-complaining .char-steam circle:nth-child(2) { animation-delay: 0.4s; }
+.char-state-angry .char-steam circle:nth-child(3),
+.char-state-complaining .char-steam circle:nth-child(3) { animation-delay: 0.8s; }
+
+.shake { animation: shake 0.5s ease; }
+
+.item-pop {
+  animation: itemPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.chopper { animation: itemPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), helicopterFloat 4s ease-in-out infinite 0.6s; }
+@keyframes helicopterFloat {
+  0%, 100% { transform: translate(var(--cx, 0px), 0); }
+  50% { transform: translate(var(--cx, 0px), -8px); }
+}
+
+/* ─── Notifications & FX ──────────────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 999;
+  box-shadow: var(--shadow-md);
+  animation: fadeUp 0.3s ease;
+}
+.toast.good { background: linear-gradient(135deg, var(--green), #5C9F1F); color: #fff; }
+.toast.bad { background: linear-gradient(135deg, #E24B4A, #B83333); color: #fff; }
+
+.coin-fx {
+  position: fixed;
+  top: 60px;
+  right: 24px;
+  font-family: var(--ff-display);
+  font-size: 24px;
+  font-weight: 800;
+  z-index: 999;
+  pointer-events: none;
+  animation: coinUp 1.4s ease forwards;
+}
+.coin-fx.pos { color: var(--green); text-shadow: 0 0 12px rgba(106,175,46,0.6); }
+.coin-fx.neg { color: #E24B4A; text-shadow: 0 0 12px rgba(226,75,74,0.6); }
+
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 12px;
+  z-index: 998;
+  pointer-events: none;
+  animation: confetti 2s ease-out forwards;
+}
+
+/* ─── Shop Screen ──────────────────────────────────────────────────────── */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.shop-item {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: inherit;
+}
+
+.shop-item:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--navy); box-shadow: var(--shadow-sm); }
+.shop-item:disabled { opacity: 0.45; cursor: not-allowed; }
+.shop-item.owned { background: var(--green-light); border-color: var(--green); cursor: default; }
+
+.shop-emoji { font-size: 28px; }
+.shop-name { font-weight: 700; font-size: 14px; line-height: 1.25; }
+.shop-desc { font-size: 11px; color: var(--ink-soft); line-height: 1.4; }
+.shop-cost {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--navy);
+}
+.shop-income {
+  font-size: 10px;
+  color: var(--green);
+  font-weight: 800;
+  background: var(--green-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Results / Leaderboard ───────────────────────────────────────────── */
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--paper);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.lb-row.first { background: linear-gradient(135deg, var(--amber-light), #FFF1D0); border: 2px solid var(--amber); }
+.lb-medal { font-size: 22px; width: 32px; text-align: center; }
+.lb-name { flex: 1; font-weight: 700; }
+.lb-score { font-family: var(--ff-display); font-weight: 800; font-size: 18px; color: var(--navy); }
+
+input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--paper);
+}
+
+input[type="text"]:focus { border-color: var(--navy); }
+input[type="text"]::placeholder { color: #9AA3B2; }
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .wrap { padding: 0 14px; }
+  .scene-row { grid-template-columns: 80px 1fr; gap: 12px; }
+  .character-wrap { width: 80px; height: 110px; }
+  .speech-bubble { font-size: 14px; padding: 12px 14px; }
+  .ladder { gap: 5px; }
+  .ladder-card { padding: 5px 2px; }
+  .ladder-name { font-size: 7px; }
+  .shop-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<div id="notif" style="display:none;position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:24px;font-size:13px;font-weight:700;white-space:nowrap;z-index:99"></div>
-<div id="ptanim" style="display:none;position:absolute;top:70px;right:24px;font-size:22px;font-weight:800;z-index:99;pointer-events:none;font-family:'Lora',serif"></div>
+<div class="bg-texture"></div>
 
-<!-- INTRO -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- INTRO SCREEN                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
 <div id="s-intro" class="screen">
-  <div style="background:#1C2280;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:36px 0 32px">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-          <path d="M22 3L41 26H33V41H27V31H17V41H11V26H3L22 3Z" fill="#F5A623"/>
-          <path d="M22 9L38 28H31V41H27V33H17V41H13V28H6L22 9Z" fill="#6AAF2E" opacity="0.85"/>
-          <circle cx="22" cy="27" r="4" fill="#fff"/><rect x="20" y="30" width="4" height="6" rx="1" fill="#fff"/>
-        </svg>
+  <div class="intro-hero">
+    <div class="wrap">
+      <div class="intro-brand">
+        <div class="brand-mark">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <path d="M24 4L44 26h-8v18h-8V32H20v12h-8V26H4L24 4z" fill="#F5A623"/>
+            <path d="M24 10l16 18h-7v16h-4V32H19v12h-4V28H8L24 10z" fill="#6AAF2E" opacity="0.85"/>
+            <circle cx="24" cy="28" r="4" fill="#fff"/>
+            <rect x="22" y="31" width="4" height="6" rx="1" fill="#fff"/>
+          </svg>
+        </div>
         <div>
-          <div style="font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.45);font-weight:700;margin-bottom:2px">PASS THE KEYS®</div>
-          <div style="font-size:15px;font-weight:800;color:#fff">Host Academy</div>
+          <div style="font-size:9px;letter-spacing:0.32em;color:rgba(255,255,255,0.45);font-weight:800">PASS THE KEYS®</div>
+          <div style="font-size:15px;font-weight:800;color:#fff;margin-top:2px">Host Academy</div>
         </div>
       </div>
-      <div class="serif" style="font-size:clamp(24px,4.5vw,36px);color:#fff;line-height:1.15;margin-bottom:14px">Build London's greatest<br>short-let portfolio</div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:480px">Handle dramatic guest crises, earn rental income for great decisions, spend it on upgrades — and unlock your next property. Reach £1,000 to open Shoreditch. £2,000 for Chelsea. And so on.</p>
-      <div style="display:flex;gap:6px;margin-top:20px;flex-wrap:wrap">
-        <span class="pill" style="background:rgba(245,166,35,0.15);color:#F5A623;border:1px solid rgba(245,166,35,0.3)">5 properties</span>
-        <span class="pill" style="background:rgba(106,175,46,0.15);color:#6AAF2E;border:1px solid rgba(106,175,46,0.3)">40+ unique scenarios</span>
-        <span class="pill" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)">Income grows with upgrades</span>
+      <h1 class="serif intro-title">Build London's<br/><em>greatest</em> short-let portfolio</h1>
+      <p class="intro-lede">Handle dramatic guest crises. Earn rental income for great decisions. Spend it on upgrades that visibly transform your flat — and unlock your way up to a Kensington mansion.</p>
+      <div class="intro-stats">
+        <span class="pill" style="background:rgba(245,166,35,0.18);color:#FFD89C;border:1px solid rgba(245,166,35,0.3)">5 properties</span>
+        <span class="pill" style="background:rgba(106,175,46,0.18);color:#C0DD97;border:1px solid rgba(106,175,46,0.3)">35 scenarios</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)">Live leaderboard</span>
       </div>
     </div>
   </div>
-  <div style="max-width:640px;margin:0 auto;padding:24px 20px">
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px">
-      <div style="background:#FEF3DC;border:1px solid #FADDAA;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-1').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#C47A10;white-space:nowrap">Notting Hill</div></div>
-      <div style="background:#EAF3DE;border:1px solid #C0DD97;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-2').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#3B6D11;white-space:nowrap">Shoreditch</div></div>
-      <div style="background:#EEF0FA;border:1px solid #C5CAFE;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-3.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-3').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#1C2280;white-space:nowrap">Chelsea</div></div>
-      <div style="background:#FEF3DC;border:1px solid #FADDAA;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-4.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-4').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#C47A10;white-space:nowrap">Mayfair</div></div>
-      <div style="background:#EEF0FA;border:1px solid #C5CAFE;border-radius:12px;padding:14px 4px 12px;text-align:center"><div style="width:100%;aspect-ratio:1;border-radius:8px;overflow:hidden;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center"><img src="/images/property-5.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-5').innerHTML"></div><div style="font-size:10px;font-weight:700;color:#1C2280;white-space:nowrap">Kensington</div></div>
-    </div>
-    <div style="background:#fff;border:1px solid #E8ECF4;border-radius:14px;padding:20px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#9AA3B2;margin-bottom:8px">YOUR NAME</div>
-      <input id="nameInput" type="text" placeholder="Enter your name to begin…" style="width:100%;padding:12px 14px;border:1.5px solid #E2E6F0;border-radius:10px;font-size:14px;color:#1a1a2e;margin-bottom:12px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#1C2280'" onblur="this.style.borderColor='#E2E6F0'"/>
-      <button class="btn-primary" onclick="startGame()" style="margin-bottom:10px">Begin your hosting journey →</button>
-      <button class="btn-secondary" onclick="show('leaderboard')">View leaderboard</button>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">💷</div><div style="font-size:11px;font-weight:700;color:#1C2280">Real income</div><div style="font-size:11px;color:#9AA3B2">earn & spend</div></div>
-      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">📈</div><div style="font-size:11px;font-weight:700;color:#1C2280">Upgrades pay</div><div style="font-size:11px;color:#9AA3B2">more per answer</div></div>
-      <div style="background:#F5F7FC;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;margin-bottom:4px">🔑</div><div style="font-size:11px;font-weight:700;color:#1C2280">5 properties</div><div style="font-size:11px;color:#9AA3B2">to unlock</div></div>
+
+  <div class="wrap">
+    <div class="ladder" id="ladder"></div>
+
+    <div class="card" style="padding:22px;margin-top:14px">
+      <div class="label" style="margin-bottom:10px">Your name</div>
+      <input type="text" id="nameInput" placeholder="Enter your hosting name…" maxlength="32"/>
+      <div style="height:14px"></div>
+      <button class="btn-primary" onclick="startGame()">Begin your hosting journey →</button>
+      <div style="height:8px"></div>
+      <button class="btn-ghost" onclick="show('leaderboard')">🏆 View leaderboard</button>
     </div>
   </div>
 </div>
 
-<!-- LISTING -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- LISTING / PORTFOLIO SCREEN                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
 <div id="s-listing" class="screen hidden">
-  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:20px 0">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+  <div class="listing-header">
+    <div class="wrap">
+      <div class="listing-host">
+        <div class="host-avatar" id="lh-avatar"></div>
+        <div style="flex:1">
+          <div class="host-info-name" id="lh-name">—</div>
+          <div class="host-info-rating" id="lh-rating">—</div>
+        </div>
+      </div>
+      <div class="listing-money">
         <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#9AA3B2;margin-bottom:3px">YOUR PORTFOLIO</div>
-          <div class="serif" style="font-size:20px;color:#1a1a2e" id="lb-name">—</div>
+          <div class="listing-money-label">Hosting fund</div>
+          <div class="listing-money-amt" id="lh-pts">£0</div>
         </div>
-        <div style="text-align:right">
-          <div class="pill pill-green" id="lb-pts" style="font-size:16px">£0</div>
-          <div style="font-size:11px;color:#9AA3B2;margin-top:4px" id="lb-rating">—</div>
-        </div>
-      </div>
-      <!-- Unlock progress bar -->
-      <div id="lb-unlock-wrap" style="background:#F5F7FC;border-radius:10px;padding:10px 14px">
-        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#9AA3B2;margin-bottom:6px">
-          <span id="lb-unlock-label">Next unlock</span><span id="lb-unlock-target">—</span>
-        </div>
-        <div style="height:6px;background:#E8ECF4;border-radius:3px;overflow:hidden">
-          <div id="lb-unlock-bar" style="height:100%;width:0%;background:#6AAF2E;border-radius:3px;transition:width 0.6s"></div>
+        <div style="text-align:right" id="lh-unlock-side">
+          <div class="listing-money-label" id="lh-unlock-label">—</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px;font-weight:700" id="lh-unlock-target">—</div>
         </div>
       </div>
+      <div class="unlock-bar"><div class="unlock-bar-fill" id="lh-unlock-bar" style="width:0%"></div></div>
     </div>
   </div>
-  <div class="wrap" style="padding-top:20px">
+
+  <div class="wrap">
     <div id="listing-cards"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
-      <button class="btn-secondary" onclick="show('shop')">Upgrade shop</button>
-      <button class="btn-secondary" onclick="show('leaderboard')">Leaderboard</button>
+    <div style="display:flex;gap:8px">
+      <button class="btn-ghost" onclick="show('leaderboard')" style="flex:1">🏆 Leaderboard</button>
+      <button class="btn-ghost" onclick="if(confirm('Quit and save score?')){saveLB();show('intro');}" style="flex:1">↺ End run</button>
     </div>
   </div>
 </div>
 
-<!-- QUIZ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- QUIZ / SCENARIO SCREEN                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
 <div id="s-quiz" class="screen hidden">
-  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:18px 0 0">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;margin-bottom:2px" id="q-propname">—</div>
-          <div style="font-size:12px;color:#9AA3B2" id="q-progress">—</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="pill pill-green" id="q-pts" style="font-size:14px">£0</div>
-          <div style="font-size:11px;color:#9AA3B2;background:#F5F7FC;padding:4px 10px;border-radius:8px" id="q-bonus-badge">+£0/correct</div>
-          <button onclick="show('listing')" style="padding:6px 12px;background:#F5F7FC;border:1px solid #E2E6F0;border-radius:8px;color:#9AA3B2;font-size:11px;font-weight:700;cursor:pointer">Portfolio</button>
-        </div>
-      </div>
-      <div style="height:3px;background:#F0F2F8;border-radius:2px;overflow:hidden">
-        <div id="q-bar" style="height:100%;width:0%;background:#6AAF2E;border-radius:2px;transition:width 0.5s"></div>
-      </div>
-    </div>
-  </div>
-  <div class="wrap" style="padding-top:18px">
-    <div id="q-guest" style="display:flex;gap:12px;align-items:center;background:#F5F7FC;border:1px solid #E8ECF4;border-radius:12px;padding:14px 16px;margin-bottom:14px">
-      <div style="width:48px;height:48px;border-radius:50%;background:#EEF0FA;border:2px solid #C5CAFE;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden" id="q-guest-icon-wrap">
-        <img id="q-guest-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none">
-        <span id="q-guest-emoji">👤</span>
-      </div>
+  <div class="wrap">
+    <div class="q-header">
       <div>
-        <div style="font-size:14px;font-weight:700;color:#1a1a2e" id="q-gname">—</div>
-        <div style="font-size:12px;color:#9AA3B2" id="q-gmood">—</div>
+        <div class="overline" id="q-propname" style="color:#F5A623">—</div>
+        <div style="font-size:11px;color:#6B7280;margin-top:2px" id="q-progress">—</div>
       </div>
-      <div id="q-drama-badge" style="margin-left:auto;display:none;padding:4px 10px;background:#FCEBEB;border:1px solid #F7C1C1;border-radius:20px;font-size:11px;font-weight:700;color:#A32D2D">⚠ HIGH STAKES</div>
+      <div class="q-money" id="q-pts">£0</div>
     </div>
-    <div id="q-room-scene" style="display:none;width:100%;height:140px;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#F5F1E8">
-      <img src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
-    </div>
-    <div id="q-scenario" class="serif" style="background:#FFFBF2;border:1px solid #FADDAA;border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:15px;line-height:1.75;color:#1a1a2e;font-style:italic"></div>
-    <div id="q-options"></div>
-    <div id="q-feedback" class="hidden">
-      <div style="background:#fff;border:1px solid #E8ECF4;border-radius:12px;padding:14px 18px;margin-bottom:10px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#F5A623;margin-bottom:5px">GUEST REACTION</div>
-        <div id="q-reaction-text" style="font-size:14px;color:#1a1a2e;line-height:1.65"></div>
-      </div>
-      <div style="background:#EAF3DE;border:1px solid #C0DD97;border-radius:12px;padding:13px 16px;margin-bottom:14px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:#3B6D11;margin-bottom:4px">HOST TIP</div>
-        <div id="q-tip-text" style="font-size:13px;color:#3B6D11;line-height:1.65"></div>
-      </div>
-      <button id="q-next" class="btn-primary" onclick="nextQ()">Next scenario →</button>
-    </div>
-    <div style="background:#F5F7FC;border:1px solid #E8ECF4;border-radius:14px;padding:14px;margin-top:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:11px;font-weight:700;color:#1C2280;letter-spacing:0.1em" id="q-flat-label">—</div>
-        <button onclick="show('shop')" style="font-size:11px;padding:5px 12px;background:#FEF3DC;border:1px solid #FADDAA;border-radius:8px;color:#C47A10;font-weight:700;cursor:pointer">Upgrade shop</button>
-      </div>
-      <div id="q-flat-svg" style="border-radius:10px;overflow:hidden"></div>
-    </div>
-  </div>
-</div>
 
-<!-- RESULTS -->
-<div id="s-results" class="screen hidden">
-  <div style="background:#1C2280;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:36px 0 32px;text-align:center">
-      <div id="r-emoji" style="font-size:48px;margin-bottom:10px">💷</div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.3em;color:rgba(255,255,255,0.45);margin-bottom:6px" id="r-label">—</div>
-      <div class="serif" style="font-size:26px;color:#fff;margin-bottom:10px" id="r-title">—</div>
-      <div class="serif" style="font-size:52px;font-weight:700;color:#F5A623;margin-bottom:4px" id="r-pts">£0</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.4)" id="r-correct">—</div>
-    </div>
-  </div>
-  <div class="wrap" style="padding-top:20px">
-    <div id="r-unlock-banner" class="hidden" style="background:#EAF3DE;border:1px solid #6AAF2E;border-radius:12px;padding:16px 20px;margin-bottom:16px;text-align:center">
-      <div style="font-size:22px;margin-bottom:4px">🔓</div>
-      <div style="font-size:15px;font-weight:800;color:#3B6D11" id="r-unlock-text">New property unlocked!</div>
-    </div>
-    <div id="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px"></div>
-    <div style="background:#fff;border:1px solid #E8ECF4;border-radius:14px;padding:20px">
-      <button class="btn-orange" onclick="show('shop')" style="margin-bottom:10px">Spend income on upgrades</button>
-      <button class="btn-secondary" onclick="show('listing')" style="margin-bottom:8px">My portfolio</button>
-      <button class="btn-secondary" onclick="show('leaderboard')">Leaderboard</button>
-    </div>
-  </div>
-</div>
+    <div class="stage" id="q-stage">
+      <div id="q-drama" class="drama-flag hidden">⚡ HIGH-STAKES MOMENT</div>
 
-<!-- SHOP -->
-<div id="s-shop" class="screen hidden">
-  <div style="background:#fff;border-bottom:1px solid #E8ECF4;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:18px 0 12px;display:flex;justify-content:space-between;align-items:center">
-      <button onclick="show('listing')" style="padding:7px 13px;background:#F5F7FC;border:1px solid #E2E6F0;border-radius:8px;color:#9AA3B2;font-size:12px;font-weight:700;cursor:pointer">← Back</button>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:13px;font-weight:700;color:#9AA3B2">Upgrade shop</span>
-        <div class="pill pill-green" id="sh-pts">£0</div>
-      </div>
-    </div>
-    <div style="max-width:640px;margin:0 auto;display:flex;gap:6px;padding-bottom:14px;overflow-x:auto" id="sh-tabs"></div>
-  </div>
-  <div class="wrap" style="padding-top:20px">
-    <div style="background:#F5F7FC;border:1px solid #E8ECF4;border-radius:14px;padding:14px;margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div class="serif" style="font-size:16px;color:#1a1a2e" id="sh-propname">—</div>
-        <div>
-          <span style="font-size:12px;font-weight:700;color:#9AA3B2" id="sh-count">0/8</span>
-          <span style="font-size:11px;color:#6AAF2E;font-weight:700;margin-left:8px" id="sh-bonus-label"></span>
+      <div class="scene-row">
+        <div class="character-wrap" id="q-character">
+          <!-- Character SVG injected here -->
+        </div>
+        <div class="speech-bubble" id="q-bubble">
+          <div id="q-scenario">—</div>
         </div>
       </div>
-      <div id="sh-flat" style="border-radius:10px;overflow:hidden"></div>
+
+      <div class="mini-home" id="q-minihome"></div>
     </div>
-    <div id="sh-upgrades"></div>
-    <button class="btn-primary" onclick="startHostingShop()" style="margin-top:12px">Host at this property →</button>
+
+    <div class="options" id="q-options"></div>
+
+    <div id="q-feedback" class="hidden">
+      <div class="reaction-card">
+        <div class="label">Guest reaction</div>
+        <div class="reaction-text" id="q-reaction">—</div>
+        <div class="reaction-tip" id="q-tip">—</div>
+      </div>
+      <button class="btn-primary" onclick="nextQuestion()" id="q-next">Continue →</button>
+    </div>
+
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="btn-ghost" onclick="show('shop')" style="flex:1">🛒 Upgrade Shop</button>
+      <button class="btn-ghost" onclick="show('listing')" style="flex:1">🏠 Portfolio</button>
+    </div>
   </div>
 </div>
 
-<!-- LEADERBOARD -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SHOP SCREEN                                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+<div id="s-shop" class="screen hidden">
+  <div class="wrap">
+    <div class="q-header">
+      <div>
+        <div class="overline" style="color:#1C2280">Upgrade Shop</div>
+        <div style="font-size:11px;color:#6B7280;margin-top:2px" id="shop-prop">—</div>
+      </div>
+      <div class="q-money" id="shop-pts">£0</div>
+    </div>
+
+    <!-- Property selector tabs -->
+    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px" id="shop-tabs"></div>
+
+    <!-- Live model home preview -->
+    <div class="card" style="padding:8px;background:linear-gradient(180deg, #FFE4B0 0%, #FAF6EE 100%)">
+      <div id="shop-model"></div>
+    </div>
+
+    <div class="shop-grid" id="shop-grid"></div>
+
+    <button class="btn-ghost" onclick="show('listing')" style="margin-top:10px">← Back to portfolio</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- LEADERBOARD SCREEN                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
 <div id="s-leaderboard" class="screen hidden">
-  <div style="background:#1C2280;padding:0 20px">
-    <div style="max-width:640px;margin:0 auto;padding:32px 0 28px;text-align:center">
-      <div style="font-size:36px;margin-bottom:8px">🏆</div>
-      <div class="serif" style="font-size:26px;color:#fff">Hall of fame</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:4px">Top London hosts</div>
+  <div class="listing-header">
+    <div class="wrap">
+      <h1 class="serif" style="font-size:32px;color:#fff">🏆 Leaderboard</h1>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:6px">London's most successful short-let hosts</p>
     </div>
   </div>
-  <div class="wrap" style="padding-top:20px">
-    <div id="lb-rows" style="margin-bottom:16px"></div>
-    <button class="btn-secondary" onclick="show(G.name?'listing':'intro')">← Back</button>
+  <div class="wrap" style="margin-top:14px">
+    <div id="lb-rows"></div>
+    <button class="btn-navy" onclick="show('intro')" style="margin-top:14px">← Back</button>
   </div>
-</div>
-
-
-<!-- Hidden SVG fallbacks (used when /images/property-X.jpg fails to load) -->
-<div id="svg-fallbacks" style="display:none">
-  <div id="svg-prop-1"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FEF3DC"/><stop offset="1" stop-color="#FADDAA"/></linearGradient><linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9C2"/><stop offset="1" stop-color="#FEF3DC"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky1)"/><rect x="20" y="100" width="120" height="40" fill="#F5A623" opacity="0.15"/><rect x="40" y="60" width="80" height="80" fill="#fff" stroke="#C47A10" stroke-width="1.5"/><rect x="48" y="68" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="92" y="68" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="48" y="100" width="20" height="22" fill="#F5A623" opacity="0.3"/><rect x="74" y="106" width="12" height="34" fill="#8B4513" opacity="0.4"/><rect x="92" y="100" width="20" height="22" fill="#F5A623" opacity="0.3"/><polygon points="40,60 80,32 120,60" fill="#C47A10" opacity="0.55"/><rect x="64" y="42" width="6" height="14" fill="#8B4513" opacity="0.5"/></svg></div>
-  <div id="svg-prop-2"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D8E9C0"/><stop offset="1" stop-color="#EAF3DE"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky2)"/><rect x="14" y="50" width="132" height="90" fill="#7E5A3C" opacity="0.85"/><g stroke="#5D4426" stroke-width="0.8" opacity="0.6"><line x1="14" y1="62" x2="146" y2="62"/><line x1="14" y1="78" x2="146" y2="78"/><line x1="14" y1="94" x2="146" y2="94"/><line x1="14" y1="110" x2="146" y2="110"/><line x1="14" y1="126" x2="146" y2="126"/></g><rect x="22" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><rect x="64" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><rect x="106" y="68" width="32" height="38" fill="#1a1a2e" opacity="0.6" stroke="#3a4f1f" stroke-width="1.5"/><line x1="38" y1="68" x2="38" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="22" y1="87" x2="54" y2="87" stroke="#3a4f1f" stroke-width="1"/><line x1="80" y1="68" x2="80" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="64" y1="87" x2="96" y2="87" stroke="#3a4f1f" stroke-width="1"/><line x1="122" y1="68" x2="122" y2="106" stroke="#3a4f1f" stroke-width="1"/><line x1="106" y1="87" x2="138" y2="87" stroke="#3a4f1f" stroke-width="1"/><rect x="14" y="46" width="132" height="6" fill="#3a4f1f"/><rect x="74" y="118" width="14" height="22" fill="#1a1a2e" opacity="0.7"/></svg></div>
-  <div id="svg-prop-3"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6DAFB"/><stop offset="1" stop-color="#EEF0FA"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky3)"/><rect x="20" y="40" width="40" height="100" fill="#fff" stroke="#1C2280" stroke-width="1.2" opacity="0.95"/><rect x="60" y="32" width="40" height="108" fill="#F8F4ED" stroke="#1C2280" stroke-width="1.2"/><rect x="100" y="44" width="40" height="96" fill="#fff" stroke="#1C2280" stroke-width="1.2" opacity="0.95"/><polygon points="20,40 40,28 60,40" fill="#1C2280" opacity="0.7"/><polygon points="60,32 80,18 100,32" fill="#1C2280" opacity="0.85"/><polygon points="100,44 120,32 140,44" fill="#1C2280" opacity="0.7"/><rect x="28" y="56" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="42" y="56" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="68" y="48" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="82" y="48" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="108" y="60" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="122" y="60" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="28" y="84" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="42" y="84" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="68" y="76" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="82" y="76" width="10" height="14" fill="#1C2280" opacity="0.5"/><rect x="108" y="88" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="122" y="88" width="10" height="14" fill="#1C2280" opacity="0.4"/><rect x="74" y="108" width="12" height="32" fill="#8B4513" opacity="0.6"/><circle cx="83" cy="124" r="0.8" fill="#F5A623"/></svg></div>
-  <div id="svg-prop-4"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD89C"/><stop offset="0.6" stop-color="#FEF3DC"/><stop offset="1" stop-color="#FFFAF0"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky4)"/><circle cx="130" cy="40" r="14" fill="#F5A623" opacity="0.4"/><rect x="0" y="118" width="160" height="2" fill="#1C2280" opacity="0.2"/><rect x="0" y="120" width="160" height="40" fill="#1C2280" opacity="0.08"/><rect x="36" y="60" width="88" height="78" fill="#fff" stroke="#1C2280" stroke-width="1" opacity="0.97"/><rect x="36" y="60" width="88" height="6" fill="#F5A623" opacity="0.7"/><g fill="#1C2280" opacity="0.25"><rect x="40" y="72" width="14" height="12"/><rect x="58" y="72" width="14" height="12"/><rect x="76" y="72" width="14" height="12"/><rect x="94" y="72" width="14" height="12"/><rect x="110" y="72" width="10" height="12"/><rect x="40" y="88" width="14" height="12"/><rect x="58" y="88" width="14" height="12"/><rect x="76" y="88" width="14" height="12"/><rect x="94" y="88" width="14" height="12"/><rect x="110" y="88" width="10" height="12"/><rect x="40" y="104" width="14" height="12"/><rect x="58" y="104" width="14" height="12"/><rect x="76" y="104" width="14" height="12"/><rect x="94" y="104" width="14" height="12"/><rect x="110" y="104" width="10" height="12"/></g><rect x="36" y="120" width="88" height="18" fill="#F5A623" opacity="0.15"/><rect x="60" y="138" width="40" height="2" fill="#1C2280" opacity="0.4"/></svg></div>
-  <div id="svg-prop-5"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block"><defs><linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C5CAFE"/><stop offset="1" stop-color="#EEF0FA"/></linearGradient></defs><rect width="160" height="160" fill="url(#sky5)"/><rect x="0" y="130" width="160" height="2" fill="#1C2280" opacity="0.3"/><rect x="0" y="132" width="160" height="28" fill="#1C2280" opacity="0.05"/><rect x="20" y="40" width="120" height="92" fill="#F5F1E8" stroke="#1C2280" stroke-width="1.5"/><polygon points="20,40 80,16 140,40" fill="#1C2280" opacity="0.85"/><polygon points="40,40 80,22 120,40" fill="#3040C4" opacity="0.4"/><rect x="76" y="22" width="8" height="8" fill="#F5A623" opacity="0.7"/><circle cx="80" cy="22" r="2" fill="#F5A623"/><g fill="#1C2280" opacity="0.6"><rect x="36" y="58" width="2" height="60"/><rect x="56" y="58" width="2" height="60"/><rect x="76" y="58" width="2" height="60"/><rect x="84" y="58" width="2" height="60"/><rect x="104" y="58" width="2" height="60"/><rect x="124" y="58" width="2" height="60"/></g><rect x="34" y="56" width="94" height="4" fill="#1C2280" opacity="0.7"/><rect x="34" y="118" width="94" height="4" fill="#1C2280" opacity="0.7"/><rect x="44" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="64" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="86" y="68" width="10" height="46" fill="#1C2280" opacity="0.3"/><rect x="106" y="68" width="14" height="46" fill="#1C2280" opacity="0.35"/><rect x="74" y="100" width="14" height="32" fill="#3040C4" opacity="0.6" stroke="#1C2280" stroke-width="0.8"/><circle cx="84" cy="116" r="0.8" fill="#F5A623"/></svg></div>
 </div>
 
 <script>
-const UNLOCK_THRESHOLDS=[0,1000,2000,4000,8000];
-const PROP_NAMES=["Notting Hill","Shoreditch","Chelsea","Mayfair","Kensington"];
-
-const RATINGS=[
-  {min:-99999,max:0,label:"Hosting disaster",emoji:"🔥"},
-  {min:1,max:499,label:"Accidental host",emoji:"😅"},
-  {min:500,max:999,label:"Getting there",emoji:"🏠"},
-  {min:1000,max:1999,label:"Solid host",emoji:"⭐"},
-  {min:2000,max:3999,label:"Superhost",emoji:"🌟"},
-  {min:4000,max:7999,label:"Elite host",emoji:"💎"},
-  {min:8000,max:999999,label:"Legendary host",emoji:"🏆"},
-];
-function getRat(s){return RATINGS.find(r=>s>=r.min&&s<=r.max)||RATINGS[0];}
-
-// ─── Character avatar mapping ────────────────────────────────────────────────
-// Maps each guest mood emoji to one of 4 character avatar files.
-// If the file is missing, falls back to showing the emoji.
-const MOOD_TO_AVATAR = {
-  // Anxious / disappointed / worried
-  '😟':'anxious','😐':'anxious','😕':'anxious','😤':'anxious','😡':'anxious',
-  '😬':'anxious','🚬':'anxious','🌿':'anxious','😓':'anxious','🌊':'anxious',
-  // Happy / sociable / excited
-  '😄':'happy','🥰':'happy','😊':'happy','🎉':'happy','🍽️':'happy',
-  '🤷':'happy','🦚':'happy','📸':'happy',
-  // Corporate / formal / professional
-  '💼':'corporate','💻':'corporate','🎩':'corporate','🎥':'corporate',
-  '👑':'corporate','🎬':'corporate','💎':'corporate','🎨':'corporate',
-  '🏁':'corporate','🕶️':'corporate','🧐':'corporate','😶':'corporate',
-};
-function getAvatarFor(emoji){
-  const key = MOOD_TO_AVATAR[emoji] || 'anxious';
-  return `/images/guest-${key}.png`;
-}
-
-// ─── Room scene mapping by scenario keywords ─────────────────────────────────
-// Picks the most appropriate room background based on words in the scenario.
-const ROOM_KEYWORDS = [
-  { match: /party|loud|noise|music|drunk|neighbour|police/i, scene: 'party' },
-  { match: /bed|sleep|pillow|mattress|night/i, scene: 'bedroom' },
-  { match: /kitchen|coffee|cook|smoke|smell/i, scene: 'kitchen' },
-  { match: /shower|bath|water|toilet|boiler/i, scene: 'bathroom' },
-  { match: /check.?in|arrive|key|lock|door/i, scene: 'arrival' },
-];
-function getRoomFor(scenario){
-  for(const r of ROOM_KEYWORDS){ if(r.match.test(scenario)) return `/images/room-${r.scene}.png`; }
-  return '/images/room-living.png';
-}
-
-
+/* DATA INSERTION POINT - filled in by build script */
 const PROPS=[
   {id:1,name:"The Notting Hill Studio",short:"Notting Hill",type:"1 bed · Sleeps 4",emoji:"🏚️",col:"#F5A623",light:"#FEF3DC",border:"#FADDAA",
    desc:"A cosy ground-floor flat behind Portobello Road. Original 1970s fixtures, a temperamental boiler, squeaky floorboards. Enormous potential.",
@@ -585,366 +1341,1075 @@ const ALL_QUESTIONS = {
     ],tip:"Unauthorised structures on your property — even temporary ones — can trigger planning enforcement. Always have pre-approved event terms in your welcome guide."},
   ],
 };
+/* CHARACTER SYSTEM */
+// ─── CHARACTER SYSTEM ────────────────────────────────────────────────────────
+// SVG-based animated characters with mood-driven expressions.
+// Each character has: head, eyes (can blink), mouth (can speak/frown/smile),
+// body, optional accessories. All in one SVG.
 
-const G={name:"",pts:0,upgrades:{1:[],2:[],3:[],4:[],5:[]},activeProp:1,curQ:0,answers:[],shopProp:1,lb:[],usedQ:{1:[],2:[],3:[],4:[],5:[]}};
+// Character archetypes — each scenario maps to one of these
+// based on the guest mood emoji. Skin tones / hair cycle for variety.
 
-function getIncomeBonus(propId){
-  const owned=G.upgrades[propId]||[];
-  const p=PROPS.find(x=>x.id===propId);
-  return owned.reduce((sum,uid)=>{const u=p.upgrades.find(x=>x.id===uid);return sum+(u?u.income:0);},0);
-}
+const CHARACTER_TYPES = {
+  // mood key -> archetype config
+  anxious:   { skin: '#F5C9A0', hair: '#3D2817', bodyColor: '#6B7AA8', accent: '#E2845E' },
+  angry:     { skin: '#F5B591', hair: '#1F1611', bodyColor: '#9C3F36', accent: '#D4423A' },
+  happy:     { skin: '#F2D2AC', hair: '#704020', bodyColor: '#6AAF2E', accent: '#F5A623' },
+  excited:   { skin: '#EBC9A1', hair: '#A45A2E', bodyColor: '#F5A623', accent: '#1C2280' },
+  corporate: { skin: '#F5C9A0', hair: '#2A2A2A', bodyColor: '#1C2280', accent: '#C5CAFE' },
+  formal:    { skin: '#E8C29B', hair: '#9C9DAB', bodyColor: '#2A2D54', accent: '#B5A66A' },
+  influencer:{ skin: '#F8D4AE', hair: '#D4A574', bodyColor: '#E91E63', accent: '#FFB300' },
+  party:     { skin: '#F2C5A0', hair: '#704020', bodyColor: '#9C27B0', accent: '#FFEB3B' },
+  oblivious: { skin: '#F5D2B0', hair: '#5C3A1F', bodyColor: '#8E9AB5', accent: '#A88E70' },
+  silent:    { skin: '#EBC8A4', hair: '#3A3A3A', bodyColor: '#607D8B', accent: '#90A4AE' },
+};
 
-function getBaseIncome(propId){return [80,140,220,350,500][propId-1];}
+// Emoji-to-archetype lookup (matches mood emojis used in scenarios)
+const MOOD_TO_TYPE = {
+  '😟':'anxious', '😐':'anxious', '😕':'anxious', '😬':'anxious', '😓':'anxious',
+  '😡':'angry', '😤':'angry', '🚬':'angry',
+  '😄':'happy', '😊':'happy', '🥰':'happy', '🦚':'happy',
+  '🎉':'party', '🍽️':'party',
+  '💼':'corporate', '💻':'corporate', '🧐':'corporate', '🤷':'silent',
+  '👑':'formal', '🎩':'formal', '🎨':'formal', '💎':'formal', '🏁':'formal',
+  '📸':'influencer', '🎬':'influencer', '🎥':'influencer', '🌊':'influencer',
+  '😶':'oblivious', '😅':'oblivious', '😞':'anxious',
+  '🌿':'angry', '🕶️':'corporate',
+};
 
-function getCurrentIncome(propId){return getBaseIncome(propId)+getIncomeBonus(propId);}
+function getCharType(emoji){ return MOOD_TO_TYPE[emoji] || 'anxious'; }
 
-function getUnlockedCount(){
-  let count=1;
-  for(let i=1;i<5;i++){if(G.pts>=UNLOCK_THRESHOLDS[i])count=i+1;}
-  return count;
-}
+// Render a single character SVG
+// state: 'neutral' | 'complaining' | 'happy' | 'angry' | 'shocked' | 'sad'
+// size: pixel width
+function renderCharacter(emoji, state = 'neutral', size = 160){
+  const type = getCharType(emoji);
+  const c = CHARACTER_TYPES[type];
 
-function isUnlocked(id){return G.pts>=UNLOCK_THRESHOLDS[id-1];}
-
-function getNextUnlock(){
-  for(let i=1;i<=4;i++){if(G.pts<UNLOCK_THRESHOLDS[i])return{propId:i+1,threshold:UNLOCK_THRESHOLDS[i]};}
-  return null;
-}
-
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
-  document.getElementById('s-'+id).classList.remove('hidden');
-  if(id==='listing')renderListing();
-  if(id==='shop')renderShop();
-  if(id==='leaderboard')renderLB();
-}
-
-function startGame(){
-  const n=document.getElementById('nameInput').value.trim();
-  if(!n)return;
-  G.name=n;G.pts=0;G.upgrades={1:[],2:[],3:[],4:[],5:[]};
-  G.usedQ={1:[],2:[],3:[],4:[],5:[]};G.activeProp=1;
-  show('listing');
-}
-
-function getRat(s){return RATINGS.find(r=>s>=r.min&&s<=r.max)||RATINGS[0];}
-
-function pickQuestion(propId){
-  const qs=ALL_QUESTIONS[propId];
-  const used=G.usedQ[propId]||[];
-  const available=qs.filter((_,i)=>!used.includes(i));
-  if(available.length===0){G.usedQ[propId]=[];return qs[Math.floor(Math.random()*qs.length)];}
-  const picked=available[Math.floor(Math.random()*available.length)];
-  const idx=qs.indexOf(picked);
-  G.usedQ[propId]=[...used,idx];
-  return picked;
-}
-
-function renderFlatSVG(propId,w,h){
-  w=w||580;h=h||110;
-  const p=PROPS.find(x=>x.id===propId);
-  const owned=G.upgrades[propId]||[];
-  const col=p.col;
-  const pct=owned.length/p.upgrades.length;
-  const POS={
-    fast_wifi:{x:85,y:12},fast_wifi_2:{x:85,y:12},smart_tv:{x:55,y:10},smart_tv_2:{x:55,y:10},
-    coffee_machine:{x:8,y:42},premium_bedding:{x:28,y:60},air_purifier:{x:5,y:20},
-    artwork:{x:42,y:8},boiler:{x:88,y:42},smart_lock:{x:90,y:60},
-    record_player:{x:68,y:55},dishwasher:{x:10,y:55},heating_fix:{x:88,y:42},
-    bathroom_reno:{x:78,y:55},rooftop:{x:50,y:5},second_bed:{x:20,y:58},
-    kitchen_reno:{x:8,y:48},garden_land:{x:20,y:70},smart_home:{x:85,y:20},
-    cinema:{x:60,y:60},lux_baths:{x:75,y:58},concierge:{x:35,y:70},
-    gym:{x:15,y:62},wine_fridge:{x:22,y:42},smart_home_2:{x:85,y:20},
-    home_cinema:{x:60,y:60},chef_kitchen:{x:8,y:48},spa_bath:{x:75,y:55},
-    butler:{x:50,y:30},transfer:{x:50,y:5},art:{x:40,y:8},wine_cellar:{x:22,y:42},
-    michelin:{x:8,y:48},cinema20:{x:60,y:60},pool:{x:35,y:65},full_butler:{x:50,y:30},
-    helipad:{x:50,y:5},art_gallery:{x:40,y:8},studio:{x:75,y:50},vault:{x:88,y:55},
+  // Mouth shapes per state
+  const mouths = {
+    neutral:    `<path d="M 70 105 Q 80 108 90 105" fill="none" stroke="#3D2817" stroke-width="2.5" stroke-linecap="round"/>`,
+    happy:      `<path d="M 65 100 Q 80 115 95 100" fill="#3D2817" stroke="#3D2817" stroke-width="2"/>`,
+    angry:      `<path d="M 65 110 Q 80 100 95 110" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/>`,
+    shocked:    `<ellipse cx="80" cy="106" rx="6" ry="9" fill="#3D2817"/>`,
+    sad:        `<path d="M 65 110 Q 80 100 95 110" fill="none" stroke="#3D2817" stroke-width="2.5" stroke-linecap="round"/>`,
+    complaining:`<ellipse class="char-mouth-talk" cx="80" cy="108" rx="8" ry="6" fill="#3D2817"/>`,
   };
-  let items='';
-  owned.forEach(uid=>{
-    const up=p.upgrades.find(u=>u.id===uid);
-    const po=POS[uid];
-    if(up&&po)items+=`<text x="${(po.x/100)*w}" y="${(po.y/100)*h}" font-size="14" text-anchor="middle" dominant-baseline="middle">${up.emoji}</text>`;
-  });
-  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;border-radius:8px;background:${p.light}">
-    <rect x="${w*0.3}" y="${h*0.08}" width="${w*0.12}" height="${h*0.55}" fill="${col}" opacity="0.12" rx="2"/>
-    <line x1="${w*0.3}" y1="${h*0.08}" x2="${w*0.42}" y2="${h*0.08}" stroke="${col}" stroke-width="0.5" opacity="0.3"/>
-    <line x1="${w*0.36}" y1="${h*0.08}" x2="${w*0.36}" y2="${h*0.63}" stroke="${col}" stroke-width="0.5" opacity="0.3"/>
-    <rect x="${w*0.18}" y="${h*0.5}" width="${w*0.28}" height="${h*0.12}" fill="${col}" opacity="0.2" rx="3"/>
-    <rect x="${w*0.18}" y="${h*0.38}" width="${w*0.28}" height="${h*0.12}" fill="${col}" opacity="0.15" rx="3 3 0 0"/>
-    <rect x="${w*0.2}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
-    <rect x="${w*0.29}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
-    <rect x="${w*0.38}" y="${h*0.52}" width="${w*0.07}" height="${h*0.1}" fill="${col}" opacity="0.2" rx="1"/>
-    <rect x="0" y="${h*0.9}" width="${pct*w}" height="${h*0.08}" fill="${col}" opacity="0.5" rx="0"/>
-    ${owned.length===0?`<text x="${w/2}" y="${h/2}" font-size="28" text-anchor="middle" dominant-baseline="middle" opacity="0.15">${p.emoji}</text>`:''}
-    ${items}
+
+  // Eyebrow shapes
+  const brows = {
+    neutral:    `<rect x="58" y="74" width="14" height="3" rx="1.5" fill="#3D2817"/><rect x="88" y="74" width="14" height="3" rx="1.5" fill="#3D2817"/>`,
+    happy:      `<path d="M 58 78 Q 65 72 72 78" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/><path d="M 88 78 Q 95 72 102 78" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/>`,
+    angry:      `<path d="M 56 76 L 74 80" stroke="#3D2817" stroke-width="4" stroke-linecap="round"/><path d="M 86 80 L 104 76" stroke="#3D2817" stroke-width="4" stroke-linecap="round"/>`,
+    shocked:    `<rect x="56" y="68" width="14" height="3" rx="1.5" fill="#3D2817"/><rect x="90" y="68" width="14" height="3" rx="1.5" fill="#3D2817"/>`,
+    sad:        `<path d="M 58 72 Q 65 78 72 76" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/><path d="M 88 76 Q 95 78 102 72" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/>`,
+    complaining:`<path d="M 56 76 L 74 80" stroke="#3D2817" stroke-width="4" stroke-linecap="round"/><path d="M 86 80 L 104 76" stroke="#3D2817" stroke-width="4" stroke-linecap="round"/>`,
+  };
+
+  // Cheek blush (for angry / shocked)
+  const cheeks = (state === 'angry' || state === 'complaining' || state === 'shocked')
+    ? `<circle cx="55" cy="98" r="6" fill="#E2845E" opacity="0.5"/><circle cx="105" cy="98" r="6" fill="#E2845E" opacity="0.5"/>`
+    : '';
+
+  // Tears for sad
+  const tears = state === 'sad'
+    ? `<ellipse cx="62" cy="92" rx="2" ry="4" fill="#5BC0EB" opacity="0.7"><animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/></ellipse>`
+    : '';
+
+  // Steam puffs for angry
+  const steam = (state === 'angry' || state === 'complaining')
+    ? `<g class="char-steam">
+         <circle cx="40" cy="50" r="4" fill="#fff" opacity="0.8"/>
+         <circle cx="120" cy="48" r="5" fill="#fff" opacity="0.7"/>
+         <circle cx="35" cy="38" r="3" fill="#fff" opacity="0.6"/>
+       </g>`
+    : '';
+
+  // Hair styles (simple variations by archetype)
+  let hair = '';
+  if (type === 'formal') {
+    hair = `<path d="M 40 65 Q 80 25 120 65 L 120 75 Q 80 50 40 75 Z" fill="${c.hair}"/>`;
+  } else if (type === 'influencer') {
+    hair = `<path d="M 38 68 Q 35 35 80 28 Q 125 35 122 68 Q 122 80 110 75 Q 80 55 50 75 Q 38 80 38 68 Z" fill="${c.hair}"/>
+            <circle cx="38" cy="80" r="14" fill="${c.hair}"/><circle cx="122" cy="80" r="14" fill="${c.hair}"/>`;
+  } else if (type === 'corporate') {
+    hair = `<path d="M 42 70 Q 50 32 80 30 Q 110 32 118 70 Q 110 55 80 52 Q 50 55 42 70 Z" fill="${c.hair}"/>`;
+  } else if (type === 'angry' || type === 'party') {
+    hair = `<path d="M 40 70 Q 45 28 80 32 Q 115 28 120 70 Q 115 60 80 55 Q 45 60 40 70 Z" fill="${c.hair}"/>
+            <path d="M 65 35 L 70 22 L 75 35 Z M 85 35 L 90 22 L 95 35 Z" fill="${c.hair}"/>`;
+  } else {
+    hair = `<path d="M 42 72 Q 48 38 80 38 Q 112 38 118 72 Q 105 60 80 60 Q 55 60 42 72 Z" fill="${c.hair}"/>`;
+  }
+
+  // Body / shirt
+  const body = `<path d="M 30 200 Q 30 145 80 145 Q 130 145 130 200 L 130 220 L 30 220 Z" fill="${c.bodyColor}"/>
+                <path d="M 65 145 Q 80 160 95 145" fill="${c.skin}"/>`;
+
+  // Collar / accessory based on type
+  let collar = '';
+  if (type === 'corporate' || type === 'formal') {
+    collar = `<path d="M 70 145 L 80 165 L 90 145 L 88 175 L 72 175 Z" fill="#fff"/>
+              <path d="M 76 165 L 80 172 L 84 165 L 82 178 L 78 178 Z" fill="${c.accent}"/>`;
+  } else if (type === 'influencer') {
+    collar = `<circle cx="80" cy="155" r="4" fill="${c.accent}"/><circle cx="80" cy="168" r="3" fill="${c.accent}"/>`;
+  }
+
+  return `<svg viewBox="0 0 160 220" width="${size}" height="${size * 220/160}" xmlns="http://www.w3.org/2000/svg" class="char-svg char-state-${state}">
+    ${steam}
+    ${body}
+    ${collar}
+    <!-- Neck -->
+    <rect x="68" y="135" width="24" height="18" fill="${c.skin}"/>
+    <!-- Head -->
+    <ellipse cx="80" cy="95" rx="42" ry="50" fill="${c.skin}"/>
+    <!-- Ears -->
+    <ellipse cx="40" cy="98" rx="6" ry="10" fill="${c.skin}"/>
+    <ellipse cx="120" cy="98" rx="6" ry="10" fill="${c.skin}"/>
+    <!-- Hair -->
+    ${hair}
+    <!-- Eyes -->
+    <ellipse class="char-eye" cx="65" cy="92" rx="4" ry="5" fill="#3D2817"/>
+    <ellipse class="char-eye" cx="95" cy="92" rx="4" ry="5" fill="#3D2817"/>
+    <!-- Eye whites -->
+    <circle cx="66" cy="91" r="1.2" fill="#fff"/>
+    <circle cx="96" cy="91" r="1.2" fill="#fff"/>
+    <!-- Eyebrows -->
+    ${brows[state] || brows.neutral}
+    <!-- Cheeks -->
+    ${cheeks}
+    <!-- Mouth -->
+    ${mouths[state] || mouths.neutral}
+    <!-- Tears -->
+    ${tears}
   </svg>`;
 }
 
-function renderListing(){
-  document.getElementById('lb-name').textContent=G.name;
-  document.getElementById('lb-pts').textContent=`£${G.pts.toLocaleString()}`;
-  const r=getRat(G.pts);
-  document.getElementById('lb-rating').textContent=`${r.emoji} ${r.label}`;
-  const next=getNextUnlock();
-  if(next){
-    const pct=Math.min(100,Math.round((G.pts/next.threshold)*100));
-    document.getElementById('lb-unlock-label').textContent=`Next unlock: ${PROPS.find(p=>p.id===next.propId).short}`;
-    document.getElementById('lb-unlock-target').textContent=`£${G.pts.toLocaleString()} / £${next.threshold.toLocaleString()}`;
-    document.getElementById('lb-unlock-bar').style.width=pct+'%';
-    document.getElementById('lb-unlock-wrap').style.display='block';
-  } else {
-    document.getElementById('lb-unlock-wrap').style.display='none';
+// Render the host character (you, the player) - always smiling
+function renderHost(rating, size = 100){
+  const isLegend = rating.score >= 8000;
+  const isElite = rating.score >= 4000;
+  const skin = '#F5C9A0';
+  const accent = isLegend ? '#FFD700' : isElite ? '#1C2280' : '#6AAF2E';
+  return `<svg viewBox="0 0 160 220" width="${size}" height="${size * 220/160}" xmlns="http://www.w3.org/2000/svg" class="char-svg">
+    <!-- Body -->
+    <path d="M 30 200 Q 30 145 80 145 Q 130 145 130 200 L 130 220 L 30 220 Z" fill="#1C2280"/>
+    <!-- PTK Logo on shirt -->
+    <circle cx="80" cy="180" r="10" fill="${accent}"/>
+    <text x="80" y="184" font-size="11" font-weight="800" text-anchor="middle" fill="#fff">P</text>
+    <rect x="68" y="135" width="24" height="18" fill="${skin}"/>
+    <ellipse cx="80" cy="95" rx="42" ry="50" fill="${skin}"/>
+    <ellipse cx="40" cy="98" rx="6" ry="10" fill="${skin}"/>
+    <ellipse cx="120" cy="98" rx="6" ry="10" fill="${skin}"/>
+    <path d="M 42 72 Q 48 38 80 38 Q 112 38 118 72 Q 105 60 80 60 Q 55 60 42 72 Z" fill="#704020"/>
+    <ellipse class="char-eye" cx="65" cy="92" rx="4" ry="5" fill="#3D2817"/>
+    <ellipse class="char-eye" cx="95" cy="92" rx="4" ry="5" fill="#3D2817"/>
+    <circle cx="66" cy="91" r="1.2" fill="#fff"/>
+    <circle cx="96" cy="91" r="1.2" fill="#fff"/>
+    <path d="M 58 78 Q 65 72 72 78" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 88 78 Q 95 72 102 78" fill="none" stroke="#3D2817" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 65 100 Q 80 115 95 100" fill="#3D2817" stroke="#3D2817" stroke-width="2"/>
+    ${isLegend ? '<polygon points="80,32 75,42 65,42 73,50 70,60 80,55 90,60 87,50 95,42 85,42" fill="#FFD700" stroke="#B8860B" stroke-width="1"/>' : ''}
+  </svg>`;
+}
+
+/* MODEL HOME SYSTEM */
+// ─── MODEL HOME SYSTEM v2 ────────────────────────────────────────────────────
+// Each property has a unique cross-section model that grows as upgrades are bought.
+// Bigger rooms, clearer items, real visual interest.
+
+// Render the property's model home with currently-owned upgrades dropped in
+function renderModelHome(propId, ownedUpgrades, width = 600){
+  const property = PROPS.find(p => p.id === propId);
+  const owned = ownedUpgrades[propId] || [];
+  const wallColor = property.col;
+  const floorColor = property.light;
+
+  // Layout
+  const numRooms = propId; // 1..5
+  const aspect = 0.6;
+  const height = Math.round(width * aspect);
+
+  // Each room is bigger now. Use horizontal bands.
+  const padding = 16;
+  const totalRoomWidth = width - padding * 2;
+  const roomGap = 6;
+  const roomW = (totalRoomWidth - roomGap * (numRooms - 1)) / numRooms;
+  const roomH = height - 80;
+  const baseY = height - 30;
+
+  let svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" class="model-home" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="sky-${propId}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFE9C2"/>
+        <stop offset="1" stop-color="#FFFAF0"/>
+      </linearGradient>
+      <radialGradient id="warmlight-${propId}" cx="0.5" cy="0.3" r="0.7">
+        <stop offset="0" stop-color="#FFD89C" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#FFD89C" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="${width}" height="${height}" fill="url(#sky-${propId})"/>
+    <rect width="${width}" height="${height}" fill="url(#warmlight-${propId})"/>`;
+
+  // Atmospheric backdrops by tier
+  if (propId === 1) {
+    svg += `<circle cx="${width - 60}" cy="40" r="20" fill="#F5A623" opacity="0.5"/>
+            <circle cx="${width - 60}" cy="40" r="14" fill="#F5A623" opacity="0.7"/>`;
+  } else if (propId === 4) {
+    svg += `<circle cx="${width - 80}" cy="50" r="14" fill="#F5A623" opacity="0.4"/>
+            <circle cx="${width - 80}" cy="50" r="9" fill="#F5A623"/>`;
+    for (let i = 0; i < 8; i++) {
+      const sx = i * (width / 8);
+      const sh = 30 + (i * 13) % 40;
+      svg += `<rect x="${sx}" y="${baseY - roomH - 30 - sh}" width="${width/8 - 4}" height="${sh}" fill="${wallColor}" opacity="0.15"/>`;
+    }
+  } else if (propId === 5) {
+    svg += `<ellipse cx="100" cy="40" rx="36" ry="10" fill="#fff" opacity="0.7"/>
+            <ellipse cx="${width - 120}" cy="55" rx="30" ry="8" fill="#fff" opacity="0.6"/>
+            <circle cx="${width - 70}" cy="35" r="12" fill="#F5A623" opacity="0.6"/>`;
+  } else if (propId === 2) {
+    // Shoreditch - urban backdrop
+    for (let i = 0; i < 5; i++) {
+      const sx = 40 + i * (width / 5.5);
+      const sh = 25 + (i * 7) % 30;
+      svg += `<rect x="${sx}" y="${baseY - roomH - 20 - sh}" width="${width/6}" height="${sh}" fill="${wallColor}" opacity="0.18"/>`;
+    }
+  } else if (propId === 3) {
+    // Chelsea - trees in background
+    svg += `<circle cx="60" cy="${baseY - roomH - 5}" r="22" fill="#6AAF2E" opacity="0.4"/>
+            <circle cx="${width - 60}" cy="${baseY - roomH - 8}" r="18" fill="#6AAF2E" opacity="0.4"/>`;
   }
-  const el=document.getElementById('listing-cards');el.innerHTML='';
-  PROPS.forEach(p=>{
-    const locked=!isUnlocked(p.id);
-    const owned=G.upgrades[p.id]||[];
-    const pct=Math.round((owned.length/p.upgrades.length)*100);
-    const income=getCurrentIncome(p.id);
-    const threshold=UNLOCK_THRESHOLDS[p.id-1];
-    const card=document.createElement('div');
-    card.style.cssText=`background:#fff;border:1px solid ${locked?'#E8ECF4':p.border};border-radius:14px;overflow:hidden;margin-bottom:12px;opacity:${locked?0.45:1}`;
-    card.innerHTML=`
-      <div style="height:3px;background:${locked?'#E8ECF4':p.col}"></div>
-      <div style="padding:18px 20px 14px">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-          <div style="flex:1">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:${locked?'#9AA3B2':p.col}">${locked?`LOCKED — EARN £${threshold.toLocaleString()}`:'ACTIVE PROPERTY'}</div>
-              ${!locked?`<div style="font-size:10px;font-weight:700;background:${p.light};color:${p.col};border:1px solid ${p.border};padding:2px 8px;border-radius:10px">+£${income}/correct</div>`:''}
-            </div>
-            <div style="font-size:17px;font-weight:800;color:#1a1a2e;font-family:'Lora',serif;margin-bottom:2px">${p.name}</div>
-            <div style="font-size:12px;color:#9AA3B2">${p.type} · ${p.short}</div>
+
+  // Ground / pavement
+  svg += `<line x1="0" y1="${baseY + 8}" x2="${width}" y2="${baseY + 8}" stroke="${wallColor}" stroke-width="1.5" opacity="0.3"/>
+          <rect x="0" y="${baseY + 8}" width="${width}" height="${height - baseY - 8}" fill="${wallColor}" opacity="0.05"/>`;
+
+  // Draw each room
+  for (let i = 0; i < numRooms; i++) {
+    const rx = padding + i * (roomW + roomGap);
+    const ry = baseY - roomH;
+
+    // Floor strip
+    svg += `<rect x="${rx}" y="${baseY - 6}" width="${roomW}" height="6" fill="${wallColor}" opacity="0.4"/>`;
+
+    // Back wall (the "inside" of the room — front-facing cross-section view)
+    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="${floorColor}" opacity="0.85"/>`;
+
+    // Subtle wall texture
+    svg += `<line x1="${rx}" y1="${ry + roomH * 0.7}" x2="${rx + roomW}" y2="${ry + roomH * 0.7}" stroke="${wallColor}" stroke-width="0.5" opacity="0.2"/>`;
+
+    // Outline frame
+    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="none" stroke="${wallColor}" stroke-width="1.5" opacity="0.5"/>`;
+
+    // Window in back wall
+    const winW = roomW * 0.45;
+    const winH = roomH * 0.4;
+    const winX = rx + (roomW - winW) / 2;
+    const winY = ry + roomH * 0.18;
+    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="#B8E3FF" stroke="${wallColor}" stroke-width="1.2"/>
+            <rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#sky-${propId})" opacity="0.5"/>
+            <line x1="${winX + winW/2}" y1="${winY}" x2="${winX + winW/2}" y2="${winY + winH}" stroke="${wallColor}" stroke-width="1.2"/>
+            <line x1="${winX}" y1="${winY + winH/2}" x2="${winX + winW}" y2="${winY + winH/2}" stroke="${wallColor}" stroke-width="1.2"/>
+            <rect x="${winX}" y="${winY + winH}" width="${winW}" height="3" fill="${wallColor}" opacity="0.6"/>`;
+
+    // Skirting board
+    svg += `<rect x="${rx}" y="${baseY - 12}" width="${roomW}" height="3" fill="${wallColor}" opacity="0.6"/>`;
+
+    // Items in this room
+    const itemsForRoom = getUpgradesForRoom(propId, owned, i, numRooms);
+    const roomBox = { x: rx, y: ry, w: roomW, h: roomH, baseY, propId };
+    itemsForRoom.forEach((upg, idx) => {
+      svg += renderItemInRoom(upg, roomBox, idx, itemsForRoom.length);
+    });
+
+    // Empty room indicator
+    if (itemsForRoom.length === 0) {
+      svg += `<text x="${rx + roomW/2}" y="${baseY - 15}" font-size="10" font-weight="700" text-anchor="middle" fill="${wallColor}" opacity="0.3">empty</text>`;
+    }
+  }
+
+  return svg + '</svg>';
+}
+
+// Distribute owned upgrades across rooms based on item type
+function getUpgradesForRoom(propId, ownedIds, roomIndex, totalRooms) {
+  const property = PROPS.find(p => p.id === propId);
+  const ownedUpgrades = ownedIds.map(id => property.upgrades.find(u => u.id === id)).filter(Boolean);
+
+  const livingItems = ['fast_wifi','fast_wifi_2','smart_tv','smart_tv_2','artwork','art','art_collection','art_gallery','smart_lock','smart_home','smart_home_2','record_player','cinema','home_cinema','private_cinema','cinema20','full_smart_home'];
+  const bedroomItems = ['premium_bedding','second_bed','heating_fix','boiler','air_purifier'];
+  const kitchenItems = ['coffee_machine','dishwasher','wine_fridge','wine_cellar','chef_kitchen','kitchen_reno','michelin_kitchen'];
+  const bathroomItems = ['bathroom_reno','lux_baths','spa_bath'];
+  const outdoorItems = ['rooftop','garden_land','pool','helipad','helipad_transfer','transfer'];
+  const serviceItems = ['concierge','butler','full_butler','vault','recording_studio','studio','gym'];
+
+  const roomBuckets = [];
+  for (let i = 0; i < totalRooms; i++) roomBuckets.push([]);
+
+  ownedUpgrades.forEach(upg => {
+    let preferredRoom = 0;
+    if (livingItems.includes(upg.id)) preferredRoom = 0;
+    else if (bedroomItems.includes(upg.id)) preferredRoom = Math.min(1, totalRooms - 1);
+    else if (kitchenItems.includes(upg.id)) preferredRoom = Math.min(2, totalRooms - 1);
+    else if (bathroomItems.includes(upg.id)) preferredRoom = Math.min(3, totalRooms - 1);
+    else if (outdoorItems.includes(upg.id)) preferredRoom = totalRooms - 1;
+    else if (serviceItems.includes(upg.id)) preferredRoom = Math.min(2, totalRooms - 1);
+    roomBuckets[preferredRoom].push(upg);
+  });
+
+  return roomBuckets[roomIndex] || [];
+}
+
+// Map upgrade IDs to slot types
+const ITEM_SLOT_TYPE = {
+  fast_wifi: 'router', fast_wifi_2: 'router',
+  smart_tv: 'tv', smart_tv_2: 'tv',
+  coffee_machine: 'coffee',
+  premium_bedding: 'bed', second_bed: 'bed',
+  smart_lock: 'lock',
+  air_purifier: 'air_purifier',
+  artwork: 'art', art: 'art', art_collection: 'art', art_gallery: 'art',
+  boiler: 'boiler', heating_fix: 'boiler',
+  dishwasher: 'dishwasher',
+  bathroom_reno: 'bath', lux_baths: 'bath', spa_bath: 'bath',
+  record_player: 'record_player',
+  rooftop: 'rooftop',
+  kitchen_reno: 'kitchen_full', chef_kitchen: 'kitchen_full', michelin_kitchen: 'kitchen_full',
+  garden_land: 'plant',
+  smart_home: 'smart_panel', smart_home_2: 'smart_panel', full_smart_home: 'smart_panel',
+  cinema: 'screen', home_cinema: 'screen', private_cinema: 'screen', cinema20: 'screen',
+  concierge: 'butler', butler: 'butler', full_butler: 'butler',
+  gym: 'gym',
+  wine_fridge: 'wine', wine_cellar: 'wine',
+  transfer: 'helicopter', helipad_transfer: 'helicopter',
+  helipad: 'helipad',
+  pool: 'pool',
+  recording_studio: 'studio', studio: 'studio',
+  vault: 'safe',
+};
+
+// Each upgrade renders as a substantial visual element inside the room
+function renderItemInRoom(upg, room, index, total){
+  const { x, y, w, h, baseY } = room;
+  const slot = ITEM_SLOT_TYPE[upg.id] || 'floor_object';
+
+  switch(slot){
+    case 'tv': {
+      const tvW = w * 0.55, tvH = h * 0.32;
+      const tvX = x + (w - tvW) / 2, tvY = y + h * 0.22;
+      return `<g class="item-pop">
+        <rect x="${tvX}" y="${tvY}" width="${tvW}" height="${tvH}" fill="#1a1a2e" stroke="#444" stroke-width="2" rx="3"/>
+        <rect x="${tvX + 4}" y="${tvY + 4}" width="${tvW - 8}" height="${tvH - 8}" fill="#3a4a8a" opacity="0.85"/>
+        <circle cx="${tvX + tvW/2}" cy="${tvY + tvH/2}" r="${tvH * 0.2}" fill="#F5A623" opacity="0.7"/>
+        <text x="${tvX + tvW/2}" y="${tvY + tvH/2 + 5}" font-size="14" text-anchor="middle">📺</text>
+      </g>`;
+    }
+    case 'screen': {
+      const sW = w * 0.7, sH = h * 0.4;
+      const sX = x + (w - sW) / 2, sY = y + h * 0.18;
+      return `<g class="item-pop">
+        <rect x="${sX}" y="${sY}" width="${sW}" height="${sH}" fill="#000" stroke="#704020" stroke-width="3" rx="2"/>
+        <rect x="${sX + 4}" y="${sY + 4}" width="${sW - 8}" height="${sH - 8}" fill="#1C2280"/>
+        <text x="${sX + sW/2}" y="${sY + sH/2 + 8}" font-size="26" text-anchor="middle">🎬</text>
+      </g>`;
+    }
+    case 'bed': {
+      const bW = w * 0.55, bH = h * 0.18;
+      const bX = x + w * 0.22, bY = baseY - 30 - bH;
+      const fillC = upg.id === 'second_bed' ? '#C5CAFE' : '#FFE4B0';
+      return `<g class="item-pop">
+        <rect x="${bX}" y="${bY + bH - 6}" width="${bW}" height="6" fill="#704020"/>
+        <rect x="${bX}" y="${bY}" width="${bW}" height="${bH}" fill="#fff" stroke="#704020" stroke-width="1.5" rx="2"/>
+        <rect x="${bX}" y="${bY}" width="${bW}" height="${bH * 0.4}" fill="${fillC}"/>
+        <rect x="${bX + 4}" y="${bY + 3}" width="${bW * 0.35}" height="${bH * 0.3}" fill="#fff" stroke="#bbb" stroke-width="0.8" rx="2"/>
+        <rect x="${bX + bW * 0.55}" y="${bY + 3}" width="${bW * 0.35}" height="${bH * 0.3}" fill="#fff" stroke="#bbb" stroke-width="0.8" rx="2"/>
+        <text x="${bX + bW/2}" y="${bY + bH * 0.78}" font-size="14" text-anchor="middle">🛏️</text>
+      </g>`;
+    }
+    case 'kitchen_full': {
+      const kW = w * 0.7, kH = h * 0.2;
+      const kX = x + (w - kW) / 2, kY = baseY - 15 - kH;
+      return `<g class="item-pop">
+        <rect x="${kX}" y="${kY}" width="${kW}" height="${kH}" fill="#3a3a3a" rx="2"/>
+        <rect x="${kX}" y="${kY}" width="${kW}" height="4" fill="#F5A623"/>
+        <rect x="${kX + kW * 0.1}" y="${kY + 6}" width="${kW * 0.18}" height="${kH - 10}" fill="#888" stroke="#222" stroke-width="0.5" rx="1"/>
+        <rect x="${kX + kW * 0.32}" y="${kY + 6}" width="${kW * 0.12}" height="${kH - 10}" fill="#1a1a2e"/>
+        <rect x="${kX + kW * 0.48}" y="${kY + 6}" width="${kW * 0.22}" height="${kH - 10}" fill="#888" stroke="#222" stroke-width="0.5"/>
+        <rect x="${kX + kW * 0.74}" y="${kY + 6}" width="${kW * 0.18}" height="${kH - 10}" fill="#fff" stroke="#888" stroke-width="0.5"/>
+        <text x="${kX + kW/2}" y="${kY + kH/2 + 5}" font-size="14" text-anchor="middle">${upg.id === 'michelin_kitchen' ? '👨‍🍳' : '🍳'}</text>
+      </g>`;
+    }
+    case 'coffee': {
+      const cW = w * 0.18, cH = h * 0.18;
+      const cX = x + w * 0.05, cY = baseY - 18 - cH;
+      return `<g class="item-pop">
+        <rect x="${cX}" y="${cY}" width="${cW}" height="${cH}" fill="#3a3a3a" rx="2"/>
+        <rect x="${cX + 3}" y="${cY + 3}" width="${cW - 6}" height="6" fill="#F5A623"/>
+        <rect x="${cX + cW/2 - 4}" y="${cY + cH - 8}" width="8" height="6" fill="#222"/>
+        <text x="${cX + cW/2}" y="${cY - 4}" font-size="14" text-anchor="middle">☕</text>
+      </g>`;
+    }
+    case 'bath': {
+      const bW = w * 0.55, bH = h * 0.16;
+      const bX = x + (w - bW) / 2, bY = baseY - 25 - bH/2;
+      return `<g class="item-pop">
+        <ellipse cx="${bX + bW/2}" cy="${bY + bH/2 + 4}" rx="${bW/2 + 4}" ry="${bH/2 + 4}" fill="#704020"/>
+        <ellipse cx="${bX + bW/2}" cy="${bY + bH/2}" rx="${bW/2}" ry="${bH/2}" fill="#fff" stroke="#1C2280" stroke-width="1.5"/>
+        <ellipse cx="${bX + bW/2}" cy="${bY + bH/2 - 1}" rx="${bW/2 - 6}" ry="${bH/2 - 4}" fill="#B8E3FF"/>
+        <text x="${bX + bW/2}" y="${bY + bH/2 + 5}" font-size="16" text-anchor="middle">🛁</text>
+      </g>`;
+    }
+    case 'pool': {
+      const pW = w * 0.7, pH = h * 0.18;
+      const pX = x + (w - pW) / 2, pY = baseY - 22 - pH/2;
+      return `<g class="item-pop">
+        <ellipse cx="${pX + pW/2}" cy="${pY + pH/2}" rx="${pW/2}" ry="${pH/2}" fill="#1C2280"/>
+        <ellipse cx="${pX + pW/2}" cy="${pY + pH/2 - 2}" rx="${pW/2 - 5}" ry="${pH/2 - 3}" fill="#5BC0EB" opacity="0.85"/>
+        <ellipse cx="${pX + pW * 0.3}" cy="${pY + pH/2 - 4}" rx="${pW * 0.1}" ry="2" fill="#fff" opacity="0.5"/>
+        <text x="${pX + pW/2}" y="${pY + pH/2 + 6}" font-size="20" text-anchor="middle">🏊</text>
+      </g>`;
+    }
+    case 'art': {
+      const aW = w * 0.28, aH = h * 0.22;
+      const aX = x + w * 0.08 + (index % 2) * (aW + 8), aY = y + h * 0.18;
+      return `<g class="item-pop">
+        <rect x="${aX - 3}" y="${aY - 3}" width="${aW + 6}" height="${aH + 6}" fill="#704020"/>
+        <rect x="${aX}" y="${aY}" width="${aW}" height="${aH}" fill="#F5A623"/>
+        <circle cx="${aX + aW * 0.3}" cy="${aY + aH * 0.4}" r="${aH * 0.18}" fill="#1C2280"/>
+        <rect x="${aX + aW * 0.5}" y="${aY + aH * 0.3}" width="${aW * 0.35}" height="${aH * 0.4}" fill="#6AAF2E"/>
+      </g>`;
+    }
+    case 'router': {
+      const rW = w * 0.12, rH = h * 0.06;
+      const rX = x + w - rW - 8, rY = y + 12;
+      return `<g class="item-pop">
+        <rect x="${rX}" y="${rY}" width="${rW}" height="${rH}" fill="#1C2280" rx="2"/>
+        <circle cx="${rX + rW * 0.25}" cy="${rY + rH/2}" r="2" fill="#6AAF2E"/>
+        <circle cx="${rX + rW * 0.5}" cy="${rY + rH/2}" r="2" fill="#F5A623"/>
+        <circle cx="${rX + rW * 0.75}" cy="${rY + rH/2}" r="2" fill="#6AAF2E"/>
+      </g>`;
+    }
+    case 'lock': {
+      const lX = x + 16, lY = baseY - 35;
+      return `<g class="item-pop">
+        <rect x="${lX - 5}" y="${lY - 18}" width="10" height="32" fill="#704020"/>
+        <circle cx="${lX}" cy="${lY}" r="6" fill="#F5A623"/>
+        <circle cx="${lX}" cy="${lY}" r="3" fill="#1a1a2e"/>
+      </g>`;
+    }
+    case 'wine': {
+      const wW = w * 0.16, wH = h * 0.22;
+      const wX = x + w * 0.78, wY = baseY - 18 - wH;
+      return `<g class="item-pop">
+        <rect x="${wX}" y="${wY}" width="${wW}" height="${wH}" fill="#704020" rx="2"/>
+        <rect x="${wX + 2}" y="${wY + 3}" width="3" height="${wH - 6}" fill="#3a3a3a"/>
+        <rect x="${wX + wW * 0.3}" y="${wY + 3}" width="3" height="${wH - 6}" fill="#3a3a3a"/>
+        <rect x="${wX + wW * 0.55}" y="${wY + 3}" width="3" height="${wH - 6}" fill="#3a3a3a"/>
+        <rect x="${wX + wW * 0.8}" y="${wY + 3}" width="3" height="${wH - 6}" fill="#3a3a3a"/>
+        <text x="${wX + wW/2}" y="${wY - 4}" font-size="13" text-anchor="middle">🍷</text>
+      </g>`;
+    }
+    case 'butler': {
+      const bX = x + w * 0.78, bY = baseY - 12;
+      return `<g class="item-pop" transform="translate(${bX}, ${bY})">
+        <ellipse cx="0" cy="-5" rx="14" ry="3" fill="#1a1a2e" opacity="0.3"/>
+        <rect x="-7" y="-50" width="14" height="40" fill="#1a1a2e" rx="2"/>
+        <rect x="-3" y="-48" width="6" height="36" fill="#fff"/>
+        <circle cx="0" cy="-58" r="9" fill="#F5C9A0"/>
+        <ellipse cx="-2.5" cy="-58" rx="0.8" ry="1" fill="#3D2817"/>
+        <ellipse cx="2.5" cy="-58" rx="0.8" ry="1" fill="#3D2817"/>
+        <path d="M -3 -54 Q 0 -52 3 -54" stroke="#3D2817" stroke-width="0.6" fill="none"/>
+        <rect x="-7" y="-66" width="14" height="6" fill="#1a1a2e" rx="1"/>
+        <ellipse cx="0" cy="-66" rx="9" ry="3" fill="#1a1a2e"/>
+      </g>`;
+    }
+    case 'gym': {
+      const gX = x + w * 0.5, gY = baseY - 20;
+      return `<g class="item-pop" transform="translate(${gX},${gY})">
+        <rect x="-22" y="-3" width="44" height="3" fill="#444"/>
+        <circle cx="-22" cy="-1.5" r="6" fill="#1a1a2e"/>
+        <circle cx="22" cy="-1.5" r="6" fill="#1a1a2e"/>
+        <rect x="-3" y="-12" width="6" height="9" fill="#1a1a2e"/>
+        <text x="0" y="-15" font-size="14" text-anchor="middle">💪</text>
+      </g>`;
+    }
+    case 'plant': {
+      const pX = x + w * 0.3 + (index * 60) % (w * 0.5), pY = baseY - 8;
+      return `<g class="item-pop" transform="translate(${pX},${pY})">
+        <ellipse cx="0" cy="0" rx="20" ry="4" fill="#3B6D11" opacity="0.4"/>
+        <circle cx="-12" cy="-6" r="9" fill="#6AAF2E"/>
+        <circle cx="-2" cy="-10" r="10" fill="#7BC332"/>
+        <circle cx="10" cy="-7" r="8" fill="#6AAF2E"/>
+        <circle cx="-5" cy="-15" r="3" fill="#F5A623"/>
+        <circle cx="5" cy="-13" r="3" fill="#E91E63"/>
+        <circle cx="0" cy="-18" r="2.5" fill="#fff"/>
+      </g>`;
+    }
+    case 'rooftop': {
+      const rW = w * 0.7, rX = x + (w - rW) / 2, rY = y - 18;
+      return `<g class="item-pop">
+        <rect x="${rX}" y="${rY}" width="${rW}" height="6" fill="#704020"/>
+        <rect x="${rX + 6}" y="${rY - 8}" width="6" height="8" fill="#6AAF2E"/>
+        <rect x="${rX + 18}" y="${rY - 12}" width="6" height="12" fill="#6AAF2E"/>
+        <rect x="${rX + rW - 24}" y="${rY - 10}" width="6" height="10" fill="#6AAF2E"/>
+        <rect x="${rX + rW - 12}" y="${rY - 8}" width="6" height="8" fill="#6AAF2E"/>
+        <text x="${rX + rW/2}" y="${rY - 14}" font-size="12" text-anchor="middle">🌆</text>
+      </g>`;
+    }
+    case 'helicopter': {
+      const hX = x + w/2, hY = y - 35;
+      return `<g class="item-pop chopper" transform="translate(${hX},${hY})">
+        <line x1="-30" y1="-3" x2="30" y2="-3" stroke="#1a1a2e" stroke-width="3"/>
+        <ellipse cx="0" cy="0" rx="14" ry="6" fill="#1C2280"/>
+        <ellipse cx="0" cy="-1" rx="9" ry="3" fill="#5BC0EB" opacity="0.6"/>
+        <rect x="-2" y="2" width="4" height="6" fill="#F5A623"/>
+        <line x1="-25" y1="6" x2="25" y2="6" stroke="#1a1a2e" stroke-width="1"/>
+      </g>`;
+    }
+    case 'helipad': {
+      const hX = x + w/2, hY = y - 20;
+      return `<g class="item-pop" transform="translate(${hX},${hY})">
+        <ellipse cx="0" cy="2" rx="22" ry="5" fill="#1a1a2e" opacity="0.3"/>
+        <circle cx="0" cy="0" r="20" fill="#fff" stroke="#1C2280" stroke-width="2"/>
+        <text x="0" y="6" font-size="22" font-weight="800" text-anchor="middle" fill="#1C2280">H</text>
+      </g>`;
+    }
+    case 'safe': {
+      const sW = w * 0.16, sH = h * 0.18;
+      const sX = x + 16, sY = y + h * 0.55;
+      return `<g class="item-pop">
+        <rect x="${sX}" y="${sY}" width="${sW}" height="${sH}" fill="#3a3a3a" stroke="#1a1a2e" stroke-width="1.5"/>
+        <circle cx="${sX + sW/2}" cy="${sY + sH/2}" r="${sH * 0.25}" fill="#F5A623"/>
+        <circle cx="${sX + sW/2}" cy="${sY + sH/2}" r="${sH * 0.12}" fill="#1a1a2e"/>
+      </g>`;
+    }
+    case 'studio': {
+      const stX = x + w * 0.7, stY = baseY - 30;
+      return `<g class="item-pop" transform="translate(${stX},${stY})">
+        <rect x="-22" y="-5" width="44" height="8" fill="#3a3a3a" rx="1"/>
+        <circle cx="-12" cy="-2" r="5" fill="#222"/><circle cx="-12" cy="-2" r="2" fill="#888"/>
+        <circle cx="12" cy="-2" r="5" fill="#222"/><circle cx="12" cy="-2" r="2" fill="#888"/>
+        <rect x="-2" y="-22" width="4" height="20" fill="#444"/>
+        <ellipse cx="0" cy="-25" rx="6" ry="4" fill="#1a1a2e"/>
+        <text x="0" y="-32" font-size="12" text-anchor="middle">🎙️</text>
+      </g>`;
+    }
+    case 'smart_panel': {
+      const sW = w * 0.13, sH = h * 0.15;
+      const sX = x + w - sW - 18, sY = y + h * 0.55;
+      return `<g class="item-pop">
+        <rect x="${sX}" y="${sY}" width="${sW}" height="${sH}" fill="#1a1a2e" rx="3"/>
+        <rect x="${sX + 4}" y="${sY + 4}" width="${sW - 8}" height="${sH - 8}" fill="#1C2280"/>
+        <circle cx="${sX + sW * 0.3}" cy="${sY + sH * 0.4}" r="2" fill="#6AAF2E"/>
+        <circle cx="${sX + sW * 0.5}" cy="${sY + sH * 0.4}" r="2" fill="#F5A623"/>
+        <circle cx="${sX + sW * 0.7}" cy="${sY + sH * 0.4}" r="2" fill="#fff"/>
+        <rect x="${sX + 4}" y="${sY + sH * 0.6}" width="${sW - 8}" height="2" fill="#fff" opacity="0.3"/>
+      </g>`;
+    }
+    case 'boiler': {
+      const bW = w * 0.13, bH = h * 0.18;
+      const bX = x + w - bW - 18, bY = y + h * 0.62;
+      return `<g class="item-pop">
+        <rect x="${bX}" y="${bY}" width="${bW}" height="${bH}" fill="#C5CAFE" stroke="#1C2280" stroke-width="1.5" rx="2"/>
+        <circle cx="${bX + bW/2}" cy="${bY + bH * 0.4}" r="${bH * 0.18}" fill="#F5A623"/>
+        <rect x="${bX + bW * 0.3}" y="${bY + bH * 0.7}" width="${bW * 0.4}" height="3" fill="#1C2280"/>
+      </g>`;
+    }
+    case 'air_purifier': {
+      const aX = x + 24, aY = baseY - 28;
+      return `<g class="item-pop" transform="translate(${aX},${aY})">
+        <rect x="-7" y="-22" width="14" height="22" fill="#fff" stroke="#888" stroke-width="1" rx="2"/>
+        <circle cx="0" cy="-12" r="3" fill="#6AAF2E" opacity="0.7"/>
+        <rect x="-5" y="-6" width="10" height="2" fill="#bbb"/>
+      </g>`;
+    }
+    case 'record_player': {
+      const rX = x + w * 0.55, rY = baseY - 22;
+      return `<g class="item-pop" transform="translate(${rX},${rY})">
+        <rect x="-15" y="-3" width="30" height="6" fill="#704020"/>
+        <rect x="-13" y="-12" width="26" height="9" fill="#1a1a2e"/>
+        <circle cx="-3" cy="-7" r="3" fill="#3a3a3a"/>
+        <circle cx="-3" cy="-7" r="0.8" fill="#F5A623"/>
+      </g>`;
+    }
+    case 'dishwasher': {
+      const dW = w * 0.18, dH = h * 0.18;
+      const dX = x + w * 0.05, dY = baseY - 18 - dH;
+      return `<g class="item-pop">
+        <rect x="${dX}" y="${dY}" width="${dW}" height="${dH}" fill="#888" stroke="#444" stroke-width="1"/>
+        <rect x="${dX + 3}" y="${dY + 3}" width="${dW - 6}" height="${dH * 0.6}" fill="#1a1a2e"/>
+        <rect x="${dX + 3}" y="${dY + dH * 0.7}" width="${dW - 6}" height="2" fill="#888"/>
+        <text x="${dX + dW/2}" y="${dY - 3}" font-size="11" text-anchor="middle">🍽️</text>
+      </g>`;
+    }
+    default: {
+      const fX = x + w * 0.5 + ((index - total/2) * 28), fY = baseY - 24;
+      return `<g class="item-pop" transform="translate(${fX},${fY})">
+        <ellipse cx="0" cy="2" rx="14" ry="3" fill="#1a1a2e" opacity="0.2"/>
+        <text x="0" y="-2" font-size="22" text-anchor="middle">${upg.emoji}</text>
+      </g>`;
+    }
+  }
+}
+
+/* GAME LOGIC */
+// ─── GAME STATE ──────────────────────────────────────────────────────────────
+const UNLOCK_THRESHOLDS = [0, 1000, 2000, 4000, 8000];
+
+const RATINGS = [
+  { min: -99999, max: 0, label: 'Hosting disaster', emoji: '🔥' },
+  { min: 1, max: 499, label: 'Accidental host', emoji: '😅' },
+  { min: 500, max: 999, label: 'Getting there', emoji: '🏠' },
+  { min: 1000, max: 1999, label: 'Solid host', emoji: '⭐' },
+  { min: 2000, max: 3999, label: 'Superhost', emoji: '🌟' },
+  { min: 4000, max: 7999, label: 'Elite host', emoji: '💎' },
+  { min: 8000, max: 999999, label: 'Legendary host', emoji: '🏆' },
+];
+
+function getRat(s) { return RATINGS.find(r => s >= r.min && s <= r.max) || RATINGS[0]; }
+
+const G = {
+  name: '',
+  pts: 0,
+  upgrades: { 1: [], 2: [], 3: [], 4: [], 5: [] },
+  activeProp: 1,
+  shopProp: 1,
+  curQ: null,
+  usedQ: { 1: [], 2: [], 3: [], 4: [], 5: [] },
+  lb: [],
+  selectedOpt: null,
+};
+
+function getBaseIncome(propId) { return [80, 140, 220, 350, 500][propId - 1]; }
+function getIncomeBonus(propId) {
+  const owned = G.upgrades[propId] || [];
+  const p = PROPS.find(x => x.id === propId);
+  return owned.reduce((sum, uid) => {
+    const u = p.upgrades.find(x => x.id === uid);
+    return sum + (u ? u.income : 0);
+  }, 0);
+}
+function getCurrentIncome(propId) { return getBaseIncome(propId) + getIncomeBonus(propId); }
+function isUnlocked(id) { return G.pts >= UNLOCK_THRESHOLDS[id - 1]; }
+function getNextUnlock() {
+  for (let i = 1; i <= 4; i++) {
+    if (G.pts < UNLOCK_THRESHOLDS[i]) return { propId: i + 1, threshold: UNLOCK_THRESHOLDS[i] };
+  }
+  return null;
+}
+
+function getMaxUnlocked() {
+  let m = 1;
+  for (let i = 1; i < 5; i++) if (G.pts >= UNLOCK_THRESHOLDS[i]) m = i + 1;
+  return m;
+}
+
+// ─── SCREEN ROUTING ──────────────────────────────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  document.getElementById('s-' + id).classList.remove('hidden');
+  window.scrollTo(0, 0);
+  if (id === 'intro') renderLadder();
+  if (id === 'listing') renderListing();
+  if (id === 'shop') renderShop();
+  if (id === 'leaderboard') renderLB();
+}
+
+// ─── INTRO SCREEN ────────────────────────────────────────────────────────────
+function renderLadder() {
+  const el = document.getElementById('ladder');
+  if (!el) return;
+  el.innerHTML = PROPS.map(p => `
+    <div class="ladder-card" style="border-color:${p.border}">
+      <div class="ladder-icon" style="background:linear-gradient(135deg, ${p.light}, ${p.col}22)">
+        ${getPropIcon(p.id)}
+      </div>
+      <div class="ladder-name" style="color:${p.col}">${p.short}</div>
+    </div>
+  `).join('');
+}
+
+// Mini-icon SVGs for the ladder (just the building silhouette)
+function getPropIcon(id) {
+  const c = PROPS.find(p => p.id === id).col;
+  const icons = {
+    1: `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="22" width="32" height="32" fill="#fff" stroke="${c}" stroke-width="1"/><polygon points="14,22 30,8 46,22" fill="${c}" opacity="0.7"/><rect x="20" y="30" width="8" height="10" fill="${c}" opacity="0.4"/><rect x="32" y="30" width="8" height="10" fill="${c}" opacity="0.4"/><rect x="26" y="44" width="8" height="10" fill="${c}" opacity="0.6"/></svg>`,
+    2: `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="14" width="44" height="40" fill="${c}" opacity="0.85"/><rect x="14" y="20" width="10" height="14" fill="#fff" opacity="0.4"/><rect x="26" y="20" width="10" height="14" fill="#fff" opacity="0.4"/><rect x="38" y="20" width="10" height="14" fill="#fff" opacity="0.4"/><rect x="14" y="38" width="10" height="14" fill="#fff" opacity="0.4"/><rect x="26" y="38" width="10" height="14" fill="#fff" opacity="0.4"/><rect x="38" y="38" width="10" height="14" fill="#fff" opacity="0.4"/></svg>`,
+    3: `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="18" width="14" height="36" fill="#fff" stroke="${c}" stroke-width="1"/><rect x="22" y="14" width="16" height="40" fill="#FFFAF0" stroke="${c}" stroke-width="1"/><rect x="38" y="20" width="14" height="34" fill="#fff" stroke="${c}" stroke-width="1"/><polygon points="8,18 15,10 22,18" fill="${c}" opacity="0.5"/><polygon points="22,14 30,6 38,14" fill="${c}" opacity="0.7"/><polygon points="38,20 45,12 52,20" fill="${c}" opacity="0.5"/></svg>`,
+    4: `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="20" width="36" height="34" fill="#fff" stroke="${c}" stroke-width="1"/><rect x="12" y="20" width="36" height="3" fill="${c}" opacity="0.7"/><g fill="${c}" opacity="0.3"><rect x="16" y="27" width="6" height="6"/><rect x="24" y="27" width="6" height="6"/><rect x="32" y="27" width="6" height="6"/><rect x="40" y="27" width="6" height="6"/><rect x="16" y="36" width="6" height="6"/><rect x="24" y="36" width="6" height="6"/><rect x="32" y="36" width="6" height="6"/><rect x="40" y="36" width="6" height="6"/><rect x="16" y="45" width="6" height="6"/><rect x="24" y="45" width="6" height="6"/><rect x="32" y="45" width="6" height="6"/><rect x="40" y="45" width="6" height="6"/></g><circle cx="48" cy="14" r="5" fill="#F5A623" opacity="0.7"/></svg>`,
+    5: `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="22" width="48" height="32" fill="#F5F1E8" stroke="${c}" stroke-width="1"/><polygon points="6,22 30,8 54,22" fill="${c}" opacity="0.85"/><rect x="28" y="14" width="4" height="6" fill="#F5A623"/><g fill="${c}" opacity="0.6"><rect x="12" y="28" width="2" height="22"/><rect x="20" y="28" width="2" height="22"/><rect x="28" y="28" width="2" height="22"/><rect x="36" y="28" width="2" height="22"/><rect x="44" y="28" width="2" height="22"/></g><rect x="11" y="26" width="38" height="2" fill="${c}" opacity="0.7"/><rect x="11" y="50" width="38" height="2" fill="${c}" opacity="0.7"/><rect x="26" y="40" width="8" height="14" fill="${c}" opacity="0.4"/></svg>`,
+  };
+  return icons[id] || '';
+}
+
+// ─── START GAME ──────────────────────────────────────────────────────────────
+function startGame() {
+  const n = document.getElementById('nameInput').value.trim();
+  if (!n) { toast('Enter a name first', false); return; }
+  G.name = n;
+  G.pts = 0;
+  G.upgrades = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  G.usedQ = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  G.activeProp = 1;
+  G.shopProp = 1;
+  show('listing');
+}
+
+// ─── LISTING SCREEN ──────────────────────────────────────────────────────────
+function renderListing() {
+  document.getElementById('lh-name').textContent = G.name;
+  document.getElementById('lh-pts').textContent = '£' + G.pts.toLocaleString();
+  const r = getRat(G.pts);
+  document.getElementById('lh-rating').textContent = `${r.emoji} ${r.label}`;
+  document.getElementById('lh-avatar').innerHTML = renderHost(r, 64);
+
+  const next = getNextUnlock();
+  if (next) {
+    const pct = Math.min(100, Math.round((G.pts / next.threshold) * 100));
+    const np = PROPS.find(p => p.id === next.propId);
+    document.getElementById('lh-unlock-label').textContent = `Next: ${np.short}`;
+    document.getElementById('lh-unlock-target').textContent = `£${G.pts.toLocaleString()} / £${next.threshold.toLocaleString()}`;
+    document.getElementById('lh-unlock-bar').style.width = pct + '%';
+  } else {
+    document.getElementById('lh-unlock-label').textContent = 'All unlocked';
+    document.getElementById('lh-unlock-target').textContent = '🏆 Legendary';
+    document.getElementById('lh-unlock-bar').style.width = '100%';
+  }
+
+  const el = document.getElementById('listing-cards');
+  el.innerHTML = '';
+  PROPS.forEach(p => {
+    const locked = !isUnlocked(p.id);
+    const owned = G.upgrades[p.id] || [];
+    const pct = Math.round((owned.length / p.upgrades.length) * 100);
+    const income = getCurrentIncome(p.id);
+    const threshold = UNLOCK_THRESHOLDS[p.id - 1];
+    const isComplete = owned.length >= p.upgrades.length;
+
+    const statusClass = locked ? 'locked-tag' : (isComplete ? 'complete' : 'active');
+    const statusText = locked ? `EARN £${threshold.toLocaleString()}` : (isComplete ? 'FULLY UPGRADED' : `+£${income}/CORRECT`);
+
+    const card = document.createElement('div');
+    card.className = 'prop-card' + (locked ? ' locked' : '');
+    card.innerHTML = `
+      <div class="prop-card-top" style="background:${p.col}"></div>
+      ${!locked ? `<div class="prop-model">${renderModelHome(p.id, G.upgrades, 600)}</div>` : ''}
+      <div class="prop-info">
+        <div class="prop-info-head">
+          <div>
+            <div class="prop-info-title">${p.name}</div>
+            <div class="prop-info-meta">${p.type} · ${p.short}</div>
           </div>
-          <div style="width:64px;height:64px;border-radius:10px;overflow:hidden;flex-shrink:0;margin-left:12px;background:${p.light}">
-              <img src="/images/property-${p.id}.jpg" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML=document.getElementById('svg-prop-'+${p.id}).innerHTML">
-            </div>
+          <span class="prop-status ${statusClass}">${statusText}</span>
         </div>
-        <p style="font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:14px">${p.desc}</p>
-        <div style="border-radius:10px;overflow:hidden;margin-bottom:14px">${renderFlatSVG(p.id,580,110)}</div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#9AA3B2;margin-bottom:6px"><span>UPGRADES</span><span style="color:${p.col}">${owned.length} / ${p.upgrades.length}</span></div>
-        <div style="height:5px;background:#F0F2F8;border-radius:3px;overflow:hidden;margin-bottom:14px"><div style="height:100%;width:${pct}%;background:${p.col};border-radius:3px;transition:width 0.5s"></div></div>
-        ${!locked?`<button onclick="startHosting(${p.id})" style="width:100%;padding:12px;background:${p.col};border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif">Host at this property →</button>`:''}
-      </div>`;
+        <p style="font-size:13px;color:#6B7280;line-height:1.55;margin-bottom:14px">${p.desc}</p>
+        <div class="prop-progress"><span>UPGRADES</span><span style="color:${p.col}">${owned.length} / ${p.upgrades.length}</span></div>
+        <div class="prop-progress-bar"><div class="prop-progress-fill" style="width:${pct}%;background:${p.col}"></div></div>
+        ${!locked && !isComplete ? `<button class="btn-navy" onclick="startHosting(${p.id})" style="background:${p.col}">Host at this property →</button>` : ''}
+        ${!locked && isComplete ? `<button class="btn-ghost" onclick="G.shopProp=${p.id};show('shop')">View shop →</button>` : ''}
+      </div>
+    `;
     el.appendChild(card);
   });
 }
 
-function startHosting(pid){
-  G.activeProp=pid;G.curQ=0;G.answers=[];
-  G.currentQ=pickQuestion(pid);
-  renderQuiz();show('quiz');
+// ─── QUIZ FLOW ───────────────────────────────────────────────────────────────
+function startHosting(propId) {
+  G.activeProp = propId;
+  G.curQ = pickQuestion(propId);
+  G.selectedOpt = null;
+  renderQuiz();
+  show('quiz');
 }
 
-function renderQuiz(){
-  const p=PROPS.find(x=>x.id===G.activeProp);
-  const q=G.currentQ;
-  const income=getCurrentIncome(G.activeProp);
-  document.getElementById('q-propname').textContent=p.name.toUpperCase();
-  document.getElementById('q-propname').style.color=p.col;
-  document.getElementById('q-progress').textContent=`${p.short} · Income per correct answer: £${income}`;
-  document.getElementById('q-pts').textContent=`£${G.pts.toLocaleString()}`;
-  document.getElementById('q-bonus-badge').textContent=`+£${income}/correct`;
-  document.getElementById('q-bonus-badge').style.color=p.col;
-  document.getElementById('q-bar').style.background=p.col;
-  document.getElementById('q-bar').style.width='50%';
-  // Set guest avatar — try image first, fall back to emoji
-  const imgEl=document.getElementById('q-guest-img');
-  const emoEl=document.getElementById('q-guest-emoji');
-  const avatarSrc=getAvatarFor(q.icon);
-  imgEl.src=avatarSrc;
-  imgEl.style.display='block';
-  emoEl.style.display='none';
-  imgEl.onerror=()=>{imgEl.style.display='none';emoEl.style.display='block';emoEl.textContent=q.icon;};
-  document.getElementById('q-gname').textContent=q.guest;
-  document.getElementById('q-gmood').textContent=q.mood;
-  // Set room scene background
-  const roomEl=document.getElementById('q-room-scene');
-  if(roomEl){
-    const roomImg=roomEl.querySelector('img');
-    if(roomImg){
-      roomImg.src=getRoomFor(q.scenario);
-      roomImg.onerror=()=>{roomEl.style.display='none';};
-      roomImg.onload=()=>{roomEl.style.display='block';};
+function pickQuestion(propId) {
+  const qs = ALL_QUESTIONS[propId];
+  const used = G.usedQ[propId] || [];
+  const available = qs.filter((_, i) => !used.includes(i));
+  if (available.length === 0) {
+    G.usedQ[propId] = [];
+    return qs[Math.floor(Math.random() * qs.length)];
+  }
+  const picked = available[Math.floor(Math.random() * available.length)];
+  const idx = qs.indexOf(picked);
+  G.usedQ[propId] = [...used, idx];
+  return picked;
+}
+
+function renderQuiz() {
+  const p = PROPS.find(x => x.id === G.activeProp);
+  const q = G.curQ;
+  const income = getCurrentIncome(G.activeProp);
+
+  document.getElementById('q-propname').textContent = p.name.toUpperCase();
+  document.getElementById('q-propname').style.color = p.col;
+  document.getElementById('q-progress').textContent = `${p.short} · +£${income} per correct answer`;
+  document.getElementById('q-pts').textContent = '£' + G.pts.toLocaleString();
+
+  // Drama flag
+  const drama = document.getElementById('q-drama');
+  drama.classList.toggle('hidden', !q.drama);
+
+  // Character with appropriate state
+  const charState = q.drama ? 'angry' : (q.mood && q.mood.includes('🥰') ? 'happy' : 'complaining');
+  document.getElementById('q-character').innerHTML = renderCharacter(q.icon, charState, 100);
+
+  // Speech bubble
+  const bubble = document.getElementById('q-bubble');
+  bubble.innerHTML = `
+    <div style="font-size:11px;font-weight:800;color:#1C2280;margin-bottom:4px;letter-spacing:0.05em">${q.guest.toUpperCase()} · ${q.mood}</div>
+    <div id="q-scenario">"${q.scenario}"</div>
+  `;
+
+  // Mini home
+  document.getElementById('q-minihome').innerHTML = renderModelHome(G.activeProp, G.upgrades, 600);
+
+  // Options
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+  q.options.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + i)}</span><span>${o.text}</span>`;
+    btn.onclick = () => answerOption(i);
+    opts.appendChild(btn);
+  });
+
+  // Hide feedback
+  document.getElementById('q-feedback').classList.add('hidden');
+}
+
+function answerOption(idx) {
+  if (G.selectedOpt !== null) return;
+  G.selectedOpt = idx;
+  const q = G.curQ;
+  const opt = q.options[idx];
+  const p = PROPS.find(x => x.id === G.activeProp);
+
+  // Calculate income gained
+  const baseIncome = getCurrentIncome(G.activeProp);
+  let earned = opt.pts;
+  // If marked good, give base income; if bad, the negative score IS the loss
+  if (opt.good) earned = opt.pts + baseIncome;
+
+  G.pts += earned;
+  if (G.pts < 0) G.pts = 0;
+
+  // Update money display
+  document.getElementById('q-pts').textContent = '£' + G.pts.toLocaleString();
+
+  // Visual feedback
+  showCoinFx(earned);
+
+  // Style options
+  const optBtns = document.querySelectorAll('#q-options .option-btn');
+  optBtns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === idx) {
+      btn.classList.add(opt.good ? 'correct' : 'wrong');
+    } else {
+      btn.classList.add('dim');
+    }
+  });
+
+  // Update character to show reaction (happy if you helped, angry if you didn't)
+  const newState = opt.good ? 'happy' : 'angry';
+  document.getElementById('q-character').innerHTML = renderCharacter(q.icon, newState, 100);
+
+  // Stage shake on bad
+  if (!opt.good) {
+    const stage = document.getElementById('q-stage');
+    stage.classList.add('shake');
+    setTimeout(() => stage.classList.remove('shake'), 500);
+  } else {
+    // Confetti for big wins
+    if (earned >= 200) confetti(20);
+  }
+
+  // Show feedback
+  document.getElementById('q-reaction').textContent = opt.reaction;
+  document.getElementById('q-tip').textContent = '💡 ' + q.tip;
+  document.getElementById('q-feedback').classList.remove('hidden');
+
+  // Check for unlocks
+  checkUnlock();
+}
+
+function checkUnlock() {
+  const max = getMaxUnlocked();
+  if (max > 1 && !G._unlocked) G._unlocked = {};
+  for (let i = 2; i <= 5; i++) {
+    if (G.pts >= UNLOCK_THRESHOLDS[i - 1] && !(G._unlocked && G._unlocked[i])) {
+      G._unlocked = G._unlocked || {};
+      G._unlocked[i] = true;
+      const p = PROPS.find(x => x.id === i);
+      setTimeout(() => toast(`🔓 ${p.short} unlocked!`, true), 800);
     }
   }
-  document.getElementById('q-scenario').textContent=`"${q.scenario}"`;
-  document.getElementById('q-feedback').classList.add('hidden');
-  document.getElementById('q-flat-label').textContent=p.short.toUpperCase()+' · UPGRADES: '+((G.upgrades[G.activeProp]||[]).length)+'/'+p.upgrades.length;
-  document.getElementById('q-flat-svg').innerHTML=renderFlatSVG(G.activeProp,580,100);
-  const drama=document.getElementById('q-drama-badge');
-  drama.style.display=q.drama?'block':'none';
-  const opts=document.getElementById('q-options');opts.innerHTML='';
-  q.options.forEach((o,i)=>{
-    const b=document.createElement('button');
-    b.style.cssText=`width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;background:#fff;border:1.5px solid #E8ECF4;border-radius:11px;color:#1a1a2e;font-size:13px;line-height:1.55;cursor:pointer;font-family:'Nunito Sans',sans-serif;display:block`;
-    b.innerHTML=`<span style="font-size:11px;font-weight:700;color:#9AA3B2;margin-right:10px">${String.fromCharCode(65+i)}.</span>${o.text}`;
-    b.onclick=()=>handleAnswer(i);
-    opts.appendChild(b);
-  });
 }
 
-function handleAnswer(idx){
-  const p=PROPS.find(x=>x.id===G.activeProp);
-  const q=G.currentQ;
-  const o=q.options[idx];
-  const income=getCurrentIncome(G.activeProp);
-  const prevPts=G.pts;
-  let earned=0;
-  if(o.good){earned=income+Math.round(o.pts/10);G.pts+=earned;}
-  else{const penalty=Math.abs(Math.round(o.pts/2));G.pts=Math.max(0,G.pts-penalty);earned=-(G.pts<prevPts?prevPts-G.pts:0);}
-  G.pts=Math.max(0,G.pts);
-  G.answers.push({earned,good:o.good,originalPts:o.pts});
-  document.querySelectorAll('#q-options button').forEach((b,i)=>{
-    b.onclick=null;b.style.cursor='default';
-    if(i===idx){b.style.background=o.good?'#EAF3DE':'#FCEBEB';b.style.borderColor=o.good?'#6AAF2E':'#E24B4A';b.style.color=o.good?'#3B6D11':'#A32D2D';}
-    else b.style.opacity='0.35';
-  });
-  document.getElementById('q-reaction-text').textContent=o.reaction;
-  document.getElementById('q-tip-text').textContent=q.tip;
-  document.getElementById('q-feedback').classList.remove('hidden');
-  document.getElementById('q-pts').textContent=`£${G.pts.toLocaleString()}`;
-  document.getElementById('q-next').textContent='Play another scenario →';
-  showNotif(o.good?`+£${earned} rental income`:`-£${prevPts-G.pts} penalty`,o.good);
-  showPtAnim(o.good?`+£${earned}`:`-£${prevPts-G.pts}`);
-}
-
-function nextQ(){
-  const prev=G.pts;
-  G.currentQ=pickQuestion(G.activeProp);
+function nextQuestion() {
+  G.curQ = pickQuestion(G.activeProp);
+  G.selectedOpt = null;
   renderQuiz();
-  document.getElementById('q-feedback').classList.add('hidden');
 }
 
-function renderResults(){
-  const r=getRat(G.pts);
-  const good=G.answers.filter(a=>a.good).length;
-  const unlockBanner=document.getElementById('r-unlock-banner');
-  const unlocked=getUnlockedCount();
-  const prevUnlocked=G._prevUnlocked||1;
-  if(unlocked>prevUnlocked){
-    unlockBanner.classList.remove('hidden');
-    document.getElementById('r-unlock-text').textContent=`${PROPS.find(p=>p.id===unlocked).name} unlocked!`;
-  } else {unlockBanner.classList.add('hidden');}
-  G._prevUnlocked=unlocked;
-  document.getElementById('r-emoji').textContent=r.emoji;
-  document.getElementById('r-label').textContent='YOUR PORTFOLIO BALANCE';
-  document.getElementById('r-title').textContent=r.label;
-  document.getElementById('r-pts').textContent=`£${G.pts.toLocaleString()}`;
-  document.getElementById('r-correct').textContent=`${good} of ${G.answers.length} answered well`;
-  const grid=document.getElementById('r-grid');grid.innerHTML='';
-  G.answers.slice(-6).forEach((a,i)=>{
-    const d=document.createElement('div');
-    d.style.cssText=`padding:12px 14px;background:${a.good?'#EAF3DE':'#FCEBEB'};border:1px solid ${a.good?'#C0DD97':'#F7C1C1'};border-radius:12px;font-size:12px`;
-    d.innerHTML=`<div style="color:#9AA3B2;margin-bottom:3px">Scenario ${i+1}</div><div style="font-size:16px;font-weight:800;color:${a.good?'#3B6D11':'#A32D2D'};font-family:'Lora',serif">${a.earned>0?`+£${a.earned}`:a.earned===0?'£0':`-£${Math.abs(a.earned)}`}</div>`;
-    grid.appendChild(d);
+// ─── SHOP ────────────────────────────────────────────────────────────────────
+function renderShop() {
+  // Tabs
+  const tabs = document.getElementById('shop-tabs');
+  tabs.innerHTML = '';
+  PROPS.forEach(p => {
+    const locked = !isUnlocked(p.id);
+    const active = G.shopProp === p.id;
+    const btn = document.createElement('button');
+    btn.style.cssText = `flex:1;min-width:80px;padding:8px 10px;border-radius:10px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.04em;transition:all 0.2s;${active ? `background:${p.col};color:#fff;border:none` : `background:#fff;color:${locked ? '#bbb' : p.col};border:1.5px solid ${locked ? '#eee' : p.border}`};${locked ? 'opacity:0.5;cursor:not-allowed' : ''}`;
+    btn.textContent = p.short.toUpperCase();
+    btn.onclick = () => { if (!locked) { G.shopProp = p.id; renderShop(); } };
+    tabs.appendChild(btn);
+  });
+
+  const p = PROPS.find(x => x.id === G.shopProp);
+  document.getElementById('shop-prop').textContent = p.name;
+  document.getElementById('shop-pts').textContent = '£' + G.pts.toLocaleString();
+
+  // Live model home preview
+  document.getElementById('shop-model').innerHTML = renderModelHome(G.shopProp, G.upgrades, 600);
+
+  // Upgrade grid
+  const grid = document.getElementById('shop-grid');
+  grid.innerHTML = '';
+  const owned = G.upgrades[G.shopProp] || [];
+  p.upgrades.forEach(u => {
+    const isOwned = owned.includes(u.id);
+    const canAfford = G.pts >= u.cost;
+    const item = document.createElement('button');
+    item.className = 'shop-item' + (isOwned ? ' owned' : '');
+    item.disabled = isOwned || !canAfford;
+    item.innerHTML = `
+      <div class="shop-emoji">${u.emoji}</div>
+      <div class="shop-name">${u.name}</div>
+      <div class="shop-desc">${u.desc}</div>
+      <div class="shop-cost">
+        <span>${isOwned ? '✓ Owned' : '£' + u.cost}</span>
+        <span class="shop-income">+£${u.income}/correct</span>
+      </div>
+    `;
+    if (!isOwned) item.onclick = () => buyUpgrade(G.shopProp, u.id);
+    grid.appendChild(item);
   });
 }
 
-function renderShop(){
-  G.shopProp=G.shopProp||1;
-  const tabs=document.getElementById('sh-tabs');tabs.innerHTML='';
-  PROPS.forEach(p=>{
-    const unlocked=isUnlocked(p.id);
-    const active=G.shopProp===p.id;
-    const b=document.createElement('button');
-    b.style.cssText=`padding:7px 14px;border-radius:20px;border:none;cursor:${unlocked?'pointer':'not-allowed'};font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;background:${active?p.col:'#F5F7FC'};color:${active?'#fff':unlocked?'#9AA3B2':'#C8CDD8'};opacity:${unlocked?1:0.5}`;
-    b.textContent=`${p.emoji} ${p.short}`;
-    if(unlocked)b.onclick=()=>{G.shopProp=p.id;renderShop();};
-    tabs.appendChild(b);
-  });
-  const p=PROPS.find(x=>x.id===G.shopProp);
-  const owned=G.upgrades[G.shopProp]||[];
-  const bonus=getIncomeBonus(G.shopProp);
-  document.getElementById('sh-propname').textContent=p.name;
-  document.getElementById('sh-count').textContent=`${owned.length}/${p.upgrades.length} upgrades`;
-  document.getElementById('sh-bonus-label').textContent=bonus>0?`+£${bonus} income bonus`:'';
-  document.getElementById('sh-pts').textContent=`£${G.pts.toLocaleString()}`;
-  document.getElementById('sh-flat').innerHTML=renderFlatSVG(G.shopProp,580,110);
-  const unlocked=isUnlocked(G.shopProp);
-  const ul=document.getElementById('sh-upgrades');ul.innerHTML='';
-  if(!unlocked){
-    const t=UNLOCK_THRESHOLDS[G.shopProp-1];
-    ul.innerHTML=`<div style="text-align:center;padding:24px;color:#9AA3B2;font-size:14px">Earn <strong>£${t.toLocaleString()}</strong> in total income to unlock ${p.short}.</div>`;
-    return;
-  }
-  p.upgrades.forEach(u=>{
-    const isOwned=owned.includes(u.id);
-    const canAfford=G.pts>=u.cost;
-    const row=document.createElement('div');
-    row.style.cssText=`display:flex;align-items:center;gap:14px;padding:14px 16px;background:${isOwned?'#EAF3DE':'#fff'};border:1px solid ${isOwned?'#C0DD97':'#E8ECF4'};border-radius:12px;margin-bottom:8px`;
-    row.innerHTML=`<div style="font-size:26px;flex-shrink:0">${u.emoji}</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1a1a2e">${u.name}</div><div style="font-size:12px;color:#9AA3B2;margin-top:2px">${u.desc}</div><div style="font-size:11px;font-weight:700;color:#6AAF2E;margin-top:3px">+£${u.income} per correct answer</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:800;color:${canAfford&&!isOwned?p.col:'#C8CDD8'};font-family:'Lora',serif;margin-bottom:5px">£${u.cost.toLocaleString()}</div>${isOwned?`<span style="font-size:11px;font-weight:700;color:#3B6D11">Owned</span>`:`<button onclick="buyUpgrade(${G.shopProp},'${u.id}')" style="padding:7px 14px;border-radius:8px;border:none;background:${canAfford?p.col:'#F5F7FC'};color:${canAfford?'#fff':'#C8CDD8'};font-size:11px;font-weight:700;cursor:${canAfford?'pointer':'not-allowed'};font-family:'Nunito Sans',sans-serif">Buy</button>`}</div>`;
-    ul.appendChild(row);
-  });
-}
-
-function buyUpgrade(pid,uid){
-  const p=PROPS.find(x=>x.id===pid);
-  const u=p.upgrades.find(x=>x.id===uid);
-  if(G.pts<u.cost){showNotif('Not enough funds!',false);return;}
-  if((G.upgrades[pid]||[]).includes(uid)){showNotif('Already owned',false);return;}
-  G.pts-=u.cost;G.upgrades[pid]=[...(G.upgrades[pid]||[]),uid];
-  showNotif(`${u.emoji} ${u.name} — +£${u.income}/correct added!`,true);
+function buyUpgrade(propId, uid) {
+  const p = PROPS.find(x => x.id === propId);
+  const u = p.upgrades.find(x => x.id === uid);
+  if (G.pts < u.cost) { toast('Not enough funds!', false); return; }
+  if ((G.upgrades[propId] || []).includes(uid)) { toast('Already owned', false); return; }
+  G.pts -= u.cost;
+  G.upgrades[propId] = [...(G.upgrades[propId] || []), uid];
+  toast(`${u.emoji} ${u.name} added! +£${u.income}/correct`, true);
+  showCoinFx(-u.cost);
   renderShop();
 }
 
-function startHostingShop(){startHosting(G.shopProp);}
-
-async function saveLB(){
-  const r=getRat(G.pts);
-  const entry={name:G.name,score:G.pts,rating:r.label,date:new Date().toLocaleDateString('en-GB')};
-  // Try server first, fall back to localStorage
-  try{
-    const res=await fetch('/api/leaderboard',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(entry)});
-    if(res.ok){const data=await res.json();G.lb=data.entries||[];return;}
-  }catch{}
-  try{
-    let lb=JSON.parse(localStorage.getItem('ptk-lb')||'[]');
-    lb=[...lb,entry].sort((a,b)=>b.score-a.score).slice(0,20);
-    localStorage.setItem('ptk-lb',JSON.stringify(lb));
-    G.lb=lb;
-  }catch{}
+// ─── LEADERBOARD ─────────────────────────────────────────────────────────────
+async function saveLB() {
+  const r = getRat(G.pts);
+  const entry = { name: G.name, score: G.pts, rating: r.label, date: new Date().toLocaleDateString('en-GB') };
+  try {
+    const res = await fetch('/api/leaderboard', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(entry),
+    });
+    if (res.ok) { const data = await res.json(); G.lb = data.entries || []; return; }
+  } catch {}
+  try {
+    let lb = JSON.parse(localStorage.getItem('ptk-lb') || '[]');
+    lb = [...lb, entry].sort((a, b) => b.score - a.score).slice(0, 20);
+    localStorage.setItem('ptk-lb', JSON.stringify(lb));
+    G.lb = lb;
+  } catch {}
 }
 
-async function renderLB(){
-  let lb=G.lb;
-  if(!lb||!lb.length){
-    try{
-      const res=await fetch('/api/leaderboard');
-      if(res.ok){const data=await res.json();lb=data.entries||[];}
-    }catch{}
-    if(!lb||!lb.length){
-      try{lb=JSON.parse(localStorage.getItem('ptk-lb')||'[]');}catch{lb=[];}
+async function renderLB() {
+  let lb = G.lb;
+  if (!lb || !lb.length) {
+    try {
+      const res = await fetch('/api/leaderboard');
+      if (res.ok) { const data = await res.json(); lb = data.entries || []; }
+    } catch {}
+    if (!lb || !lb.length) {
+      try { lb = JSON.parse(localStorage.getItem('ptk-lb') || '[]'); } catch { lb = []; }
     }
   }
-  const el=document.getElementById('lb-rows');el.innerHTML='';
-  if(!lb.length){el.innerHTML=`<div style="text-align:center;padding:40px;color:#9AA3B2;font-size:14px">No scores yet. Be the first legendary host!</div>`;return;}
-  const medals=['🥇','🥈','🥉'];
-  lb.forEach((e,i)=>{
-    const r=getRat(e.score);
-    const row=document.createElement('div');
-    row.style.cssText=`display:flex;align-items:center;gap:14px;padding:14px 16px;background:${i===0?'#FEF3DC':'#fff'};border:1px solid ${i===0?'#FADDAA':'#E8ECF4'};border-radius:12px;margin-bottom:8px`;
-    row.innerHTML=`<span style="font-size:18px;width:26px;text-align:center;flex-shrink:0">${medals[i]||'#'+(i+1)}</span><div style="flex:1"><div style="font-size:14px;font-weight:700;color:#1a1a2e">${e.name}</div><div style="font-size:11px;color:#9AA3B2;margin-top:2px">${e.rating} · ${e.date}</div></div><div style="font-size:18px;font-weight:800;color:#1C2280;font-family:'Lora',serif">£${e.score.toLocaleString()}</div><span style="font-size:16px">${r.emoji}</span>`;
+  const el = document.getElementById('lb-rows');
+  el.innerHTML = '';
+  if (!lb.length) {
+    el.innerHTML = `<div style="text-align:center;padding:48px 24px;color:#9AA3B2;font-size:14px">No scores yet — be the first legendary host!</div>`;
+    return;
+  }
+  const medals = ['🥇', '🥈', '🥉'];
+  lb.forEach((e, i) => {
+    const r = getRat(e.score);
+    const row = document.createElement('div');
+    row.className = 'lb-row' + (i === 0 ? ' first' : '');
+    row.innerHTML = `
+      <span class="lb-medal">${medals[i] || '#' + (i + 1)}</span>
+      <div class="lb-name">
+        <div>${escapeHtml(e.name)}</div>
+        <div style="font-size:11px;color:#9AA3B2;font-weight:500;margin-top:2px">${r.emoji} ${r.label} · ${e.date}</div>
+      </div>
+      <div class="lb-score">£${e.score.toLocaleString()}</div>
+    `;
     el.appendChild(row);
   });
 }
 
-function showNotif(msg,good){
-  const n=document.getElementById('notif');
-  n.textContent=msg;
-  n.style.cssText=`display:block;position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:24px;font-size:13px;font-weight:700;white-space:nowrap;z-index:99;font-family:'Nunito Sans',sans-serif;background:${good?'#6AAF2E':'#E24B4A'};color:#fff`;
-  setTimeout(()=>{n.style.display='none';},2800);
+// ─── HELPERS / FX ────────────────────────────────────────────────────────────
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
-function showPtAnim(delta){
-  const el=document.getElementById('ptanim');
-  el.textContent=delta;
-  el.style.cssText=`display:block;position:absolute;top:70px;right:24px;font-size:22px;font-weight:800;z-index:99;pointer-events:none;font-family:'Lora',serif;color:${delta.startsWith('+')?'#6AAF2E':'#E24B4A'};animation:floatUp 1.1s ease forwards`;
-  setTimeout(()=>{el.style.display='none';},1200);
+function toast(msg, good) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (good ? 'good' : 'bad');
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2800);
 }
 
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')startGame();});
+function showCoinFx(amount) {
+  const el = document.createElement('div');
+  el.className = 'coin-fx ' + (amount >= 0 ? 'pos' : 'neg');
+  el.textContent = (amount > 0 ? '+£' : '-£') + Math.abs(amount).toLocaleString();
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1500);
+}
+
+function confetti(count) {
+  const colors = ['#F5A623', '#6AAF2E', '#1C2280', '#E91E63', '#FFD700'];
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (40 + Math.random() * 30) + '%';
+    piece.style.top = '20%';
+    piece.style.background = colors[i % colors.length];
+    piece.style.setProperty('--cx', (Math.random() * 200 - 100) + 'px');
+    piece.style.setProperty('--cy', (200 + Math.random() * 200) + 'px');
+    piece.style.animationDelay = (i * 0.04) + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 2200);
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  show('intro');
+  document.getElementById('nameInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') startGame();
+  });
+});
+
 </script>
 </body>
 </html>
