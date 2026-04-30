@@ -15,57 +15,136 @@ const PROP_STYLES = {
 
 function renderStyledWindow(winX, winY, winW, winH, wallColor, propId, style) {
   let svg = '';
+  // Architecturally accurate frames — darker tones for proper contrast
+  const frame = '#2A2520';
+  const frameMid = '#4A3F32';
+  const glassGrad = `<linearGradient id="glass-${propId}-${Math.round(winX)}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9DC8E8"/>
+      <stop offset="0.5" stop-color="#C5DCEA"/>
+      <stop offset="1" stop-color="#E5F0F7"/>
+    </linearGradient>`;
+  const gid = `glass-${propId}-${Math.round(winX)}`;
+
   if (style === 'georgian') {
-    // 6-pane sash — Georgian symmetry
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="#B8E3FF" stroke="${wallColor}" stroke-width="1.5"/>`;
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#sky-${propId})" opacity="0.5"/>`;
-    // 3 vertical mullions
-    svg += `<line x1="${winX + winW/3}" y1="${winY}" x2="${winX + winW/3}" y2="${winY + winH}" stroke="${wallColor}" stroke-width="1.2"/>`;
-    svg += `<line x1="${winX + 2*winW/3}" y1="${winY}" x2="${winX + 2*winW/3}" y2="${winY + winH}" stroke="${wallColor}" stroke-width="1.2"/>`;
-    // Horizontal sash split
-    svg += `<line x1="${winX}" y1="${winY + winH/2}" x2="${winX + winW}" y2="${winY + winH/2}" stroke="${wallColor}" stroke-width="2"/>`;
-    // Pediment above
-    svg += `<polygon points="${winX - 4},${winY} ${winX + winW + 4},${winY} ${winX + winW/2},${winY - 8}" fill="${wallColor}" opacity="0.6"/>`;
-    // Lower sill
-    svg += `<rect x="${winX - 3}" y="${winY + winH}" width="${winW + 6}" height="4" fill="${wallColor}" opacity="0.7"/>`;
-  } else if (style === 'victorian') {
-    // Bay-window arched top
-    svg += `<path d="M ${winX} ${winY + winH * 0.2}
-                    Q ${winX} ${winY} ${winX + winW * 0.5} ${winY}
-                    Q ${winX + winW} ${winY} ${winX + winW} ${winY + winH * 0.2}
-                    L ${winX + winW} ${winY + winH}
-                    L ${winX} ${winY + winH} Z"
-            fill="#B8E3FF" stroke="${wallColor}" stroke-width="1.5"/>`;
-    svg += `<path d="M ${winX} ${winY + winH * 0.2}
-                    Q ${winX} ${winY} ${winX + winW * 0.5} ${winY}
-                    Q ${winX + winW} ${winY} ${winX + winW} ${winY + winH * 0.2}
-                    L ${winX + winW} ${winY + winH}
-                    L ${winX} ${winY + winH} Z"
-            fill="url(#sky-${propId})" opacity="0.5"/>`;
-    // Center mullion
-    svg += `<line x1="${winX + winW/2}" y1="${winY + 4}" x2="${winX + winW/2}" y2="${winY + winH}" stroke="${wallColor}" stroke-width="1.2"/>`;
-    // Decorative top-arc
-    svg += `<path d="M ${winX} ${winY + winH * 0.2} Q ${winX + winW/2} ${winY - 5} ${winX + winW} ${winY + winH * 0.2}" stroke="${wallColor}" stroke-width="1.5" fill="none"/>`;
-    // Bay sill
-    svg += `<rect x="${winX - 4}" y="${winY + winH}" width="${winW + 8}" height="5" fill="${wallColor}" opacity="0.7"/>`;
-  } else if (style === 'edwardian') {
-    // Mullioned with smaller panes
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="#B8E3FF" stroke="${wallColor}" stroke-width="1.5"/>`;
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#sky-${propId})" opacity="0.5"/>`;
-    // 2 vertical mullions, 2 horizontal
-    for (let v = 1; v < 3; v++) svg += `<line x1="${winX + v*winW/3}" y1="${winY}" x2="${winX + v*winW/3}" y2="${winY + winH}" stroke="${wallColor}" stroke-width="1.2"/>`;
-    for (let h = 1; h < 3; h++) svg += `<line x1="${winX}" y1="${winY + h*winH/3}" x2="${winX + winW}" y2="${winY + h*winH/3}" stroke="${wallColor}" stroke-width="1"/>`;
-    // Tudor-style timber strip
-    svg += `<rect x="${winX - 2}" y="${winY - 6}" width="${winW + 4}" height="4" fill="#5C3010"/>`;
-    svg += `<rect x="${winX - 2}" y="${winY + winH + 1}" width="${winW + 4}" height="4" fill="#5C3010"/>`;
-  } else { // modern
-    // Plate glass — minimal mullions
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="#B8E3FF" stroke="${wallColor}" stroke-width="1.5"/>`;
-    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#sky-${propId})" opacity="0.5"/>`;
-    // Single horizontal divider near top
-    svg += `<line x1="${winX}" y1="${winY + winH * 0.15}" x2="${winX + winW}" y2="${winY + winH * 0.15}" stroke="${wallColor}" stroke-width="0.8" opacity="0.5"/>`;
-    // Steel frame accent bottom
-    svg += `<rect x="${winX}" y="${winY + winH}" width="${winW}" height="3" fill="#3a3a3a" opacity="0.6"/>`;
+    // Georgian 6-over-6 sash window with deep frame, lintel, pediment, sill
+    const fw = 6;
+    svg += `<defs>${glassGrad}</defs>`;
+    // Lintel band above
+    svg += `<rect x="${winX - fw - 4}" y="${winY - 16}" width="${winW + 2*fw + 8}" height="6" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw - 8}" y="${winY - 10}" width="${winW + 2*fw + 16}" height="3" fill="${frame}"/>`;
+    // Deep architrave (timber surround)
+    svg += `<rect x="${winX - fw}" y="${winY - 4}" width="${winW + 2*fw}" height="${winH + 8}" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw + 1}" y="${winY - 3}" width="${winW + 2*fw - 2}" height="${winH + 6}" fill="${frameMid}"/>`;
+    // Glazed area
+    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#${gid})"/>`;
+    // 6-over-6 sash: thick central horizontal divider + 2 vertical mullions per sash
+    const mullW = 2.5;
+    svg += `<rect x="${winX}" y="${winY + winH/2 - 2}" width="${winW}" height="4" fill="${frame}"/>`;
+    for (let v = 1; v < 3; v++) {
+      svg += `<rect x="${winX + v * winW/3 - mullW/2}" y="${winY}" width="${mullW}" height="${winH}" fill="${frame}"/>`;
+    }
+    svg += `<rect x="${winX}" y="${winY + winH/4 - 1}" width="${winW}" height="2" fill="${frame}"/>`;
+    svg += `<rect x="${winX}" y="${winY + 3*winH/4 - 1}" width="${winW}" height="2" fill="${frame}"/>`;
+    // Glass reflection highlights
+    svg += `<polygon points="${winX + 4},${winY + 4} ${winX + winW/3 - 4},${winY + 4} ${winX + 4},${winY + winH/4 - 4}" fill="#fff" opacity="0.32"/>`;
+    svg += `<polygon points="${winX + winW * 0.6},${winY + winH/2 + 8} ${winX + winW - 6},${winY + winH/2 + 8} ${winX + winW - 6},${winY + winH * 0.85}" fill="#fff" opacity="0.18"/>`;
+    // Deep projecting sill
+    svg += `<rect x="${winX - fw - 6}" y="${winY + winH + 4}" width="${winW + 2*fw + 12}" height="5" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw - 4}" y="${winY + winH + 9}" width="${winW + 2*fw + 8}" height="3" fill="${frameMid}"/>`;
+  }
+  else if (style === 'victorian') {
+    // Victorian bay window — 3 separate panels: narrow side, wide center, narrow side
+    svg += `<defs>${glassGrad}</defs>`;
+    const sw = winW * 0.22;
+    const cw = winW * 0.56;
+    const lcX = winX;
+    const cx = winX + sw;
+    const rcX = winX + sw + cw;
+
+    // Bay roof — projecting trim
+    svg += `<path d="M ${winX - 8} ${winY - 4}
+                    L ${winX + 4} ${winY - 18}
+                    L ${winX + winW - 4} ${winY - 18}
+                    L ${winX + winW + 8} ${winY - 4} Z"
+            fill="${frame}"/>`;
+    svg += `<path d="M ${winX - 2} ${winY - 4}
+                    L ${winX + 8} ${winY - 14}
+                    L ${winX + winW - 8} ${winY - 14}
+                    L ${winX + winW + 2} ${winY - 4} Z"
+            fill="${frameMid}"/>`;
+    // Decorative finial above center
+    svg += `<rect x="${winX + winW/2 - 1.5}" y="${winY - 24}" width="3" height="8" fill="${frame}"/>`;
+    svg += `<circle cx="${winX + winW/2}" cy="${winY - 26}" r="3" fill="${frame}"/>`;
+
+    // Three panels with frames
+    [
+      { x: lcX, w: sw },
+      { x: cx, w: cw },
+      { x: rcX, w: sw }
+    ].forEach((p, i) => {
+      const fwp = 3.5;
+      // Panel frame
+      svg += `<rect x="${p.x - fwp}" y="${winY - 4}" width="${p.w + 2*fwp}" height="${winH + 8}" fill="${frame}"/>`;
+      svg += `<rect x="${p.x - fwp + 1}" y="${winY - 3}" width="${p.w + 2*fwp - 2}" height="${winH + 6}" fill="${frameMid}"/>`;
+      // Glass
+      svg += `<rect x="${p.x}" y="${winY}" width="${p.w}" height="${winH}" fill="url(#${gid})"/>`;
+      // Sash divider (lower 40%)
+      svg += `<rect x="${p.x}" y="${winY + winH * 0.6 - 1.5}" width="${p.w}" height="3" fill="${frame}"/>`;
+      // Vertical mullion in center panel only (because narrow panels are narrow)
+      if (p.w >= 60) {
+        svg += `<rect x="${p.x + p.w/2 - 1}" y="${winY}" width="2" height="${winH * 0.6}" fill="${frame}"/>`;
+        svg += `<rect x="${p.x + p.w/2 - 1}" y="${winY + winH * 0.6}" width="2" height="${winH * 0.4}" fill="${frame}"/>`;
+      }
+      // Glass reflection
+      svg += `<polygon points="${p.x + 3},${winY + 3} ${p.x + p.w * 0.4},${winY + 3} ${p.x + 3},${winY + winH * 0.4}" fill="#fff" opacity="0.28"/>`;
+    });
+
+    // Deep ornate sill — projecting forward as a real bay does
+    svg += `<rect x="${winX - 12}" y="${winY + winH + 4}" width="${winW + 24}" height="6" fill="${frame}"/>`;
+    svg += `<rect x="${winX - 16}" y="${winY + winH + 10}" width="${winW + 32}" height="4" fill="${frameMid}"/>`;
+    svg += `<rect x="${winX - 8}" y="${winY + winH + 14}" width="${winW + 16}" height="2" fill="${frame}"/>`;
+  }
+  else if (style === 'edwardian') {
+    // Edwardian: leaded mullions in a 4×6 grid with timber bands above
+    svg += `<defs>${glassGrad}</defs>`;
+    const fw = 5;
+    // Decorative crown trim
+    svg += `<rect x="${winX - fw - 2}" y="${winY - 14}" width="${winW + 2*fw + 4}" height="4" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw - 6}" y="${winY - 10}" width="${winW + 2*fw + 12}" height="3" fill="${frameMid}"/>`;
+    // Tudor revival timber accents
+    svg += `<rect x="${winX + winW * 0.1}" y="${winY - 22}" width="3" height="18" fill="#3D2817"/>`;
+    svg += `<rect x="${winX + winW * 0.45}" y="${winY - 26}" width="3" height="22" fill="#3D2817"/>`;
+    svg += `<rect x="${winX + winW * 0.85}" y="${winY - 22}" width="3" height="18" fill="#3D2817"/>`;
+    // Frame
+    svg += `<rect x="${winX - fw}" y="${winY - 4}" width="${winW + 2*fw}" height="${winH + 8}" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw + 1}" y="${winY - 3}" width="${winW + 2*fw - 2}" height="${winH + 6}" fill="${frameMid}"/>`;
+    // Glazing
+    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#${gid})"/>`;
+    // 4 column × 6 row leaded grid
+    const mullW = 1.8;
+    for (let v = 1; v < 4; v++) svg += `<rect x="${winX + v * winW/4 - mullW/2}" y="${winY}" width="${mullW}" height="${winH}" fill="${frame}"/>`;
+    for (let h = 1; h < 6; h++) svg += `<rect x="${winX}" y="${winY + h * winH/6 - mullW/2}" width="${winW}" height="${mullW}" fill="${frame}"/>`;
+    // Reflection
+    svg += `<polygon points="${winX + 3},${winY + 3} ${winX + winW * 0.35},${winY + 3} ${winX + 3},${winY + winH * 0.32}" fill="#fff" opacity="0.24"/>`;
+    // Sill
+    svg += `<rect x="${winX - fw - 4}" y="${winY + winH + 4}" width="${winW + 2*fw + 8}" height="5" fill="${frame}"/>`;
+    svg += `<rect x="${winX - fw - 2}" y="${winY + winH + 9}" width="${winW + 2*fw + 4}" height="3" fill="${frameMid}"/>`;
+  }
+  else { // modern
+    // Industrial steel-frame plate glass
+    svg += `<defs>${glassGrad}</defs>`;
+    const fw = 4;
+    svg += `<rect x="${winX - fw}" y="${winY - fw}" width="${winW + 2*fw}" height="${winH + 2*fw}" fill="#1A1A1A"/>`;
+    svg += `<rect x="${winX}" y="${winY}" width="${winW}" height="${winH}" fill="url(#${gid})"/>`;
+    const mullW = 2.5;
+    for (let v = 1; v < 3; v++) {
+      svg += `<rect x="${winX + v * winW/3 - mullW/2}" y="${winY}" width="${mullW}" height="${winH}" fill="#1A1A1A"/>`;
+    }
+    svg += `<rect x="${winX}" y="${winY + winH * 0.6 - 1.25}" width="${winW}" height="${mullW}" fill="#1A1A1A"/>`;
+    // Bold reflection bands
+    svg += `<polygon points="${winX + 6},${winY + 6} ${winX + winW * 0.32},${winY + 6} ${winX + 6},${winY + winH * 0.32}" fill="#fff" opacity="0.32"/>`;
+    svg += `<rect x="${winX + winW * 0.65}" y="${winY + winH * 0.32}" width="${winW * 0.18}" height="2" fill="#fff" opacity="0.45"/>`;
+    svg += `<rect x="${winX - fw - 2}" y="${winY + winH + fw}" width="${winW + 2*fw + 4}" height="4" fill="#1A1A1A"/>`;
   }
   return svg;
 }
@@ -155,39 +234,75 @@ function renderModelHome(propId, ownedUpgrades, width = 600){
     const rx = padding + i * (roomW + roomGap);
     const ry = baseY - roomH;
 
-    // Floor strip
-    svg += `<rect x="${rx}" y="${baseY - 6}" width="${roomW}" height="6" fill="${wallColor}" opacity="0.4"/>`;
+    // === ROOM SHELL ===
+    // Wall (back wall fill) — slightly darker at floor level for depth
+    const wallTop = `<linearGradient id="wall-${propId}-${i}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="${floorColor}" stop-opacity="0.95"/>
+        <stop offset="0.7" stop-color="${floorColor}" stop-opacity="0.78"/>
+        <stop offset="1" stop-color="${wallColor}" stop-opacity="0.18"/>
+      </linearGradient>`;
+    svg += `<defs>${wallTop}</defs>`;
+    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="url(#wall-${propId}-${i})"/>`;
 
-    // Back wall (the "inside" of the room — front-facing cross-section view)
-    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="${floorColor}" opacity="0.85"/>`;
+    // Crown molding at top of wall
+    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="6" fill="${wallColor}" opacity="0.45"/>`;
+    svg += `<rect x="${rx}" y="${ry + 6}" width="${roomW}" height="2" fill="${wallColor}" opacity="0.25"/>`;
 
-    // Subtle wall texture
-    svg += `<line x1="${rx}" y1="${ry + roomH * 0.7}" x2="${rx + roomW}" y2="${ry + roomH * 0.7}" stroke="${wallColor}" stroke-width="0.5" opacity="0.2"/>`;
+    // Wood plank floor — varies by tier
+    const floorEnd = baseY;
+    const floorStart = baseY - 28;
+    const plankTone = propId <= 2 ? '#8B6F47' : propId <= 4 ? '#A8845D' : '#C0986A';
+    const plankDark = propId <= 2 ? '#5C3F22' : propId <= 4 ? '#704528' : '#8B5A2B';
+    svg += `<rect x="${rx}" y="${floorStart}" width="${roomW}" height="${floorEnd - floorStart}" fill="${plankTone}"/>`;
+    // Plank lines (perspective-ish horizontal lines)
+    for (let p = 0; p < 4; p++) {
+      const py = floorStart + (p + 0.5) * (floorEnd - floorStart) / 4;
+      svg += `<line x1="${rx}" y1="${py}" x2="${rx + roomW}" y2="${py}" stroke="${plankDark}" stroke-width="0.6" opacity="0.5"/>`;
+    }
+    // Vertical plank seams (irregular)
+    const seamPositions = [0.18, 0.42, 0.71, 0.88];
+    seamPositions.forEach(s => {
+      svg += `<line x1="${rx + roomW * s}" y1="${floorStart + 4}" x2="${rx + roomW * s}" y2="${floorEnd - 4}" stroke="${plankDark}" stroke-width="0.5" opacity="0.4"/>`;
+    });
+    // Skirting board
+    svg += `<rect x="${rx}" y="${floorStart - 8}" width="${roomW}" height="8" fill="${wallColor}" opacity="0.55"/>`;
+    svg += `<rect x="${rx}" y="${floorStart - 1}" width="${roomW}" height="1" fill="${wallColor}" opacity="0.85"/>`;
 
     // Outline frame
-    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="none" stroke="${wallColor}" stroke-width="1.5" opacity="0.5"/>`;
+    svg += `<rect x="${rx}" y="${ry}" width="${roomW}" height="${roomH}" fill="none" stroke="${wallColor}" stroke-width="1" opacity="0.4"/>`;
 
-    // Window in back wall — STYLED per architectural style
-    const winW = roomW * 0.45;
-    const winH = roomH * 0.4;
+    // === WINDOW — properly sized, positioned in the UPPER portion of the wall ===
+    // Real windows: 1.0–2.2m from floor, room is ~3m tall, so vertical 30%–73% from floor
+    // (= 27%–70% from top of room).
+    const winW = Math.min(roomW * 0.42, 220);
+    const winH = Math.min(roomH * 0.4, 200);
     const winX = rx + (roomW - winW) / 2;
-    const winY = ry + roomH * 0.18;
+    const winY = ry + roomH * 0.16;
     const propStyle = (typeof PROP_STYLES !== 'undefined' && PROP_STYLES[propId]) || 'modern';
     svg += renderStyledWindow(winX, winY, winW, winH, wallColor, propId, propStyle);
 
-    // Skirting board
-    svg += `<rect x="${rx}" y="${baseY - 12}" width="${roomW}" height="3" fill="${wallColor}" opacity="0.6"/>`;
+    // === CEILING PENDANT LIGHT ===
+    // Hangs from ceiling between window and side wall
+    const lampX = rx + roomW * 0.82;
+    const lampCordTop = ry + 8;
+    const lampCordBottom = ry + roomH * 0.14;
+    svg += `<line x1="${lampX}" y1="${lampCordTop}" x2="${lampX}" y2="${lampCordBottom}" stroke="#3D2817" stroke-width="1"/>`;
+    svg += `<path d="M ${lampX - 8} ${lampCordBottom} 
+                    Q ${lampX} ${lampCordBottom + 14} ${lampX + 8} ${lampCordBottom}
+                    L ${lampX + 5} ${lampCordBottom + 2} 
+                    L ${lampX - 5} ${lampCordBottom + 2} Z"
+            fill="#3D2817"/>`;
+    svg += `<ellipse cx="${lampX}" cy="${lampCordBottom + 14}" rx="14" ry="6" fill="#FFD89C" opacity="0.45"/>`;
 
     // Items in this room
     const itemsForRoom = getUpgradesForRoom(propId, owned, i, numRooms);
-    const roomBox = { x: rx, y: ry, w: roomW, h: roomH, baseY, propId };
+    const roomBox = { x: rx, y: ry, w: roomW, h: roomH, baseY, propId, floorY: floorStart };
     itemsForRoom.forEach((upg, idx) => {
       svg += renderItemInRoom(upg, roomBox, idx, itemsForRoom.length);
     });
 
     // STARTER FURNITURE — every room gets baseline furniture so it looks lived-in
-    // even when no upgrades have been bought. Rooms without an "upgrade item" still
-    // show as a real, furnished interior.
+    // even when no upgrades have been bought.
     if (itemsForRoom.length === 0) {
       svg += renderStarterFurniture(roomBox, getRoomKind(i, numRooms), propId);
     }
@@ -208,158 +323,572 @@ function getRoomKind(roomIndex, totalRooms){
 }
 
 // Render baseline furniture for an empty room — varies by room kind & property tier
+// All furniture is at proper scale: ~1m = ~167px on this canvas
 function renderStarterFurniture(room, kind, propId){
-  const { x, y, w, h, baseY } = room;
-  const fl = baseY - 6; // floor line
+  const { x, y, w, h, baseY, floorY } = room;
+  const fl = floorY || (baseY - 28);          // furniture floor line
+  const tier = propId;
+  // Tone palette by tier — substantial, not pastel
+  const wood       = tier <= 2 ? '#7B5234' : tier <= 4 ? '#9C6E3F' : '#A88454';
+  const woodDark   = tier <= 2 ? '#3D2817' : tier <= 4 ? '#5C3F22' : '#704528';
+  const woodLight  = tier <= 2 ? '#A88454' : tier <= 4 ? '#C09668' : '#D4B080';
+  const fabric     = tier <= 2 ? '#5B7BA3' : tier <= 4 ? '#3D5A82' : '#2A4264';
+  const fabricLight= tier <= 2 ? '#7A98BD' : tier <= 4 ? '#5B7BA3' : '#4A6791';
+  const accent     = tier <= 2 ? '#C45A4F' : tier <= 4 ? '#D4A057' : '#A88454';
+  const wallSh     = tier <= 2 ? '#5C3F22' : '#704528';   // wall shadow color for art frames
+  const linenW     = '#F5F0E8';                          // bedding white
+  const cushAccent = tier <= 2 ? '#D9B380' : tier <= 4 ? '#C49A6C' : '#7B1F1F';
   let s = '';
-  // Rough "shabby" tone for low-tier props, refined for high-tier
-  const tier = propId; // 1..6
-  const baseTone = tier <= 2 ? '#8B6F47' : tier <= 4 ? '#A8845D' : '#C0986A';
-  const fabricTone = tier <= 2 ? '#6B7280' : tier <= 4 ? '#5B7BA3' : '#4A5F8C';
-  const shabby = tier <= 2; // crooked frames, peeling paint
 
+  // ---------- HELPERS ----------
+  // Floor shadow under any object — rounded ellipse for grounded feel
+  const dropShadow = (cx, cy, rx, ry=4, op=0.18) =>
+    `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#1a1a1a" opacity="${op}"/>`;
+  // Picture frame on the wall (multi-frame style)
+  const frame = (fx, fy, fw, fh, art='abstract') => {
+    let f = '';
+    f += `<rect x="${fx-2}" y="${fy-2}" width="${fw+4}" height="${fh+4}" fill="${woodDark}"/>`;
+    f += `<rect x="${fx-1}" y="${fy-1}" width="${fw+2}" height="${fh+2}" fill="${linenW}"/>`;
+    if (art === 'abstract') {
+      f += `<rect x="${fx}" y="${fy}" width="${fw}" height="${fh}" fill="${fabricLight}"/>`;
+      f += `<circle cx="${fx + fw*0.35}" cy="${fy + fh*0.4}" r="${fw*0.18}" fill="${accent}" opacity="0.85"/>`;
+      f += `<rect x="${fx + fw*0.55}" y="${fy + fh*0.3}" width="${fw*0.3}" height="${fh*0.4}" fill="${cushAccent}" opacity="0.7"/>`;
+    } else if (art === 'landscape') {
+      f += `<rect x="${fx}" y="${fy}" width="${fw}" height="${fh*0.55}" fill="#A8C9E3"/>`;
+      f += `<rect x="${fx}" y="${fy + fh*0.55}" width="${fw}" height="${fh*0.45}" fill="#5C7A2E"/>`;
+      f += `<polygon points="${fx + fw*0.2},${fy + fh*0.55} ${fx + fw*0.35},${fy + fh*0.3} ${fx + fw*0.5},${fy + fh*0.55}" fill="#6B7280"/>`;
+    } else if (art === 'portrait') {
+      f += `<rect x="${fx}" y="${fy}" width="${fw}" height="${fh}" fill="#5C3F22"/>`;
+      f += `<circle cx="${fx + fw*0.5}" cy="${fy + fh*0.35}" r="${fw*0.18}" fill="#E8C29B"/>`;
+      f += `<path d="M ${fx + fw*0.32} ${fy + fh*0.55} L ${fx + fw*0.32} ${fy + fh} L ${fx + fw*0.68} ${fy + fh} L ${fx + fw*0.68} ${fy + fh*0.55} Z" fill="${fabric}"/>`;
+    }
+    return f;
+  };
+  // Plant on floor
+  const floorPlant = (cx, baseLine, scale=1) => {
+    let p = '';
+    const potW = 18*scale, potH = 16*scale;
+    // Pot
+    p += `<path d="M ${cx-potW/2} ${baseLine-potH} L ${cx-potW/2+2} ${baseLine} L ${cx+potW/2-2} ${baseLine} L ${cx+potW/2} ${baseLine-potH} Z" fill="${woodDark}"/>`;
+    p += `<rect x="${cx-potW/2}" y="${baseLine-potH-1}" width="${potW}" height="2" fill="${woodDark}"/>`;
+    // Foliage — multiple leaves for depth
+    p += `<ellipse cx="${cx-7*scale}" cy="${baseLine-potH-12*scale}" rx="${10*scale}" ry="${18*scale}" fill="#3F5A1A" transform="rotate(-25 ${cx-7*scale} ${baseLine-potH-12*scale})"/>`;
+    p += `<ellipse cx="${cx+6*scale}" cy="${baseLine-potH-15*scale}" rx="${9*scale}" ry="${20*scale}" fill="#4F7A2A" transform="rotate(20 ${cx+6*scale} ${baseLine-potH-15*scale})"/>`;
+    p += `<ellipse cx="${cx}" cy="${baseLine-potH-22*scale}" rx="${8*scale}" ry="${17*scale}" fill="#5C8B30"/>`;
+    p += `<ellipse cx="${cx-3*scale}" cy="${baseLine-potH-26*scale}" rx="${5*scale}" ry="${10*scale}" fill="#6FA138"/>`;
+    return p;
+  };
+  // Tabletop plant
+  const tablePlant = (cx, baseLine, scale=0.6) => {
+    let p = '';
+    p += `<rect x="${cx-5*scale}" y="${baseLine-9*scale}" width="${10*scale}" height="${10*scale}" fill="${accent}"/>`;
+    p += `<ellipse cx="${cx-3*scale}" cy="${baseLine-15*scale}" rx="${5*scale}" ry="${8*scale}" fill="#4F7A2A"/>`;
+    p += `<ellipse cx="${cx+3*scale}" cy="${baseLine-15*scale}" rx="${5*scale}" ry="${8*scale}" fill="#5C8B30"/>`;
+    p += `<ellipse cx="${cx}" cy="${baseLine-19*scale}" rx="${4*scale}" ry="${7*scale}" fill="#6FA138"/>`;
+    return p;
+  };
+  // Books stacked
+  const books = (cx, baseLine, n=3) => {
+    let b = '';
+    const colors = ['#7B1F1F','#3D5A82','#2E4A2E','#5C3F22','#A88454'];
+    for (let i = 0; i < n; i++) {
+      const bw = 18 - i;
+      const bh = 4;
+      b += `<rect x="${cx-bw/2}" y="${baseLine - (i+1)*bh}" width="${bw}" height="${bh}" fill="${colors[i % colors.length]}" stroke="${woodDark}" stroke-width="0.4"/>`;
+    }
+    return b;
+  };
+
+  // ============ ROOM TYPES ============
   if (kind === 'studio' || kind === 'living') {
-    // Sofa
-    const sofaW = w * 0.45;
-    const sofaX = x + (w - sofaW) / 2;
-    const sofaY = fl - 28;
-    s += `<rect x="${sofaX}" y="${sofaY}" width="${sofaW}" height="22" rx="3" fill="${fabricTone}"/>`;
-    s += `<rect x="${sofaX - 4}" y="${sofaY - 4}" width="6" height="26" rx="2" fill="${fabricTone}" opacity="0.85"/>`;
-    s += `<rect x="${sofaX + sofaW - 2}" y="${sofaY - 4}" width="6" height="26" rx="2" fill="${fabricTone}" opacity="0.85"/>`;
-    s += `<rect x="${sofaX + 4}" y="${sofaY - 6}" width="${sofaW * 0.4}" height="6" rx="1.5" fill="${fabricTone}" opacity="0.9"/>`;
-    s += `<rect x="${sofaX + sofaW * 0.55}" y="${sofaY - 6}" width="${sofaW * 0.4}" height="6" rx="1.5" fill="${fabricTone}" opacity="0.9"/>`;
-    // Coffee table
-    const tblY = fl - 8;
-    s += `<rect x="${sofaX + 6}" y="${tblY}" width="${sofaW - 12}" height="4" fill="${baseTone}"/>`;
-    s += `<rect x="${sofaX + 8}" y="${tblY + 4}" width="2" height="4" fill="${baseTone}"/>`;
-    s += `<rect x="${sofaX + sofaW - 12}" y="${tblY + 4}" width="2" height="4" fill="${baseTone}"/>`;
-    // Lamp
-    const lampX = x + 8;
-    s += `<rect x="${lampX + 1}" y="${fl - 32}" width="2" height="24" fill="${baseTone}"/>`;
-    s += `<polygon points="${lampX - 4},${fl - 32} ${lampX + 8},${fl - 32} ${lampX + 5},${fl - 40} ${lampX - 1},${fl - 40}" fill="#F5D89C" opacity="0.85"/>`;
-    // Wall picture
-    s += `<rect x="${x + w - 22}" y="${y + h * 0.65}" width="14" height="10" fill="#fff" stroke="${baseTone}" stroke-width="0.8"${shabby ? ' transform="rotate(-3 ' + (x + w - 15) + ' ' + (y + h * 0.7) + ')"' : ''}/>`;
-    s += `<rect x="${x + w - 21}" y="${y + h * 0.65 + 1}" width="12" height="6" fill="${fabricTone}" opacity="0.6"${shabby ? ' transform="rotate(-3 ' + (x + w - 15) + ' ' + (y + h * 0.7) + ')"' : ''}/>`;
-    if (kind === 'studio') {
-      // Bed in studio
-      const bedW = w * 0.35;
-      const bedX = x + 6;
-      const bedY = fl - 14;
-      s += `<rect x="${bedX}" y="${bedY}" width="${bedW}" height="10" fill="${baseTone}"/>`;
-      s += `<rect x="${bedX}" y="${bedY - 4}" width="${bedW}" height="5" fill="#F5F5F0"/>`;
-      s += `<rect x="${bedX + 2}" y="${bedY - 7}" width="${bedW * 0.4}" height="4" rx="1" fill="#fff"/>`;
+    // Layout: Sofa center-left, coffee table in front of sofa, side table+lamp on right,
+    // plant in left corner, art on wall, rug under seating, optional bed for studio
+    const sofaH  = Math.min(70, h * 0.16);
+    const sofaW  = Math.min(w * 0.55, 220);
+    const sofaX  = x + (w - sofaW) / 2;
+    const sofaY  = fl - sofaH;
+
+    // Rug — large rectangle under seating
+    const rugW = sofaW * 1.45;
+    const rugH = 12;
+    s += `<rect x="${sofaX - sofaW * 0.22}" y="${fl - 4}" width="${rugW}" height="${rugH}" fill="${cushAccent}" opacity="0.7"/>`;
+    // Rug pattern
+    s += `<rect x="${sofaX - sofaW * 0.22 + 6}" y="${fl - 2}" width="${rugW - 12}" height="${rugH - 4}" fill="none" stroke="${woodDark}" stroke-width="0.6" opacity="0.5"/>`;
+    s += `<line x1="${sofaX - sofaW * 0.22 + rugW/2}" y1="${fl - 2}" x2="${sofaX - sofaW * 0.22 + rugW/2}" y2="${fl + rugH - 6}" stroke="${woodDark}" stroke-width="0.4" opacity="0.4"/>`;
+
+    // SOFA — layered: legs, frame, seat cushions, back cushions, armrests, throw pillow
+    // Wooden legs
+    s += `<rect x="${sofaX + 4}" y="${fl - 8}" width="4" height="8" fill="${woodDark}"/>`;
+    s += `<rect x="${sofaX + sofaW - 8}" y="${fl - 8}" width="4" height="8" fill="${woodDark}"/>`;
+    // Drop shadow under sofa
+    s += dropShadow(sofaX + sofaW/2, fl, sofaW * 0.5, 3, 0.2);
+    // Sofa base/frame
+    s += `<rect x="${sofaX}" y="${sofaY + sofaH * 0.45}" width="${sofaW}" height="${sofaH * 0.55}" rx="6" fill="${fabric}"/>`;
+    // Backrest (taller, behind cushions)
+    s += `<rect x="${sofaX + 6}" y="${sofaY}" width="${sofaW - 12}" height="${sofaH * 0.55}" rx="8" fill="${fabricLight}"/>`;
+    // Three back cushions with seam lines
+    const cushW = (sofaW - 24) / 3;
+    for (let c = 0; c < 3; c++) {
+      const cxx = sofaX + 12 + c * cushW;
+      s += `<rect x="${cxx}" y="${sofaY + 4}" width="${cushW - 4}" height="${sofaH * 0.55 - 4}" rx="4" fill="${fabricLight}" stroke="${fabric}" stroke-width="0.6"/>`;
     }
-  }
-  else if (kind === 'bedroom') {
-    // Big bed centered
-    const bedW = w * 0.55;
-    const bedX = x + (w - bedW) / 2;
-    const bedY = fl - 16;
-    s += `<rect x="${bedX}" y="${bedY}" width="${bedW}" height="14" rx="2" fill="${baseTone}"/>`;
-    // Mattress
-    s += `<rect x="${bedX + 1}" y="${bedY - 8}" width="${bedW - 2}" height="9" fill="#F5F5F0"/>`;
-    // Headboard
-    s += `<rect x="${bedX - 3}" y="${bedY - 22}" width="${bedW + 6}" height="14" rx="2" fill="${baseTone}" opacity="0.9"/>`;
-    // Pillows
-    s += `<rect x="${bedX + 4}" y="${bedY - 11}" width="${bedW * 0.35}" height="6" rx="2" fill="#fff"/>`;
-    s += `<rect x="${bedX + bedW * 0.55}" y="${bedY - 11}" width="${bedW * 0.35}" height="6" rx="2" fill="#fff"/>`;
-    // Duvet line
-    s += `<rect x="${bedX}" y="${bedY + 2}" width="${bedW}" height="2" fill="${fabricTone}" opacity="0.5"/>`;
-    // Bedside table & lamp
-    s += `<rect x="${bedX - 14}" y="${fl - 12}" width="10" height="12" fill="${baseTone}"/>`;
-    s += `<circle cx="${bedX - 9}" cy="${fl - 18}" r="3" fill="#F5D89C" opacity="0.85"/>`;
-    // Wardrobe on right
-    s += `<rect x="${x + w - 22}" y="${fl - 38}" width="18" height="38" fill="${baseTone}" opacity="0.85"/>`;
-    s += `<line x1="${x + w - 13}" y1="${fl - 38}" x2="${x + w - 13}" y2="${fl}" stroke="#3D2817" stroke-width="0.8"/>`;
-    s += `<circle cx="${x + w - 15}" cy="${fl - 18}" r="0.8" fill="#3D2817"/>`;
-    s += `<circle cx="${x + w - 11}" cy="${fl - 18}" r="0.8" fill="#3D2817"/>`;
-  }
-  else if (kind === 'kitchen') {
-    // Kitchen counter run along floor
-    const counterY = fl - 18;
-    s += `<rect x="${x + 4}" y="${counterY}" width="${w - 8}" height="18" fill="${baseTone}" opacity="0.85"/>`;
-    s += `<rect x="${x + 4}" y="${counterY}" width="${w - 8}" height="3" fill="#D8D4CA"/>`;
-    // Cabinet doors
-    const doorW = (w - 12) / 3;
-    for (let d = 0; d < 3; d++) {
-      const dx = x + 6 + d * doorW;
-      s += `<rect x="${dx}" y="${counterY + 4}" width="${doorW - 2}" height="13" fill="${baseTone}" stroke="#3D2817" stroke-width="0.6"/>`;
-      s += `<circle cx="${dx + doorW - 4}" cy="${counterY + 10}" r="0.8" fill="#3D2817"/>`;
+    // Two seat cushions (front)
+    const seatW = (sofaW - 16) / 2;
+    for (let c = 0; c < 2; c++) {
+      const cxx = sofaX + 8 + c * seatW;
+      s += `<rect x="${cxx}" y="${sofaY + sofaH * 0.5}" width="${seatW - 4}" height="${sofaH * 0.4}" rx="5" fill="${fabricLight}" stroke="${fabric}" stroke-width="0.7"/>`;
     }
-    // Sink
-    s += `<rect x="${x + w/2 - 8}" y="${counterY - 1}" width="16" height="5" rx="1" fill="#5C7080"/>`;
-    s += `<rect x="${x + w/2 - 1}" y="${counterY - 5}" width="2" height="4" fill="#A0A0A8"/>`;
-    s += `<circle cx="${x + w/2}" cy="${counterY - 5}" r="1.5" fill="#A0A0A8"/>`;
-    // Fridge
-    s += `<rect x="${x + 6}" y="${fl - 38}" width="14" height="38" fill="#E8E4D8" stroke="${baseTone}" stroke-width="0.8"/>`;
-    s += `<line x1="${x + 6}" y1="${fl - 25}" x2="${x + 20}" y2="${fl - 25}" stroke="${baseTone}" stroke-width="0.8"/>`;
-    s += `<rect x="${x + 17}" y="${fl - 32}" width="2" height="3" fill="${baseTone}"/>`;
-    s += `<rect x="${x + 17}" y="${fl - 18}" width="2" height="3" fill="${baseTone}"/>`;
-    // Hob/cooker
-    s += `<rect x="${x + w - 22}" y="${counterY - 2}" width="18" height="6" fill="#3D2817"/>`;
-    s += `<circle cx="${x + w - 18}" cy="${counterY + 1}" r="1.2" fill="#5C5C5C"/>`;
-    s += `<circle cx="${x + w - 8}" cy="${counterY + 1}" r="1.2" fill="#5C5C5C"/>`;
-    // Wall tile pattern
-    if (!shabby) {
-      for (let tx = 0; tx < 4; tx++) {
-        s += `<line x1="${x + 4 + tx * (w - 8) / 3}" y1="${y + h * 0.4}" x2="${x + 4 + tx * (w - 8) / 3}" y2="${counterY}" stroke="${baseTone}" stroke-width="0.4" opacity="0.3"/>`;
-      }
+    // Armrests
+    s += `<rect x="${sofaX - 4}" y="${sofaY + sofaH * 0.3}" width="14" height="${sofaH * 0.7}" rx="5" fill="${fabric}"/>`;
+    s += `<rect x="${sofaX - 4}" y="${sofaY + sofaH * 0.3}" width="14" height="6" rx="3" fill="${fabricLight}" opacity="0.8"/>`;
+    s += `<rect x="${sofaX + sofaW - 10}" y="${sofaY + sofaH * 0.3}" width="14" height="${sofaH * 0.7}" rx="5" fill="${fabric}"/>`;
+    s += `<rect x="${sofaX + sofaW - 10}" y="${sofaY + sofaH * 0.3}" width="14" height="6" rx="3" fill="${fabricLight}" opacity="0.8"/>`;
+    // Throw pillow
+    s += `<rect x="${sofaX + sofaW * 0.6}" y="${sofaY + sofaH * 0.4}" width="20" height="14" rx="3" fill="${cushAccent}" transform="rotate(8 ${sofaX + sofaW * 0.6 + 10} ${sofaY + sofaH * 0.45})"/>`;
+
+    // COFFEE TABLE in front of sofa
+    const tblW = sofaW * 0.55;
+    const tblX = sofaX + (sofaW - tblW) / 2;
+    const tblTop = fl - 18;
+    s += dropShadow(tblX + tblW/2, fl, tblW * 0.5, 2.5, 0.18);
+    // Top
+    s += `<rect x="${tblX}" y="${tblTop}" width="${tblW}" height="5" fill="${wood}"/>`;
+    s += `<rect x="${tblX}" y="${tblTop}" width="${tblW}" height="1.5" fill="${woodLight}"/>`;
+    // Legs
+    s += `<rect x="${tblX + 3}" y="${tblTop + 5}" width="3" height="13" fill="${woodDark}"/>`;
+    s += `<rect x="${tblX + tblW - 6}" y="${tblTop + 5}" width="3" height="13" fill="${woodDark}"/>`;
+    // Books and tableplant on coffee table
+    s += books(tblX + tblW * 0.25, tblTop, 3);
+    s += tablePlant(tblX + tblW * 0.7, tblTop, 0.55);
+
+    // SIDE TABLE + LAMP on right side
+    const stX = sofaX + sofaW + 10;
+    if (stX + 22 < x + w) {
+      const stTop = fl - 36;
+      s += dropShadow(stX + 11, fl, 14, 2.5, 0.18);
+      s += `<rect x="${stX}" y="${stTop}" width="22" height="3" fill="${wood}"/>`;
+      s += `<rect x="${stX + 2}" y="${stTop + 3}" width="3" height="33" fill="${woodDark}"/>`;
+      s += `<rect x="${stX + 17}" y="${stTop + 3}" width="3" height="33" fill="${woodDark}"/>`;
+      // Lamp on top
+      const lmpX = stX + 11;
+      s += `<rect x="${lmpX - 0.8}" y="${stTop - 18}" width="1.6" height="18" fill="${woodDark}"/>`;
+      s += `<polygon points="${lmpX - 9},${stTop - 18} ${lmpX + 9},${stTop - 18} ${lmpX + 6},${stTop - 32} ${lmpX - 6},${stTop - 32}" fill="${linenW}" stroke="${woodDark}" stroke-width="0.6"/>`;
+      s += `<ellipse cx="${lmpX}" cy="${stTop - 17}" rx="9" ry="1.5" fill="#FFD89C" opacity="0.85"/>`;
     }
-  }
-  else if (kind === 'bathroom') {
-    // Tub
-    s += `<rect x="${x + 4}" y="${fl - 12}" width="${w * 0.5}" height="12" rx="2" fill="#F5F5F0" stroke="${baseTone}" stroke-width="0.8"/>`;
-    s += `<rect x="${x + 6}" y="${fl - 10}" width="${w * 0.5 - 4}" height="8" rx="1" fill="#D8E4ED"/>`;
-    // Toilet
-    const tx = x + w * 0.6;
-    s += `<rect x="${tx}" y="${fl - 16}" width="10" height="6" rx="1" fill="#fff" stroke="${baseTone}" stroke-width="0.6"/>`;
-    s += `<ellipse cx="${tx + 5}" cy="${fl - 6}" rx="6" ry="3" fill="#fff" stroke="${baseTone}" stroke-width="0.6"/>`;
-    s += `<rect x="${tx + 4}" y="${fl - 9}" width="2" height="3" fill="${baseTone}"/>`;
-    // Sink
-    s += `<rect x="${x + w - 18}" y="${fl - 22}" width="14" height="3" fill="${baseTone}"/>`;
-    s += `<ellipse cx="${x + w - 11}" cy="${fl - 19}" rx="6" ry="3" fill="#fff" stroke="${baseTone}" stroke-width="0.6"/>`;
-    s += `<rect x="${x + w - 12}" y="${fl - 26}" width="1.5" height="4" fill="#A0A0A8"/>`;
-    // Mirror
-    s += `<rect x="${x + w - 18}" y="${y + h * 0.3}" width="14" height="14" fill="#B8E3FF" stroke="${baseTone}" stroke-width="0.8"/>`;
-  }
-  else if (kind === 'outdoor') {
-    // Garden / terrace — depends on tier
-    if (tier >= 4) {
-      // Terrace tiles
-      for (let tx = 0; tx < 4; tx++) {
-        s += `<rect x="${x + 6 + tx * (w - 12) / 4}" y="${fl - 4}" width="${(w - 12) / 4 - 1}" height="4" fill="${baseTone}" opacity="0.5"/>`;
-      }
-      // Chair & table
-      s += `<rect x="${x + w * 0.2}" y="${fl - 16}" width="3" height="16" fill="${baseTone}"/>`;
-      s += `<rect x="${x + w * 0.18}" y="${fl - 22}" width="7" height="6" fill="${baseTone}"/>`;
-      s += `<circle cx="${x + w * 0.65}" cy="${fl - 14}" r="6" fill="${baseTone}"/>`;
-      s += `<rect x="${x + w * 0.65 - 1}" y="${fl - 10}" width="2" height="10" fill="${baseTone}"/>`;
-      // Plant
-      s += `<rect x="${x + w - 18}" y="${fl - 6}" width="10" height="6" fill="${baseTone}"/>`;
-      s += `<ellipse cx="${x + w - 13}" cy="${fl - 12}" rx="7" ry="9" fill="#5C7A2E"/>`;
-      s += `<ellipse cx="${x + w - 16}" cy="${fl - 14}" rx="3" ry="4" fill="#7CAA4E"/>`;
-    } else {
-      // Simple garden — grass + tree
-      s += `<rect x="${x + 4}" y="${fl - 4}" width="${w - 8}" height="4" fill="#5C7A2E" opacity="0.6"/>`;
-      // Grass tufts
-      for (let g = 0; g < 5; g++) {
-        const gx = x + 8 + g * (w - 16) / 4;
-        s += `<path d="M ${gx} ${fl - 4} L ${gx + 1} ${fl - 8} L ${gx + 2} ${fl - 4}" fill="#7CAA4E"/>`;
-      }
-      // Tree
-      s += `<rect x="${x + w - 18}" y="${fl - 22}" width="3" height="22" fill="${baseTone}"/>`;
-      s += `<circle cx="${x + w - 16}" cy="${fl - 26}" r="11" fill="#5C7A2E"/>`;
-      s += `<circle cx="${x + w - 20}" cy="${fl - 30}" r="6" fill="#7CAA4E" opacity="0.85"/>`;
-      // Flowerpot
-      s += `<rect x="${x + 8}" y="${fl - 8}" width="8" height="8" fill="${baseTone}"/>`;
-      s += `<circle cx="${x + 12}" cy="${fl - 11}" r="3" fill="#E91E63"/>`;
+
+    // FLOOR PLANT in left corner
+    s += floorPlant(x + 18, fl, 1.0);
+
+    // WALL ART — a triptych above the sofa, sized to wall
+    const artBaseY = sofaY - 8;
+    const artH = Math.min(55, (sofaY - y - 30));
+    if (artH > 22) {
+      const artW1 = sofaW * 0.18;
+      s += frame(sofaX + sofaW * 0.1,             artBaseY - artH, artW1, artH, 'abstract');
+      s += frame(sofaX + sofaW * 0.4,             artBaseY - artH, artW1 * 1.4, artH, 'landscape');
+      s += frame(sofaX + sofaW * 0.78,            artBaseY - artH, artW1, artH, 'abstract');
+    }
+
+    // STUDIO: also include a bed on the LEFT side
+    if (kind === 'studio' && w > 320) {
+      const bedX = x + 16;
+      const bedW = w * 0.22;
+      const bedY = fl - 50;
+      // Drop shadow
+      s += dropShadow(bedX + bedW/2, fl, bedW * 0.55, 3, 0.18);
+      // Headboard
+      s += `<rect x="${bedX}" y="${bedY - 30}" width="${bedW}" height="34" rx="3" fill="${wood}"/>`;
+      s += `<rect x="${bedX + 3}" y="${bedY - 27}" width="${bedW - 6}" height="28" rx="2" fill="${woodLight}" opacity="0.6"/>`;
+      // Mattress
+      s += `<rect x="${bedX}" y="${bedY}" width="${bedW}" height="20" fill="${linenW}"/>`;
+      // Frame base
+      s += `<rect x="${bedX - 2}" y="${bedY + 20}" width="${bedW + 4}" height="14" fill="${wood}"/>`;
+      // Quilt fold-back
+      s += `<rect x="${bedX}" y="${bedY + 14}" width="${bedW}" height="4" fill="${cushAccent}" opacity="0.85"/>`;
+      // Pillow
+      s += `<rect x="${bedX + 3}" y="${bedY + 2}" width="${bedW * 0.4}" height="8" rx="3" fill="${linenW}" stroke="#D8D4CA" stroke-width="0.5"/>`;
+      s += `<rect x="${bedX + bedW * 0.55}" y="${bedY + 2}" width="${bedW * 0.4}" height="8" rx="3" fill="${linenW}" stroke="#D8D4CA" stroke-width="0.5"/>`;
     }
   }
 
-  // Shabby details for low tiers — peeling paint, cracks
-  if (shabby) {
-    s += `<path d="M ${x + w * 0.2} ${y + 4} Q ${x + w * 0.25} ${y + h * 0.15} ${x + w * 0.22} ${y + h * 0.3}" fill="none" stroke="#3D2817" stroke-width="0.5" opacity="0.4"/>`;
-    s += `<path d="M ${x + w * 0.7} ${y + h * 0.5} L ${x + w * 0.72} ${y + h * 0.55} L ${x + w * 0.69} ${y + h * 0.6}" fill="none" stroke="#3D2817" stroke-width="0.4" opacity="0.35"/>`;
+  else if (kind === 'bedroom') {
+    // Big king bed centered, bedside tables, wardrobe on side, art above bed, rug under
+    const bedW = Math.min(w * 0.5, 240);
+    const bedX = x + (w - bedW) / 2;
+    const bedH = Math.min(120, h * 0.28);
+    const bedY = fl - bedH;
+
+    // Rug
+    s += `<rect x="${bedX - bedW * 0.18}" y="${fl - 6}" width="${bedW * 1.36}" height="14" fill="${cushAccent}" opacity="0.7"/>`;
+    s += `<rect x="${bedX - bedW * 0.18 + 6}" y="${fl - 4}" width="${bedW * 1.36 - 12}" height="10" fill="none" stroke="${woodDark}" stroke-width="0.6" opacity="0.45"/>`;
+
+    s += dropShadow(bedX + bedW/2, fl, bedW * 0.55, 3, 0.2);
+    // Headboard — tall, paneled
+    const hbH = bedH * 0.65;
+    s += `<rect x="${bedX - 4}" y="${bedY - hbH + 30}" width="${bedW + 8}" height="${hbH}" rx="4" fill="${wood}"/>`;
+    // Headboard panels
+    for (let p = 0; p < 3; p++) {
+      const pX = bedX + 4 + p * (bedW - 8) / 3;
+      const pW = (bedW - 8) / 3 - 4;
+      s += `<rect x="${pX}" y="${bedY - hbH + 36}" width="${pW}" height="${hbH - 12}" fill="none" stroke="${woodDark}" stroke-width="0.6" opacity="0.6"/>`;
+    }
+    // Bed frame base (wooden)
+    s += `<rect x="${bedX - 6}" y="${bedY + bedH - 30}" width="${bedW + 12}" height="30" fill="${wood}"/>`;
+    s += `<rect x="${bedX - 6}" y="${bedY + bedH - 6}" width="${bedW + 12}" height="6" fill="${woodDark}"/>`;
+    // Mattress
+    s += `<rect x="${bedX}" y="${bedY + 20}" width="${bedW}" height="${bedH - 50}" fill="${linenW}"/>`;
+    // Mattress quilting lines
+    for (let q = 1; q < 4; q++) {
+      const qX = bedX + q * bedW / 4;
+      s += `<line x1="${qX}" y1="${bedY + 22}" x2="${qX}" y2="${bedY + bedH - 32}" stroke="#D8D4CA" stroke-width="0.5"/>`;
+    }
+    // Duvet — substantial covering
+    const duvetTop = bedY + bedH * 0.55;
+    s += `<rect x="${bedX - 2}" y="${duvetTop}" width="${bedW + 4}" height="${bedH - 30}" fill="${fabric}"/>`;
+    // Duvet fold-back
+    s += `<rect x="${bedX - 2}" y="${duvetTop}" width="${bedW + 4}" height="6" fill="${linenW}"/>`;
+    // Decorative throw on bed
+    s += `<rect x="${bedX + bedW * 0.1}" y="${duvetTop + 10}" width="${bedW * 0.8}" height="10" fill="${cushAccent}" opacity="0.85"/>`;
+    // Pillows (2 pairs — euro shams behind, regular pillows in front)
+    s += `<rect x="${bedX + 6}" y="${bedY + 26}" width="${bedW * 0.42}" height="22" rx="5" fill="${fabricLight}" stroke="${fabric}" stroke-width="0.5"/>`;
+    s += `<rect x="${bedX + bedW * 0.52}" y="${bedY + 26}" width="${bedW * 0.42}" height="22" rx="5" fill="${fabricLight}" stroke="${fabric}" stroke-width="0.5"/>`;
+    s += `<rect x="${bedX + 10}" y="${bedY + 32}" width="${bedW * 0.38}" height="14" rx="4" fill="${linenW}" stroke="#D8D4CA" stroke-width="0.6"/>`;
+    s += `<rect x="${bedX + bedW * 0.55}" y="${bedY + 32}" width="${bedW * 0.38}" height="14" rx="4" fill="${linenW}" stroke="#D8D4CA" stroke-width="0.6"/>`;
+
+    // BEDSIDE TABLES — both sides
+    const bsW = 28, bsH = 40;
+    [bedX - bsW - 6, bedX + bedW + 6].forEach((bsX, idx) => {
+      if (bsX > x + 4 && bsX + bsW < x + w - 4) {
+        s += dropShadow(bsX + bsW/2, fl, bsW * 0.55, 2.5, 0.16);
+        s += `<rect x="${bsX}" y="${fl - bsH}" width="${bsW}" height="${bsH}" fill="${wood}"/>`;
+        s += `<rect x="${bsX + 1}" y="${fl - bsH + 1}" width="${bsW - 2}" height="3" fill="${woodLight}" opacity="0.6"/>`;
+        // Drawer line
+        s += `<rect x="${bsX + 4}" y="${fl - bsH + 14}" width="${bsW - 8}" height="2" fill="${woodDark}"/>`;
+        s += `<circle cx="${bsX + bsW/2}" cy="${fl - bsH + 26}" r="1" fill="${woodDark}"/>`;
+        // Lamp on top
+        const lmpX = bsX + bsW/2;
+        const lmpBase = fl - bsH;
+        s += `<rect x="${lmpX - 1}" y="${lmpBase - 22}" width="2" height="22" fill="${woodDark}"/>`;
+        s += `<polygon points="${lmpX - 8},${lmpBase - 22} ${lmpX + 8},${lmpBase - 22} ${lmpX + 5},${lmpBase - 36} ${lmpX - 5},${lmpBase - 36}" fill="${linenW}" stroke="${woodDark}" stroke-width="0.6"/>`;
+        s += `<ellipse cx="${lmpX}" cy="${lmpBase - 21}" rx="8" ry="1.5" fill="#FFD89C" opacity="0.85"/>`;
+        // Book on the other side table
+        if (idx === 0) s += books(bsX + bsW/2 - 8, lmpBase, 2);
+      }
+    });
+
+    // WARDROBE — only if room is wide enough
+    if (w > 320) {
+      const wbW = 50;
+      const wbH = Math.min(180, h * 0.42);
+      const wbX = x + w - wbW - 12;
+      // Don't overlap bed area
+      if (wbX > bedX + bedW + 50) {
+        s += dropShadow(wbX + wbW/2, fl, wbW * 0.6, 3, 0.18);
+        s += `<rect x="${wbX}" y="${fl - wbH}" width="${wbW}" height="${wbH}" fill="${wood}"/>`;
+        s += `<rect x="${wbX + 1}" y="${fl - wbH + 1}" width="${wbW - 2}" height="6" fill="${woodLight}" opacity="0.5"/>`;
+        // Two doors
+        s += `<line x1="${wbX + wbW/2}" y1="${fl - wbH + 6}" x2="${wbX + wbW/2}" y2="${fl - 4}" stroke="${woodDark}" stroke-width="1"/>`;
+        // Door panels
+        for (let dp = 0; dp < 2; dp++) {
+          const dpX = wbX + 4 + dp * wbW/2;
+          s += `<rect x="${dpX}" y="${fl - wbH + 12}" width="${wbW/2 - 8}" height="${wbH * 0.4}" fill="none" stroke="${woodDark}" stroke-width="0.5" opacity="0.6"/>`;
+          s += `<rect x="${dpX}" y="${fl - wbH * 0.5}" width="${wbW/2 - 8}" height="${wbH * 0.42}" fill="none" stroke="${woodDark}" stroke-width="0.5" opacity="0.6"/>`;
+        }
+        // Handles (brass)
+        s += `<rect x="${wbX + wbW/2 - 4}" y="${fl - wbH * 0.5}" width="2" height="8" fill="${accent}"/>`;
+        s += `<rect x="${wbX + wbW/2 + 2}" y="${fl - wbH * 0.5}" width="2" height="8" fill="${accent}"/>`;
+      }
+    }
+
+    // ART above bed — large landscape
+    const artW = bedW * 0.7;
+    const artH = Math.min(55, (bedY - hbH + 30 - y - 12));
+    if (artH > 22) {
+      s += frame(bedX + (bedW - artW) / 2, bedY - hbH + 30 - artH - 10, artW, artH, 'landscape');
+    }
+  }
+
+  else if (kind === 'kitchen') {
+    // Kitchen counter run with cabinets, sink, hob, fridge, splashback, hanging pots
+    const counterH = Math.min(75, h * 0.18);
+    const counterY = fl - counterH;
+    const counterTopH = 5;
+
+    // Drop shadow
+    s += dropShadow(x + w/2, fl, w * 0.45, 2.5, 0.15);
+
+    // Lower cabinets — rich wood color
+    s += `<rect x="${x + 4}" y="${counterY + counterTopH}" width="${w - 8}" height="${counterH - counterTopH}" fill="${wood}"/>`;
+    // Cabinet doors
+    const numDoors = 4;
+    const doorW = (w - 16) / numDoors;
+    for (let d = 0; d < numDoors; d++) {
+      const dxx = x + 8 + d * doorW;
+      s += `<rect x="${dxx}" y="${counterY + counterTopH + 4}" width="${doorW - 4}" height="${counterH - counterTopH - 8}" fill="${wood}" stroke="${woodDark}" stroke-width="0.6"/>`;
+      // Brass handle
+      s += `<rect x="${dxx + doorW - 12}" y="${counterY + counterH/2 - 1}" width="6" height="2" fill="${accent}"/>`;
+    }
+
+    // Counter top — marble/stone
+    s += `<rect x="${x + 2}" y="${counterY}" width="${w - 4}" height="${counterTopH}" fill="#E8E4D8"/>`;
+    s += `<rect x="${x + 2}" y="${counterY + counterTopH - 1}" width="${w - 4}" height="1" fill="#A89F8C"/>`;
+
+    // SINK — undermount style
+    const sinkW = Math.min(40, w * 0.16);
+    const sinkX = x + w * 0.32 - sinkW/2;
+    s += `<rect x="${sinkX}" y="${counterY - 2}" width="${sinkW}" height="${counterTopH + 4}" fill="#3A3A3A"/>`;
+    s += `<rect x="${sinkX + 2}" y="${counterY}" width="${sinkW - 4}" height="${counterTopH + 1}" fill="#5C7080"/>`;
+    // Tap
+    s += `<rect x="${sinkX + sinkW/2 - 1.2}" y="${counterY - 14}" width="2.4" height="14" fill="#A0A0A8"/>`;
+    s += `<path d="M ${sinkX + sinkW/2 - 5} ${counterY - 14} Q ${sinkX + sinkW/2} ${counterY - 18} ${sinkX + sinkW/2 + 5} ${counterY - 14}" stroke="#A0A0A8" stroke-width="2" fill="none"/>`;
+
+    // HOB / STOVE — built into counter
+    const hobW = Math.min(48, w * 0.2);
+    const hobX = x + w * 0.62 - hobW/2;
+    s += `<rect x="${hobX}" y="${counterY}" width="${hobW}" height="${counterTopH + 1}" fill="#1A1A1A"/>`;
+    // 4 burners
+    for (let b = 0; b < 4; b++) {
+      const bcx = hobX + (b % 2 === 0 ? hobW * 0.25 : hobW * 0.75);
+      const bcy = counterY + (b < 2 ? counterTopH * 0.35 : counterTopH * 0.7);
+      s += `<circle cx="${bcx}" cy="${bcy}" r="2.5" fill="#5C5C5C"/>`;
+      s += `<circle cx="${bcx}" cy="${bcy}" r="1.2" fill="#1A1A1A"/>`;
+    }
+    // Oven door below
+    s += `<rect x="${hobX + 2}" y="${counterY + counterTopH + 6}" width="${hobW - 4}" height="${counterH * 0.45}" fill="#1A1A1A"/>`;
+    s += `<rect x="${hobX + 4}" y="${counterY + counterTopH + 8}" width="${hobW - 8}" height="${counterH * 0.4}" fill="#3A3A3A" stroke="#5C5C5C" stroke-width="0.6"/>`;
+    s += `<rect x="${hobX + 4}" y="${counterY + counterTopH + 10}" width="${hobW - 8}" height="2" fill="#5C5C5C"/>`;
+
+    // FRIDGE — tall on the right
+    const frW = Math.min(50, w * 0.18);
+    const frX = x + w - frW - 8;
+    const frH = Math.min(170, h * 0.4);
+    s += dropShadow(frX + frW/2, fl, frW * 0.55, 2.5, 0.16);
+    s += `<rect x="${frX}" y="${fl - frH}" width="${frW}" height="${frH}" fill="#E8E4D8"/>`;
+    s += `<rect x="${frX}" y="${fl - frH}" width="${frW}" height="3" fill="#D8D4CA"/>`;
+    // Freezer/fridge split
+    s += `<line x1="${frX}" y1="${fl - frH * 0.62}" x2="${frX + frW}" y2="${fl - frH * 0.62}" stroke="${woodDark}" stroke-width="0.8"/>`;
+    // Handles
+    s += `<rect x="${frX + frW - 5}" y="${fl - frH * 0.55}" width="2" height="${frH * 0.45}" fill="#A0A0A8"/>`;
+    s += `<rect x="${frX + frW - 5}" y="${fl - frH * 0.85}" width="2" height="${frH * 0.18}" fill="#A0A0A8"/>`;
+    // Magnet/note on door
+    s += `<rect x="${frX + 6}" y="${fl - frH * 0.4}" width="14" height="10" fill="${linenW}" stroke="${woodDark}" stroke-width="0.4" transform="rotate(-3 ${frX + 13} ${fl - frH * 0.35})"/>`;
+
+    // BACKSPLASH TILES — between counter and upper cabinets
+    const bsplashY = counterY - 50;
+    const bsplashH = 50;
+    const bsplashEnd = frX - 4;
+    if (bsplashEnd > x + 12) {
+      s += `<rect x="${x + 4}" y="${bsplashY}" width="${bsplashEnd - x - 4}" height="${bsplashH}" fill="${linenW}" opacity="0.4"/>`;
+      // Tile grid
+      const tCols = Math.floor((bsplashEnd - x - 4) / 22);
+      for (let tc = 1; tc < tCols; tc++) {
+        const tx = x + 4 + tc * (bsplashEnd - x - 4) / tCols;
+        s += `<line x1="${tx}" y1="${bsplashY}" x2="${tx}" y2="${bsplashY + bsplashH}" stroke="${woodDark}" stroke-width="0.3" opacity="0.4"/>`;
+      }
+      for (let tr = 1; tr < 3; tr++) {
+        s += `<line x1="${x + 4}" y1="${bsplashY + tr * bsplashH/3}" x2="${bsplashEnd}" y2="${bsplashY + tr * bsplashH/3}" stroke="${woodDark}" stroke-width="0.3" opacity="0.4"/>`;
+      }
+    }
+
+    // UPPER CABINETS — left side
+    if (w > 280) {
+      const ucW = Math.min(60, w * 0.22);
+      const ucX = x + 8;
+      const ucY = bsplashY - 60;
+      const ucH = 60;
+      if (ucY > y + 16) {
+        s += `<rect x="${ucX}" y="${ucY}" width="${ucW}" height="${ucH}" fill="${wood}"/>`;
+        s += `<line x1="${ucX + ucW/2}" y1="${ucY}" x2="${ucX + ucW/2}" y2="${ucY + ucH}" stroke="${woodDark}" stroke-width="0.6"/>`;
+        s += `<rect x="${ucX + 2}" y="${ucY + 4}" width="${ucW/2 - 4}" height="${ucH - 8}" fill="none" stroke="${woodDark}" stroke-width="0.4" opacity="0.5"/>`;
+        s += `<rect x="${ucX + ucW/2 + 2}" y="${ucY + 4}" width="${ucW/2 - 4}" height="${ucH - 8}" fill="none" stroke="${woodDark}" stroke-width="0.4" opacity="0.5"/>`;
+        s += `<rect x="${ucX + ucW/2 - 5}" y="${ucY + ucH/2 - 1}" width="3" height="2" fill="${accent}"/>`;
+        s += `<rect x="${ucX + ucW/2 + 2}" y="${ucY + ucH/2 - 1}" width="3" height="2" fill="${accent}"/>`;
+      }
+    }
+
+    // KITCHEN ITEMS on counter — coffee machine, fruit bowl, plant
+    const itemY = counterY - 14;
+    s += `<rect x="${x + w * 0.18}" y="${itemY - 4}" width="14" height="18" fill="${woodDark}"/>`;
+    s += `<rect x="${x + w * 0.18 + 1}" y="${itemY - 2}" width="12" height="6" fill="#A0A0A8"/>`;
+    s += `<circle cx="${x + w * 0.18 + 7}" cy="${itemY + 8}" r="1.2" fill="${accent}"/>`;
+    // Fruit bowl
+    s += `<ellipse cx="${x + w * 0.45}" cy="${itemY + 10}" rx="14" ry="3" fill="${woodDark}"/>`;
+    s += `<circle cx="${x + w * 0.43}" cy="${itemY + 6}" r="3" fill="#FF6A1A"/>`;
+    s += `<circle cx="${x + w * 0.47}" cy="${itemY + 5}" r="3" fill="#D4A057"/>`;
+    s += `<circle cx="${x + w * 0.45}" cy="${itemY + 3}" r="2.5" fill="#7B1F1F"/>`;
+    // Tabletop plant near fridge
+    if (frX > x + w * 0.85) s += tablePlant(frX - 14, counterY, 0.7);
+  }
+
+  else if (kind === 'bathroom') {
+    // Tub with shower curtain, toilet, sink with vanity, large mirror, towel rail, tiled floor
+    // Floor tiles
+    for (let tc = 0; tc < 8; tc++) {
+      const tx = x + 4 + tc * (w - 8) / 8;
+      s += `<line x1="${tx}" y1="${fl - 6}" x2="${tx}" y2="${fl}" stroke="${woodDark}" stroke-width="0.4" opacity="0.4"/>`;
+    }
+
+    // TUB — large with shower curtain
+    const tubW = w * 0.42;
+    const tubX = x + 8;
+    const tubH = 36;
+    s += dropShadow(tubX + tubW/2, fl, tubW * 0.55, 3, 0.16);
+    // Tub side
+    s += `<rect x="${tubX}" y="${fl - tubH}" width="${tubW}" height="${tubH}" rx="4" fill="${linenW}"/>`;
+    s += `<rect x="${tubX + 4}" y="${fl - tubH + 4}" width="${tubW - 8}" height="${tubH - 10}" rx="3" fill="#D8E4ED"/>`;
+    // Tub feet (clawfoot)
+    s += `<ellipse cx="${tubX + 8}" cy="${fl - 2}" rx="4" ry="3" fill="${accent}"/>`;
+    s += `<ellipse cx="${tubX + tubW - 8}" cy="${fl - 2}" rx="4" ry="3" fill="${accent}"/>`;
+    // Shower curtain rod
+    s += `<rect x="${tubX - 4}" y="${fl - tubH - 70}" width="${tubW + 8}" height="2" fill="${woodDark}"/>`;
+    // Curtain
+    s += `<rect x="${tubX - 4}" y="${fl - tubH - 68}" width="${tubW + 8}" height="68" fill="${linenW}" opacity="0.55"/>`;
+    // Curtain folds
+    for (let cf = 1; cf < 6; cf++) {
+      const cfX = tubX + cf * (tubW + 8) / 6 - 4;
+      s += `<line x1="${cfX}" y1="${fl - tubH - 65}" x2="${cfX}" y2="${fl - tubH - 4}" stroke="${woodDark}" stroke-width="0.4" opacity="0.4"/>`;
+    }
+    // Shower head
+    s += `<rect x="${tubX + tubW - 18}" y="${fl - tubH - 78}" width="2" height="14" fill="#A0A0A8"/>`;
+    s += `<circle cx="${tubX + tubW - 17}" cy="${fl - tubH - 80}" r="4" fill="#A0A0A8"/>`;
+    // Tap
+    s += `<rect x="${tubX + 4}" y="${fl - tubH - 8}" width="2" height="8" fill="#A0A0A8"/>`;
+
+    // TOILET
+    const toX = x + w * 0.55;
+    s += dropShadow(toX + 14, fl, 16, 2.5, 0.16);
+    // Cistern
+    s += `<rect x="${toX}" y="${fl - 50}" width="22" height="22" rx="2" fill="${linenW}" stroke="${woodDark}" stroke-width="0.5"/>`;
+    s += `<rect x="${toX + 14}" y="${fl - 46}" width="6" height="3" fill="#A0A0A8"/>`; // flush button
+    // Bowl + seat
+    s += `<rect x="${toX - 2}" y="${fl - 28}" width="26" height="6" rx="2" fill="${linenW}" stroke="${woodDark}" stroke-width="0.5"/>`;
+    s += `<ellipse cx="${toX + 11}" cy="${fl - 14}" rx="14" ry="6" fill="${linenW}" stroke="${woodDark}" stroke-width="0.6"/>`;
+    s += `<ellipse cx="${toX + 11}" cy="${fl - 14}" rx="11" ry="4" fill="#D8E4ED"/>`;
+    // Base
+    s += `<rect x="${toX + 6}" y="${fl - 10}" width="10" height="10" fill="${linenW}" stroke="${woodDark}" stroke-width="0.5"/>`;
+
+    // SINK with vanity
+    const snX = x + w * 0.78;
+    const snW = 40;
+    if (snX + snW < x + w - 4) {
+      s += dropShadow(snX + snW/2, fl, snW * 0.55, 2.5, 0.16);
+      // Vanity body
+      s += `<rect x="${snX}" y="${fl - 50}" width="${snW}" height="50" fill="${wood}"/>`;
+      // Vanity drawer
+      s += `<rect x="${snX + 3}" y="${fl - 26}" width="${snW - 6}" height="10" fill="${woodLight}" stroke="${woodDark}" stroke-width="0.4"/>`;
+      s += `<rect x="${snX + snW/2 - 4}" y="${fl - 22}" width="8" height="2" fill="${accent}"/>`;
+      // Counter top
+      s += `<rect x="${snX - 1}" y="${fl - 52}" width="${snW + 2}" height="3" fill="#E8E4D8"/>`;
+      // Basin
+      s += `<ellipse cx="${snX + snW/2}" cy="${fl - 48}" rx="${snW * 0.4}" ry="3" fill="#D8E4ED" stroke="${woodDark}" stroke-width="0.4"/>`;
+      // Tap
+      s += `<rect x="${snX + snW/2 - 1}" y="${fl - 60}" width="2" height="8" fill="#A0A0A8"/>`;
+      s += `<rect x="${snX + snW/2 - 4}" y="${fl - 62}" width="8" height="2" fill="#A0A0A8"/>`;
+      // MIRROR above sink
+      const mrW = snW + 12;
+      const mrX = snX - 6;
+      const mrH = Math.min(70, fl - 65 - y - 12);
+      if (mrH > 25) {
+        s += `<rect x="${mrX - 2}" y="${fl - 65 - mrH}" width="${mrW + 4}" height="${mrH + 4}" fill="${wood}"/>`;
+        s += `<rect x="${mrX}" y="${fl - 65 - mrH + 2}" width="${mrW}" height="${mrH}" fill="#C5DCEA"/>`;
+        // Reflection highlight
+        s += `<polygon points="${mrX + 4},${fl - 65 - mrH + 4} ${mrX + mrW * 0.4},${fl - 65 - mrH + 4} ${mrX + 4},${fl - 65 - mrH * 0.6}" fill="#fff" opacity="0.3"/>`;
+      }
+    }
+
+    // TOWEL RAIL with hanging towel
+    const trX = x + w * 0.4;
+    s += `<rect x="${trX}" y="${fl - 100}" width="40" height="2" fill="${accent}"/>`;
+    s += `<rect x="${trX + 5}" y="${fl - 98}" width="14" height="40" fill="${cushAccent}"/>`;
+    s += `<rect x="${trX + 22}" y="${fl - 98}" width="14" height="36" fill="${linenW}"/>`;
+
+    // BATHMAT
+    s += `<rect x="${tubX + 8}" y="${fl - 4}" width="${tubW * 0.65}" height="6" fill="${cushAccent}" opacity="0.85"/>`;
+  }
+
+  else if (kind === 'outdoor') {
+    if (tier >= 4) {
+      // Premium terrace — stone tiles, dining set, large planters, string lights
+      // Stone tile floor
+      for (let tc = 0; tc < 6; tc++) {
+        const tx = x + 4 + tc * (w - 8) / 6;
+        s += `<rect x="${tx}" y="${fl - 4}" width="${(w - 8) / 6 - 2}" height="4" fill="${woodDark}" opacity="0.6"/>`;
+      }
+      // String lights from one wall to other
+      const lightStartX = x + 8;
+      const lightEndX = x + w - 8;
+      const lightY = y + h * 0.18;
+      s += `<path d="M ${lightStartX} ${lightY} Q ${(lightStartX + lightEndX)/2} ${lightY + 18} ${lightEndX} ${lightY}" stroke="${woodDark}" stroke-width="0.8" fill="none"/>`;
+      for (let lb = 1; lb < 8; lb++) {
+        const lbT = lb / 8;
+        const lbX = lightStartX + (lightEndX - lightStartX) * lbT;
+        const lbY = lightY + 18 * 4 * lbT * (1 - lbT);
+        s += `<circle cx="${lbX}" cy="${lbY + 3}" r="2.2" fill="#FFD89C"/>`;
+        s += `<circle cx="${lbX}" cy="${lbY + 3}" r="3.5" fill="#FFD89C" opacity="0.4"/>`;
+      }
+      // Dining table
+      const tblW = Math.min(80, w * 0.32);
+      const tblX = x + (w - tblW) / 2;
+      s += dropShadow(tblX + tblW/2, fl, tblW * 0.55, 3, 0.18);
+      s += `<rect x="${tblX}" y="${fl - 32}" width="${tblW}" height="6" fill="${wood}"/>`;
+      s += `<rect x="${tblX}" y="${fl - 32}" width="${tblW}" height="2" fill="${woodLight}"/>`;
+      // Pedestal base
+      s += `<rect x="${tblX + tblW/2 - 4}" y="${fl - 26}" width="8" height="22" fill="${woodDark}"/>`;
+      s += `<rect x="${tblX + tblW/2 - 12}" y="${fl - 6}" width="24" height="6" fill="${woodDark}"/>`;
+      // Chairs (left + right)
+      [tblX - 26, tblX + tblW + 4].forEach(chX => {
+        s += `<rect x="${chX}" y="${fl - 38}" width="22" height="4" fill="${wood}"/>`;
+        s += `<rect x="${chX + 2}" y="${fl - 56}" width="18" height="22" fill="${wood}"/>`;
+        // Cushion
+        s += `<rect x="${chX + 3}" y="${fl - 38}" width="16" height="2" fill="${cushAccent}"/>`;
+        // Legs
+        s += `<rect x="${chX + 2}" y="${fl - 34}" width="2" height="34" fill="${woodDark}"/>`;
+        s += `<rect x="${chX + 18}" y="${fl - 34}" width="2" height="34" fill="${woodDark}"/>`;
+      });
+      // Items on table — wine bottle + 2 glasses
+      s += `<rect x="${tblX + 6}" y="${fl - 50}" width="6" height="18" fill="#2E4A2E"/>`;
+      s += `<rect x="${tblX + 7}" y="${fl - 54}" width="4" height="6" fill="#2E4A2E"/>`;
+      s += `<polygon points="${tblX + 22},${fl - 32} ${tblX + 26},${fl - 44} ${tblX + 30},${fl - 32}" fill="#C5DCEA" opacity="0.7"/>`;
+      s += `<polygon points="${tblX + tblW - 30},${fl - 32} ${tblX + tblW - 26},${fl - 44} ${tblX + tblW - 22},${fl - 32}" fill="#C5DCEA" opacity="0.7"/>`;
+      // Big planter
+      s += `<rect x="${x + w - 38}" y="${fl - 28}" width="26" height="28" fill="${woodDark}"/>`;
+      s += `<rect x="${x + w - 36}" y="${fl - 28}" width="22" height="3" fill="${woodLight}"/>`;
+      s += `<ellipse cx="${x + w - 30}" cy="${fl - 36}" rx="9" ry="14" fill="#3F5A1A"/>`;
+      s += `<ellipse cx="${x + w - 22}" cy="${fl - 38}" rx="8" ry="13" fill="#5C8B30"/>`;
+      s += `<ellipse cx="${x + w - 26}" cy="${fl - 46}" rx="6" ry="10" fill="#6FA138"/>`;
+    } else {
+      // Simple garden — grass, tree, flowerpots, garden chair
+      s += `<rect x="${x + 4}" y="${fl - 6}" width="${w - 8}" height="6" fill="#5C7A2E" opacity="0.7"/>`;
+      // Grass tufts
+      for (let g = 0; g < 8; g++) {
+        const gx = x + 8 + g * (w - 16) / 7;
+        s += `<path d="M ${gx} ${fl - 6} L ${gx + 2} ${fl - 12} L ${gx + 4} ${fl - 6}" fill="#7CAA4E"/>`;
+      }
+      // Tree (right side)
+      const treeX = x + w - 30;
+      s += `<rect x="${treeX - 2}" y="${fl - 60}" width="5" height="60" fill="${woodDark}"/>`;
+      s += `<circle cx="${treeX}" cy="${fl - 70}" r="22" fill="#5C7A2E"/>`;
+      s += `<circle cx="${treeX - 8}" cy="${fl - 78}" r="14" fill="#7CAA4E"/>`;
+      s += `<circle cx="${treeX + 8}" cy="${fl - 76}" r="13" fill="#6FA138"/>`;
+      // Apples
+      s += `<circle cx="${treeX - 3}" cy="${fl - 68}" r="2.5" fill="#C45A4F"/>`;
+      s += `<circle cx="${treeX + 6}" cy="${fl - 72}" r="2.5" fill="#C45A4F"/>`;
+      // Flowerpots
+      s += `<rect x="${x + 12}" y="${fl - 16}" width="14" height="16" fill="${woodDark}"/>`;
+      s += `<circle cx="${x + 19}" cy="${fl - 22}" r="6" fill="#5C8B30"/>`;
+      s += `<circle cx="${x + 16}" cy="${fl - 24}" r="3" fill="#E91E63"/>`;
+      s += `<circle cx="${x + 22}" cy="${fl - 24}" r="3" fill="#FFD700"/>`;
+      // Garden chair
+      const chX = x + w * 0.4;
+      s += `<rect x="${chX}" y="${fl - 26}" width="22" height="3" fill="${wood}"/>`;
+      s += `<rect x="${chX + 2}" y="${fl - 44}" width="18" height="20" fill="${wood}"/>`;
+      s += `<rect x="${chX + 1}" y="${fl - 22}" width="2" height="22" fill="${woodDark}"/>`;
+      s += `<rect x="${chX + 19}" y="${fl - 22}" width="2" height="22" fill="${woodDark}"/>`;
+      // Slats on chair back
+      for (let sl = 0; sl < 3; sl++) {
+        s += `<line x1="${chX + 4}" y1="${fl - 40 + sl * 5}" x2="${chX + 18}" y2="${fl - 40 + sl * 5}" stroke="${woodDark}" stroke-width="0.6"/>`;
+      }
+    }
   }
 
   return s;

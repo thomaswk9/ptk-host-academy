@@ -81,7 +81,33 @@ app.post('/api/leaderboard', async (req, res) => {
   res.json({ entries: entries.slice(0, 20) });
 });
 
+// POST — track an affiliate product click for future analytics.
+// Stored alongside the leaderboard in /tmp; for permanent persistence
+// attach a Render Disk (see DEPLOY.md).
+const CLICK_PATH = process.env.CLICK_LOG_PATH || '/tmp/ptk-clicks.jsonl';
+app.post('/api/track-click', async (req, res) => {
+  const { productId, retailer, ts } = req.body || {};
+  if (typeof productId !== 'string' || typeof retailer !== 'string') {
+    return res.status(400).json({ error: 'Invalid click event' });
+  }
+  const event = {
+    productId: productId.slice(0, 64),
+    retailer: retailer.slice(0, 64),
+    ts: typeof ts === 'number' ? ts : Date.now(),
+    ip: (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim().slice(0, 45),
+    ua: (req.headers['user-agent'] || '').slice(0, 200),
+  };
+  try {
+    // Append-only JSONL — easy to grep/aggregate later
+    await fs.appendFile(CLICK_PATH, JSON.stringify(event) + '\n', 'utf8');
+  } catch (err) {
+    console.error('Failed to write click log:', err);
+  }
+  res.json({ ok: true });
+});
+
 app.listen(PORT, () => {
   console.log(`PTK Host Academy running on port ${PORT}`);
   console.log(`Leaderboard path: ${LB_PATH}`);
+  console.log(`Click log path: ${CLICK_PATH}`);
 });

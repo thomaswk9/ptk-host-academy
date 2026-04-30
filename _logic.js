@@ -365,6 +365,13 @@ function renderShop() {
     const item = document.createElement('button');
     item.className = 'shop-item' + (isOwned ? ' owned' : '');
     item.disabled = isOwned || !canAfford;
+    // Look up real-world product teaser if available
+    const featured = (typeof getFeaturedProduct === 'function')
+      ? getFeaturedProduct(u.id, G.shopProp)
+      : null;
+    const teaser = (typeof renderProductTeaser === 'function' && featured)
+      ? renderProductTeaser(featured)
+      : '';
     item.innerHTML = `
       <div class="shop-emoji">${u.emoji}</div>
       <div class="shop-name">${u.name}</div>
@@ -373,6 +380,7 @@ function renderShop() {
         <span>${isOwned ? '✓ Owned' : '£' + u.cost}</span>
         <span class="shop-income">+£${u.income}/correct</span>
       </div>
+      ${teaser}
     `;
     if (!isOwned) item.onclick = () => buyUpgrade(G.shopProp, u.id);
     grid.appendChild(item);
@@ -389,6 +397,50 @@ function buyUpgrade(propId, uid) {
   toast(`${u.emoji} ${u.name} added! +£${u.income}/correct`, true);
   showCoinFx(-u.cost);
   renderShop();
+  // Affiliate moment: if this upgrade has a featured real-world product, offer
+  // a non-intrusive CTA after the user has just expressed buying intent in-game.
+  if (typeof getFeaturedProduct === 'function') {
+    const featured = getFeaturedProduct(uid, propId);
+    if (featured) showProductCta(featured);
+  }
+}
+
+// Non-blocking CTA card that surfaces a real-world equivalent of what the
+// user just bought. User can dismiss or click through (affiliate URL).
+function showProductCta(product) {
+  // Remove any existing CTA
+  const existing = document.getElementById('product-cta');
+  if (existing) existing.remove();
+  const cta = document.createElement('div');
+  cta.id = 'product-cta';
+  cta.style.cssText = `
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:#fff;border:2px solid #1C2280;border-radius:14px;
+    padding:14px 18px;display:flex;gap:14px;align-items:center;
+    box-shadow:0 12px 32px rgba(0,0,0,0.25);z-index:9999;
+    max-width:480px;width:calc(100% - 32px);
+    animation:ctaSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  `;
+  cta.innerHTML = `
+    <img src="${product.imageUrl}" alt="${product.name}"
+         style="width:64px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#eee"
+         onerror="this.style.display='none'"/>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:10px;font-weight:800;color:#6AAF2E;text-transform:uppercase;letter-spacing:0.05em">Loved that upgrade?</div>
+      <div style="font-size:13px;font-weight:800;color:#1C2280;line-height:1.3;margin-top:2px">Get the real ${product.name}</div>
+      <div style="font-size:11px;color:#666;margin-top:1px">${product.retailer} · ${product.price}</div>
+    </div>
+    <a href="${buildAffiliateUrl(product)}" target="_blank" rel="noopener nofollow sponsored"
+       onclick="trackProductClick('${product.id}','${product.retailer}'); document.getElementById('product-cta').remove()"
+       style="font-size:12px;font-weight:800;color:#fff;background:#1C2280;padding:10px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0">
+      Shop →
+    </a>
+    <button onclick="document.getElementById('product-cta').remove()"
+            style="background:none;border:none;font-size:18px;color:#999;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">✕</button>
+  `;
+  document.body.appendChild(cta);
+  // Auto-dismiss after 12 seconds
+  setTimeout(() => { const e = document.getElementById('product-cta'); if (e) e.remove(); }, 12000);
 }
 
 // ─── LEADERBOARD ─────────────────────────────────────────────────────────────

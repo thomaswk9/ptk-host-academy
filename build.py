@@ -30,6 +30,9 @@ with open(f'{base}/_modelhome.js') as f:
 with open(f'{base}/_damage.js') as f:
     damage = f.read()
 
+with open(f'{base}/_catalogue.js') as f:
+    catalogue = f.read()
+
 with open(f'{base}/_logic.js') as f:
     logic = f.read()
 
@@ -38,7 +41,7 @@ data_block = props + '\n\n' + questions + '\n\n' + questions_extra + '\n\n' + qu
 
 result = template.replace('__DATA_GOES_HERE__', data_block)
 result = result.replace('__CHARACTERS_GOES_HERE__', characters)
-result = result.replace('__MODELHOME_GOES_HERE__', modelhome + '\n\n' + damage)
+result = result.replace('__MODELHOME_GOES_HERE__', modelhome + '\n\n' + damage + '\n\n' + catalogue)
 result = result.replace('__GAME_LOGIC_HERE__', logic)
 
 # Write final file
