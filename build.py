@@ -3,7 +3,7 @@
 
 import os
 
-base = '/home/claude/ptk-v4'
+base = os.path.dirname(os.path.abspath(__file__))
 
 # Read all parts
 with open(f'{base}/index_template.html') as f:

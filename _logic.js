@@ -13,6 +13,15 @@ const RATINGS = [
 
 function getRat(s) { return RATINGS.find(r => s >= r.min && s <= r.max) || RATINGS[0]; }
 
+// Wraps the procedural model home in a container that lets an HD photo
+// (public/images/property-N.jpg) overlay it when one exists. If no image is
+// present, the onerror handler removes the <img> and the model home shows
+// through as a graceful fallback.
+function renderPropertyHero(propId, ownedUpgrades, width = 600) {
+  const modelHome = renderModelHome(propId, ownedUpgrades, width);
+  return `${modelHome}<img class="prop-hero-img" src="/images/property-${propId}.jpg" alt="" onerror="this.remove()">`;
+}
+
 const G = {
   name: '',
   pts: 0,
@@ -138,7 +147,7 @@ function renderListing() {
     card.className = 'prop-card' + (locked ? ' locked' : '');
     card.innerHTML = `
       <div class="prop-card-top" style="background:${p.col}"></div>
-      ${!locked ? `<div class="prop-model">${renderModelHome(p.id, G.upgrades, 600)}</div>` : ''}
+      ${!locked ? `<div class="prop-model">${renderPropertyHero(p.id, G.upgrades, 600)}</div>` : ''}
       <div class="prop-info">
         <div class="prop-info-head">
           <div>
@@ -241,7 +250,7 @@ function renderQuiz() {
   `;
 
   // Mini home
-  document.getElementById('q-minihome').innerHTML = renderModelHome(G.activeProp, G.upgrades, 600);
+  document.getElementById('q-minihome').innerHTML = renderPropertyHero(G.activeProp, G.upgrades, 600);
 
   // Options
   const opts = document.getElementById('q-options');
@@ -353,7 +362,7 @@ function renderShop() {
   document.getElementById('shop-pts').textContent = '£' + G.pts.toLocaleString();
 
   // Live model home preview
-  document.getElementById('shop-model').innerHTML = renderModelHome(G.shopProp, G.upgrades, 600);
+  document.getElementById('shop-model').innerHTML = renderPropertyHero(G.shopProp, G.upgrades, 600);
 
   // Upgrade grid
   const grid = document.getElementById('shop-grid');
