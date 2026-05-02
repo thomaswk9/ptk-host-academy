@@ -1143,6 +1143,12 @@ body {
   80% { transform: translate(1px, 1px); }
 }
 
+@keyframes techFloat {
+  0%, 100% { transform: translateY(0) rotate(-4deg); opacity: 0.18; }
+  50% { transform: translateY(-10px) rotate(4deg); opacity: 0.28; }
+}
+.tech-float { animation: techFloat 2.8s ease-in-out infinite; }
+
 /* Prop floats above the speech bubble area */
 .scenario-prop {
   position: absolute;

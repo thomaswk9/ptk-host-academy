@@ -400,6 +400,47 @@ function renderDamageOverlay(damageType, width = 600, height = 360) {
         }).join('')}
       </g>`,
 
+    confused_tech: () => `
+      <g class="damage-confused-tech">
+        <!-- TV static squiggles top-right -->
+        ${[...Array(8)].map((_,i) => {
+          const y = height * (0.08 + i * 0.06);
+          const x1 = width * 0.72;
+          const x2 = width * 0.95;
+          const amp = 4 + (i%3)*2;
+          const pts = [...Array(10)].map((_,j) => {
+            const px = x1 + (x2-x1)*(j/9);
+            const py = y + (j%2===0 ? amp : -amp);
+            return `${px},${py}`;
+          }).join(' ');
+          return `<polyline points="${pts}" fill="none" stroke="#aaaaaa" stroke-width="1.2" opacity="${0.25 + i*0.04}"/>`;
+        }).join('')}
+        <!-- Giant floating question marks -->
+        ${[
+          {x:width*0.15, y:height*0.25, sz:44, delay:0,   op:0.18},
+          {x:width*0.78, y:height*0.18, sz:36, delay:0.4, op:0.14},
+          {x:width*0.48, y:height*0.12, sz:52, delay:0.8, op:0.20},
+          {x:width*0.62, y:height*0.40, sz:30, delay:1.2, op:0.12},
+        ].map(q => `
+          <text x="${q.x}" y="${q.y}" font-size="${q.sz}" fill="#3366FF"
+                opacity="${q.op}" text-anchor="middle" font-family="sans-serif" font-weight="700"
+                class="tech-float" style="animation-delay:${q.delay}s">?</text>`).join('')}
+        <!-- Remote control icon, bottom-left -->
+        <g transform="translate(${width*0.06}, ${height*0.62})" opacity="0.22">
+          <rect x="0" y="0" width="22" height="44" rx="5" fill="none" stroke="#555" stroke-width="2"/>
+          <circle cx="11" cy="10" r="4" fill="none" stroke="#555" stroke-width="1.5"/>
+          ${[0,1,2,3,4,5].map(i => `<rect x="${3+(i%3)*7}" y="${20+Math.floor(i/3)*9}" width="5" height="5" rx="1" fill="#888"/>`).join('')}
+        </g>
+        <!-- Wifi symbol with X, bottom-right -->
+        <g transform="translate(${width*0.85}, ${height*0.72})" opacity="0.20">
+          <path d="M-20,0 Q0,-18 20,0" fill="none" stroke="#3366FF" stroke-width="3" stroke-linecap="round"/>
+          <path d="M-12,6 Q0,-6 12,6"  fill="none" stroke="#3366FF" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="12" r="3" fill="#3366FF"/>
+          <line x1="14" y1="-8" x2="26" y2="4"  stroke="#e53935" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="26" y1="-8" x2="14" y2="4"  stroke="#e53935" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+      </g>`,
+
     silverfish: () => `
       <g class="damage-silverfish">
         ${[...Array(4)].map((_,i) => {
