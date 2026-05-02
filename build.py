@@ -74,4 +74,4 @@ with open(out_path, 'w') as f:
 
 print(f"Built: {out_path}")
 print(f"Size: {len(result)} bytes ({len(result)/1024:.1f} KB)")
-print(f"Lines: {result.count(chr(10))}")
+print(f"Lines: {result.count(chr(10))}") 
