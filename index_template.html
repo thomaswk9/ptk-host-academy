@@ -394,9 +394,20 @@ body {
   padding: 8px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--line);
+  position: relative;
 }
 
 .mini-home svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+
+/* Shop screen 2D hero */
+#shop-model {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 14px;
+  min-height: 200px;
+}
+#shop-model svg { width: 100%; height: auto; display: block; }
 
 /* ─── Options ──────────────────────────────────────────────────────────── */
 
@@ -1281,6 +1292,328 @@ input[type="text"]::placeholder { color: #9AA3B2; }
   .ladder-name { font-size: 7px; }
   .shop-grid { grid-template-columns: 1fr; }
 }
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* ROOM EDITOR */
+/* ═══════════════════════════════════════════════════════════════════════ */
+.ed-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.ed-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--navy);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.ed-title {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.ed-name-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 2px 0;
+  width: 100%;
+}
+.ed-name-input:focus {
+  outline: none;
+  border-bottom-color: #f5a623;
+}
+.ed-meta {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+.ed-btn-icon {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ed-btn-icon:hover { background: rgba(255,255,255,0.16); }
+.ed-btn-icon.ed-save { background: #f5a623; }
+
+.ed-scene-wrap {
+  position: relative;
+  background: #f4ead8;
+  padding: 16px;
+  min-height: 380px;
+  overflow: auto;
+}
+.ed-scene {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  user-select: none;
+}
+.ed-scene svg { width: 100%; height: auto; }
+
+.ed-floating-controls {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(28, 34, 128, 0.94);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.ed-tools {
+  background: #fff;
+  border-top: 1px solid var(--line);
+}
+
+.ed-tool-tabs {
+  display: flex;
+  overflow-x: auto;
+  padding: 6px;
+  gap: 4px;
+  background: #f4ede0;
+  border-bottom: 1px solid var(--line);
+}
+.ed-tab {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+  color: #5a4030;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  min-width: 56px;
+}
+.ed-tab span:first-child { font-size: 18px; }
+.ed-tab.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+.ed-tool-panel {
+  padding: 14px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.ed-tool-panel h4 {
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.ed-section-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #5a6878;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.ed-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.ed-row .btn {
+  padding: 6px 10px;
+  background: #fff;
+  color: var(--navy);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+.ed-row .btn.active {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+.ed-row .btn-danger {
+  background: #c84040;
+  color: #fff;
+  border-color: #c84040;
+}
+.btn-tiny {
+  padding: 2px 6px;
+  background: #eee;
+  color: #444;
+  border: none;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ed-color-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.ed-color {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+}
+.ed-color.active { box-shadow: 0 0 0 2px var(--navy); }
+
+.ed-swatch {
+  width: 32px !important;
+  height: 32px;
+  padding: 0 !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(0,0,0,0.15) !important;
+}
+.ed-swatch.active {
+  box-shadow: 0 0 0 2px var(--navy);
+}
+
+.ed-furn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.ed-furn-tile {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 4px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.15s;
+}
+.ed-furn-tile.active {
+  border-color: var(--navy);
+  background: #eef0fb;
+  box-shadow: 0 0 0 2px var(--navy);
+}
+.ed-furn-emoji {
+  font-size: 22px;
+}
+.ed-furn-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.1;
+}
+.ed-furn-foot {
+  font-size: 9px;
+  color: #5a6878;
+}
+
+/* Modal */
+.ed-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.ed-modal.hidden { display: none; }
+.ed-modal-content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.ed-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.ed-modal-head h3 {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  color: var(--navy);
+}
+.ed-modal-head button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #5a6878;
+}
+
+/* Edit Room button on property cards (test mode only) */
+.btn-editor {
+  background: #9333ea;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.btn-editor:hover { background: #7a28c8; }
+
+/* Pest layer animation */
+#pest-layer { pointer-events: none; }
 </style>
 </head>
 <body>
@@ -1433,8 +1766,8 @@ input[type="text"]::placeholder { color: #9AA3B2; }
     <!-- Property selector tabs -->
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px" id="shop-tabs"></div>
 
-    <!-- Live model home preview -->
-    <div class="card" style="padding:8px;background:linear-gradient(180deg, #FFE4B0 0%, #FAF6EE 100%)">
+    <!-- Property hero (2D illustration; HD photo overrides if available) -->
+    <div class="card" style="padding:0;overflow:hidden">
       <div id="shop-model"></div>
     </div>
 
@@ -1460,6 +1793,11 @@ input[type="text"]::placeholder { color: #9AA3B2; }
     <button class="btn-navy" onclick="show('intro')" style="margin-top:14px">← Back</button>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- ROOM EDITOR SCREEN                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="s-editor" class="screen hidden"></div>
 
 <script>
 /* DATA INSERTION POINT - filled in by build script */

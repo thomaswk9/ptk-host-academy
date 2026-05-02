@@ -77,4 +77,21 @@ const PROPS=[
      {id:"royal_garage",name:"Underground supercar garage",emoji:"🏎️",desc:"6 spaces. Trickle-charging. Detailing service.",cost:1700,income:175},
      {id:"royal_wine",name:"Pre-revolutionary cellar",emoji:"🍷",desc:"Vintages from 1789. Insured at £2.4m.",cost:2000,income:200},
    ]},
+  // ───── TEST NEIGHBOURHOOD (id 7) ─────
+  // Sandbox property for fast iteration. Auto-grants £100k starting cash so you
+  // can buy upgrades immediately without grinding the quiz. Enabled via a flag
+  // in _logic.js. Hidden by default, only shown when G.testMode = true.
+  {id:7, test:true, name:"The Test Sandbox", short:"Test", type:"All upgrades · £100k start", emoji:"🧪", col:"#9333EA", light:"#F5E8FA", border:"#D4B0E8",
+   desc:"Developer testing playground. Starts with £100k so you can preview every upgrade visually without grinding the quiz. Includes one of every category at a low price for fast iteration. Furniture editor, layouts, AI image overlays — try them all.",
+   upgrades:[
+     {id:"smart_tv",name:'Smart TV',emoji:"📺",desc:"Test TV upgrade.",cost:100,income:10},
+     {id:"premium_bedding",name:"Premium bedding",emoji:"🛏️",desc:"Test bed upgrade.",cost:100,income:10},
+     {id:"coffee_machine",name:"Coffee machine",emoji:"☕",desc:"Test kitchen item.",cost:100,income:10},
+     {id:"artwork",name:"Artwork",emoji:"🖼️",desc:"Test wall decor.",cost:100,income:10},
+     {id:"air_purifier",name:"Plant",emoji:"🪴",desc:"Test plant item.",cost:100,income:10},
+     {id:"record_player",name:"Record player",emoji:"🎵",desc:"Test entertainment.",cost:100,income:10},
+     {id:"wine_fridge",name:"Wine fridge",emoji:"🍷",desc:"Test fridge upgrade.",cost:100,income:10},
+     {id:"smart_home",name:"Smart home",emoji:"🏠",desc:"Test smart home.",cost:100,income:10},
+     {id:"rooftop",name:"Terrace",emoji:"🌿",desc:"Test outdoor space.",cost:100,income:10},
+   ]},
 ];

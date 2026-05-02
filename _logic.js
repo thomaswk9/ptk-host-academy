@@ -13,20 +13,22 @@ const RATINGS = [
 
 function getRat(s) { return RATINGS.find(r => s >= r.min && s <= r.max) || RATINGS[0]; }
 
-// Wraps the procedural model home in a container that lets an HD photo
-// (public/images/property-N.jpg) overlay it when one exists. If no image is
-// present, the onerror handler removes the <img> and the model home shows
-// through as a graceful fallback.
+// Renders the property hero illustration. Layer order (bottom → top):
+//   1. Hero asset SVG illustration (the "exterior view" of the property)
+//   2. HD photo (public/images/property-N.jpg) — covers the SVG when present
+// If the photo is missing, the onerror handler removes it and the hand-drawn
+// SVG illustration shows through.
 function renderPropertyHero(propId, ownedUpgrades, width = 600) {
-  const modelHome = renderModelHome(propId, ownedUpgrades, width);
-  return `${modelHome}<img class="prop-hero-img" src="/images/property-${propId}.jpg" alt="" onerror="this.remove()">`;
+  const heroSvg = renderHeroAsset(propId);
+  return `${heroSvg}<img class="prop-hero-img" src="/images/property-${propId}.jpg" alt="" onerror="this.remove()">`;
 }
 
 const G = {
   name: '',
   pts: 0,
-  upgrades: { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
+  upgrades: { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] },
   activeProp: 1,
+  testMode: false,  // Set true to enable Test Sandbox property + £100k starting cash
   shopProp: 1,
   curQ: null,
   usedQ: { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
@@ -44,7 +46,11 @@ function getIncomeBonus(propId) {
   }, 0);
 }
 function getCurrentIncome(propId) { return getBaseIncome(propId) + getIncomeBonus(propId); }
-function isUnlocked(id) { return G.pts >= UNLOCK_THRESHOLDS[id - 1]; }
+function isUnlocked(id) {
+  // Test sandbox (id 7) is always unlocked (only shown in test mode anyway)
+  if (id === 7) return true;
+  return G.pts >= UNLOCK_THRESHOLDS[id - 1];
+}
 function getNextUnlock() {
   for (let i = 1; i <= 5; i++) {
     if (G.pts < UNLOCK_THRESHOLDS[i]) return { propId: i + 1, threshold: UNLOCK_THRESHOLDS[i] };
@@ -101,12 +107,16 @@ function startGame() {
   const n = document.getElementById('nameInput').value.trim();
   if (!n) { toast('Enter a name first', false); return; }
   G.name = n;
-  G.pts = 0;
-  G.upgrades = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
-  G.usedQ = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+  // Test mode: type the name "test" or "TEST" to unlock the sandbox property
+  // with £100k starting cash and access to the Test Sandbox tile.
+  G.testMode = n.toLowerCase() === 'test';
+  G.pts = G.testMode ? 100000 : 0;
+  G.upgrades = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] };
+  G.usedQ = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] };
   G.activeProp = 1;
-  G.shopProp = 1;
+  G.shopProp = G.testMode ? 7 : 1;  // jump straight to test sandbox
   show('listing');
+  if (G.testMode) toast('🧪 Test mode enabled · £100,000 starting cash', true);
 }
 
 // ─── LISTING SCREEN ──────────────────────────────────────────────────────────
@@ -132,16 +142,20 @@ function renderListing() {
 
   const el = document.getElementById('listing-cards');
   el.innerHTML = '';
-  PROPS.forEach(p => {
+  // Hide test sandbox property from non-test runs
+  PROPS.filter(p => !p.test || G.testMode).forEach(p => {
     const locked = !isUnlocked(p.id);
     const owned = G.upgrades[p.id] || [];
     const pct = Math.round((owned.length / p.upgrades.length) * 100);
     const income = getCurrentIncome(p.id);
-    const threshold = UNLOCK_THRESHOLDS[p.id - 1];
+    const threshold = UNLOCK_THRESHOLDS[p.id - 1] ?? 0;
     const isComplete = owned.length >= p.upgrades.length;
 
-    const statusClass = locked ? 'locked-tag' : (isComplete ? 'complete' : 'active');
-    const statusText = locked ? `EARN £${threshold.toLocaleString()}` : (isComplete ? 'FULLY UPGRADED' : `+£${income}/CORRECT`);
+    // Test sandbox is always unlocked + has its own status badge
+    const isTest = !!p.test;
+    const statusClass = isTest ? 'active' : (locked ? 'locked-tag' : (isComplete ? 'complete' : 'active'));
+    const statusText = isTest ? '🧪 SANDBOX'
+      : (locked ? `EARN £${threshold.toLocaleString()}` : (isComplete ? 'FULLY UPGRADED' : `+£${income}/CORRECT`));
 
     const card = document.createElement('div');
     card.className = 'prop-card' + (locked ? ' locked' : '');
@@ -161,6 +175,7 @@ function renderListing() {
         <div class="prop-progress-bar"><div class="prop-progress-fill" style="width:${pct}%;background:${p.col}"></div></div>
         ${!locked && !isComplete ? `<button class="btn-navy" onclick="startHosting(${p.id})" style="background:${p.col}">Host at this property →</button>` : ''}
         ${!locked && isComplete ? `<button class="btn-ghost" onclick="G.shopProp=${p.id};show('shop')">View shop →</button>` : ''}
+        ${!locked ? `<button class="btn-editor" onclick="Editor.open(${p.id})">🛠 EDIT ROOM</button>` : ''}
       </div>
     `;
     el.appendChild(card);
@@ -249,7 +264,7 @@ function renderQuiz() {
     <div id="q-scenario">"${q.scenario}"</div>
   `;
 
-  // Mini home
+  // Property hero (2D illustration with HD photo overlay if available)
   document.getElementById('q-minihome').innerHTML = renderPropertyHero(G.activeProp, G.upgrades, 600);
 
   // Options
@@ -344,10 +359,10 @@ function nextQuestion() {
 
 // ─── SHOP ────────────────────────────────────────────────────────────────────
 function renderShop() {
-  // Tabs
+  // Tabs (filter test sandbox unless testMode is on)
   const tabs = document.getElementById('shop-tabs');
   tabs.innerHTML = '';
-  PROPS.forEach(p => {
+  PROPS.filter(p => !p.test || G.testMode).forEach(p => {
     const locked = !isUnlocked(p.id);
     const active = G.shopProp === p.id;
     const btn = document.createElement('button');
@@ -361,7 +376,7 @@ function renderShop() {
   document.getElementById('shop-prop').textContent = p.name;
   document.getElementById('shop-pts').textContent = '£' + G.pts.toLocaleString();
 
-  // Live model home preview
+  // Property hero (2D illustration with HD photo overlay if available)
   document.getElementById('shop-model').innerHTML = renderPropertyHero(G.shopProp, G.upgrades, 600);
 
   // Upgrade grid

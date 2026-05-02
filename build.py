@@ -36,12 +36,35 @@ with open(f'{base}/_catalogue.js') as f:
 with open(f'{base}/_logic.js') as f:
     logic = f.read()
 
+with open(f'{base}/_hero_assets.js') as f:
+    hero_assets = f.read()
+
+with open(f'{base}/_layouts.js') as f:
+    layouts = f.read()
+
+with open(f'{base}/_furniture.js') as f:
+    furniture = f.read()
+
+with open(f'{base}/_pests.js') as f:
+    pests = f.read()
+
+with open(f'{base}/_layout_renderer.js') as f:
+    layout_renderer = f.read()
+
+with open(f'{base}/_editor.js') as f:
+    editor = f.read()
+
 # Assemble
 data_block = props + '\n\n' + questions + '\n\n' + questions_extra + '\n\n' + questions_extra2
 
+editor_block = (
+    layouts + '\n\n' + furniture + '\n\n' + pests + '\n\n' +
+    layout_renderer + '\n\n' + editor
+)
+
 result = template.replace('__DATA_GOES_HERE__', data_block)
 result = result.replace('__CHARACTERS_GOES_HERE__', characters)
-result = result.replace('__MODELHOME_GOES_HERE__', modelhome + '\n\n' + damage + '\n\n' + catalogue)
+result = result.replace('__MODELHOME_GOES_HERE__', modelhome + '\n\n' + damage + '\n\n' + catalogue + '\n\n' + hero_assets + '\n\n' + editor_block)
 result = result.replace('__GAME_LOGIC_HERE__', logic)
 
 # Write final file
